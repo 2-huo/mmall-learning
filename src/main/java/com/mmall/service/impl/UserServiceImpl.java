@@ -68,7 +68,7 @@ public class UserServiceImpl implements IUserService {
         if(!validResponse.isSuccess()){
             return validResponse;
         }
-        user.setRole(Const.Role.ROLE_PIFA);
+        user.setRole(Const.Role.ROLE_ADMIN);
         //MD5加密
         user.setPassword(MD5Util.MD5EncodeUtf8(user.getPassword()));
         int resultCount = userMapper.insert(user);
