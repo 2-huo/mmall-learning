@@ -59,6 +59,25 @@ public class UserServiceImpl implements IUserService {
         return ServerResponse.createBySuccessMessage("注册成功");
     }
 
+    public ServerResponse<String> registerPifa(User user){
+        ServerResponse validResponse = this.checkValid(user.getUsername(),Const.USERNAME);
+        if(!validResponse.isSuccess()){
+            return validResponse;
+        }
+        validResponse = this.checkValid(user.getEmail(),Const.EMAIL);
+        if(!validResponse.isSuccess()){
+            return validResponse;
+        }
+        user.setRole(Const.Role.ROLE_PIFA);
+        //MD5加密
+        user.setPassword(MD5Util.MD5EncodeUtf8(user.getPassword()));
+        int resultCount = userMapper.insert(user);
+        if(resultCount == 0){
+            return ServerResponse.createByErrorMessage("注册失败");
+        }
+        return ServerResponse.createBySuccessMessage("注册成功");
+    }
+
     public ServerResponse<String> checkValid(String str,String type){
         if(org.apache.commons.lang3.StringUtils.isNotBlank(type)){
             //开始校验

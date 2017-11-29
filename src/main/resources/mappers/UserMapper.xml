@@ -29,7 +29,7 @@
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.mmall.pojo.User" >
-    insert into mmall_user (id, username, password, 
+    insert into mmall_user (id, username, password,
       email, phone, question, 
       answer, role, create_time, 
       update_time)

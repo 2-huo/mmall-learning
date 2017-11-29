@@ -56,6 +56,12 @@ public class UserController {
         return iUserService.register(user);
     }
 
+    @RequestMapping(value = "register_pifa.do",method = RequestMethod.POST)
+    @ResponseBody
+    public ServerResponse<String> registerPifa(User user){
+        return iUserService.registerPifa(user);
+    }
+
 
     @RequestMapping(value = "check_valid.do",method = RequestMethod.POST)
     @ResponseBody
