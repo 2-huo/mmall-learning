@@ -30,8 +30,8 @@ public class UserManageController {
         ServerResponse<User> response = iUserService.login(username,password);
         if(response.isSuccess()){
             User user = response.getData();
-            if(user.getRole() == Const.Role.ROLE_ADMIN){
-                //说明登录的是管理员
+            if(user.getRole() == Const.Role.ROLE_ADMIN || user.getRole() == Const.Role.ROLE_PIFA){
+                //说明登录的是管理员 / 批发商
                 session.setAttribute(Const.CURRENT_USER,user);
                 return response;
             }else{

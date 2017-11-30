@@ -70,7 +70,7 @@ public class UserServiceImpl implements IUserService {
         if(!validResponse.isSuccess()){
             return validResponse;
         }
-        user.setRole(Const.Role.ROLE_ADMIN);
+        user.setRole(Const.Role.ROLE_PIFA);
         //MD5加密
         user.setPassword(MD5Util.MD5EncodeUtf8(user.getPassword()));
         int resultCount = userMapper.insert(user);
@@ -211,12 +211,14 @@ public class UserServiceImpl implements IUserService {
     //backend
 
     /**
-     * 校验是否是管理员
+     * 校验是否是管理员 / 批发商
      * @param user
      * @return
      */
     public ServerResponse checkAdminRole(User user){
         if(user != null && user.getRole().intValue() == Const.Role.ROLE_ADMIN){
+            return ServerResponse.createBySuccess();
+        } else if (user != null && user.getRole().intValue() == Const.Role.ROLE_PIFA) {
             return ServerResponse.createBySuccess();
         }
         return ServerResponse.createByError();
