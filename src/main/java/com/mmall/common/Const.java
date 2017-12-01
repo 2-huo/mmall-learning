@@ -27,9 +27,10 @@ public class Const {
     }
 
     public interface Role{
-        int ROLE_CUSTOMER = 0; //普通用户
+//        int ROLE_CUSTOMER = 0; //普通用户
         int ROLE_ADMIN = 1;//管理员
         int ROLE_PIFA = 2; // 批发商
+        int ROLE_ST = 3; // 实体店用户
     }
 
     public enum ProductStatusEnum{

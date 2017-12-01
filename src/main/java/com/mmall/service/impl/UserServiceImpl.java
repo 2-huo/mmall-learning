@@ -50,7 +50,7 @@ public class UserServiceImpl implements IUserService {
         if(!validResponse.isSuccess()){
             return validResponse;
         }
-        user.setRole(Const.Role.ROLE_PIFA);
+        user.setRole(Const.Role.ROLE_ST);
 //        user.setEnable(false);
         user.setEnable(true);
 
@@ -223,6 +223,8 @@ public class UserServiceImpl implements IUserService {
         if(user != null && user.getRole().intValue() == Const.Role.ROLE_ADMIN){
             return ServerResponse.createBySuccess();
         } else if (user != null && user.getRole().intValue() == Const.Role.ROLE_PIFA) {
+            return ServerResponse.createBySuccess();
+        } else if (user != null && user.getRole().intValue() == Const.Role.ROLE_ST) {
             return ServerResponse.createBySuccess();
         }
         return ServerResponse.createByError();
