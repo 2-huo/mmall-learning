@@ -51,7 +51,9 @@ public class UserServiceImpl implements IUserService {
             return validResponse;
         }
         user.setRole(Const.Role.ROLE_CUSTOMER);
-        user.setEnable(false);
+//        user.setEnable(false);
+        user.setEnable(true);
+
         //MD5加密
         user.setPassword(MD5Util.MD5EncodeUtf8(user.getPassword()));
         int resultCount = userMapper.insert(user);
@@ -71,6 +73,8 @@ public class UserServiceImpl implements IUserService {
             return validResponse;
         }
         user.setRole(Const.Role.ROLE_PIFA);
+        user.setEnable(true);
+
         //MD5加密
         user.setPassword(MD5Util.MD5EncodeUtf8(user.getPassword()));
         int resultCount = userMapper.insert(user);
