@@ -50,7 +50,7 @@ public class UserServiceImpl implements IUserService {
         if(!validResponse.isSuccess()){
             return validResponse;
         }
-        user.setRole(Const.Role.ROLE_CUSTOMER);
+        user.setRole(Const.Role.ROLE_PIFA);
 //        user.setEnable(false);
         user.setEnable(true);
 
