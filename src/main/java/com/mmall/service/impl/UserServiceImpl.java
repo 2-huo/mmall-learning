@@ -50,9 +50,11 @@ public class UserServiceImpl implements IUserService {
         if(!validResponse.isSuccess()){
             return validResponse;
         }
+        // 实体店身份
         user.setRole(Const.Role.ROLE_ST);
-//        user.setEnable(false);
-        user.setEnable(true);
+        // 需要审核
+        user.setEnable(false);
+//        user.setEnable(true);
 
         //MD5加密
         user.setPassword(MD5Util.MD5EncodeUtf8(user.getPassword()));
@@ -72,8 +74,10 @@ public class UserServiceImpl implements IUserService {
         if(!validResponse.isSuccess()){
             return validResponse;
         }
+        // 批发商身份
         user.setRole(Const.Role.ROLE_PIFA);
-        user.setEnable(true);
+        // 需要审核
+        user.setEnable(false);
 
         //MD5加密
         user.setPassword(MD5Util.MD5EncodeUtf8(user.getPassword()));
