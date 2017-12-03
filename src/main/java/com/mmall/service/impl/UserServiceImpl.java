@@ -62,7 +62,7 @@ public class UserServiceImpl implements IUserService {
         if(resultCount == 0){
             return ServerResponse.createByErrorMessage("注册失败");
         }
-        return ServerResponse.createBySuccessMessage("注册成功");
+        return ServerResponse.createBySuccessMessage("注册成功，请耐心等待管理员审核！");
     }
 
     public ServerResponse<String> registerPifa(User user){
@@ -85,7 +85,7 @@ public class UserServiceImpl implements IUserService {
         if(resultCount == 0){
             return ServerResponse.createByErrorMessage("注册失败");
         }
-        return ServerResponse.createBySuccessMessage("注册成功");
+        return ServerResponse.createBySuccessMessage("注册成功，请耐心等待管理员审核！");
     }
 
     public ServerResponse<String> checkValid(String str,String type){
