@@ -20,7 +20,8 @@ public interface ProductMapper {
 
     List<Product> selectList(String username);
 
-    List<Product> selectByNameAndProductId(@Param("productName") String productName, @Param("productId") Integer productId);
+//    List<Product> selectByNameAndProductId(@Param("productName") String productName, @Param("productId") Integer productId);
+    List<Product> selectByNameAndProductId(@Param("productName") String productName, @Param("username") String username);
 
     List<Product> selectByNameAndCategoryIds(@Param("productName") String productName, @Param("categoryIdList") List<Integer> categoryIdList);
 
