@@ -187,10 +187,10 @@
 
 
   <select id="selectList" resultMap="BaseResultMap" >
-    SELECT count(*) from mmall_product
---     ORDER BY id asc
+    select
+    <include refid="Base_Column_List" />
+    from mmall_product
     where username = #{username,jdbcType=VARCHAR}
-
   </select>
 
 
