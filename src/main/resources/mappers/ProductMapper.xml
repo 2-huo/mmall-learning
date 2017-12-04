@@ -200,7 +200,6 @@
     from mmall_product
     where username = #{username,jdbcType=VARCHAR},
     and name like #{productName}
-
   </select>
   
   <select id="selectByNameAndCategoryIds" resultMap="BaseResultMap" parameterType="map">
