@@ -202,7 +202,6 @@ public class UserServiceImpl implements IUserService {
     }
 
 
-
     public ServerResponse<User> getInformation(Integer userId){
         User user = userMapper.selectByPrimaryKey(userId);
         if(user == null){

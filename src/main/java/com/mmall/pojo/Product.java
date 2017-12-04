@@ -8,6 +8,9 @@ public class Product {
 
     private Integer categoryId;
 
+    // 所属用户
+    private String username;
+
     private String name;
 
     private String subtitle;
@@ -28,7 +31,7 @@ public class Product {
 
     private Date updateTime;
 
-    public Product(Integer id, Integer categoryId, String name, String subtitle, String mainImage, String subImages, String detail, BigDecimal price, Integer stock, Integer status, Date createTime, Date updateTime) {
+    public Product(Integer id, Integer categoryId, String name, String subtitle, String mainImage, String subImages, String detail, BigDecimal price, Integer stock, Integer status, Date createTime, Date updateTime, String username) {
         this.id = id;
         this.categoryId = categoryId;
         this.name = name;
@@ -41,6 +44,7 @@ public class Product {
         this.status = status;
         this.createTime = createTime;
         this.updateTime = updateTime;
+        this.username = username;
     }
 
     public Product() {
@@ -141,5 +145,14 @@ public class Product {
 
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
+    }
+
+    // modified
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String user) {
+        this.username = user;
     }
 }
