@@ -198,8 +198,9 @@
     SELECT
     <include refid="Base_Column_List"/>
     from mmall_product
-    where name like #{productName},
-    and username = #{username,jdbcType=VARCHAR}
+    where username = #{username,jdbcType=VARCHAR},
+    and name like #{productName}
+
   </select>
   
   <select id="selectByNameAndCategoryIds" resultMap="BaseResultMap" parameterType="map">
