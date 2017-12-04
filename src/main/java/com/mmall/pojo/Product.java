@@ -8,9 +8,6 @@ public class Product {
 
     private Integer categoryId;
 
-    // 所属用户
-    private String username;
-
     private String name;
 
     private String subtitle;
@@ -30,6 +27,9 @@ public class Product {
     private Date createTime;
 
     private Date updateTime;
+
+    // 所属用户
+    private String username;
 
     public Product(Integer id, Integer categoryId, String name, String subtitle, String mainImage, String subImages, String detail, BigDecimal price, Integer stock, Integer status, Date createTime, Date updateTime, String username) {
         this.id = id;

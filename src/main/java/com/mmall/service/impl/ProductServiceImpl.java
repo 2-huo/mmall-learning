@@ -161,6 +161,7 @@ public class ProductServiceImpl implements IProductService {
         if(StringUtils.isNotBlank(productName)){
             productName = new StringBuilder().append("%").append(productName).append("%").toString();
         }
+        // modified: productId=>username
         List<Product> productList = productMapper.selectByNameAndProductId(productName,username);
         List<ProductListVo> productListVoList = Lists.newArrayList();
         for(Product productItem : productList){
