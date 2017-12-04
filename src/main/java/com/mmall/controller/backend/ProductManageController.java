@@ -88,7 +88,7 @@ public class ProductManageController {
 
     @RequestMapping("list.do")
     @ResponseBody
-    public ServerResponse getList(HttpSession session, @RequestParam(value = "pageNum",defaultValue = "1") int pageNum,@RequestParam(value = "pageSize",defaultValue = "10") int pageSize){
+    public ServerResponse getList(HttpSession session, @RequestParam(value = "pageNum",defaultValue = "1") int pageNum,@RequestParam(value = "pageSize",defaultValue = "10") int pageSize, String username){
         User user = (User)session.getAttribute(Const.CURRENT_USER);
 
         if(user == null){
@@ -96,7 +96,7 @@ public class ProductManageController {
         }
 
         //modified
-        String username = user.getUsername();
+        username = user.getUsername();
 
         if(iUserService.checkAdminRole(user).isSuccess()){
             //填充业务
