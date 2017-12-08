@@ -29,8 +29,8 @@ public class Const {
     public interface Role{
         String ROLE_CUSTOMER = "0"; //普通用户
         String ROLE_ADMIN = "1";//管理员
-        String ROLE_PIFA = "2"; // 批发商
-        String ROLE_ST = "3"; // 实体店用户
+        String ROLE_PIFA = "pifa"; // 批发商
+        String ROLE_ST = "shiti"; // 实体店用户
     }
 
     public enum ProductStatusEnum{
