@@ -34,6 +34,20 @@
     where id = #{id,jdbcType=INTEGER}
   </select>
 
+  <select id="selectStByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select
+    <include refid="Base_Column_List" />
+    from mmall_user_shiti
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+
+  <select id="selectPfByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select
+    <include refid="Base_Column_List" />
+    from mmall_user_pifa
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from mmall_user
     where id = #{id,jdbcType=INTEGER}

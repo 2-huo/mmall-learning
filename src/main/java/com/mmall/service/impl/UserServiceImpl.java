@@ -66,18 +66,7 @@ public class UserServiceImpl implements IUserService {
     @Override
     public ServerResponse<String> userUpgrade(Integer id, User user) {
         User originUser = userMapper.selectByPrimaryKey(id);
-//        User originUser = new User();
-//         旧
-//        originUser.setId(user.getId());
-//        originUser.setUsername(user.getUsername());
-//        originUser.setPassword(user.getPassword());
-//        originUser.setEmail(user.getEmail());
-//        originUser.setQuestion(user.getQuestion());
-//        originUser.setAnswer(user.getAnswer());
-//        originUser.setRole(Const.Role.ROLE_CUSTOMER);
-//        originUser.setEnable(true);
 //         新
-        originUser.setRole(user.getRole());
         originUser.setName(user.getName());
         originUser.setPhone(user.getPhone());
         originUser.setProvince(user.getProvince());
@@ -85,13 +74,22 @@ public class UserServiceImpl implements IUserService {
         originUser.setDistrict(user.getDistrict());
         originUser.setAddr(user.getAddr());
         originUser.setLvl(user.getLvl());
-        if(originUser.getRole() == 2) {
+        if(originUser.getRole() == "2") {
+            User userTwice = userMapper.selectPfByPrimaryKey(id);
+            if(userTwice != null) {
+                return ServerResponse.createByErrorMessage("请不要重复申请");
+            }
             int upgradeCount = userMapper.insertPf(originUser);
             if(upgradeCount == 0) {
                 return ServerResponse.createByErrorMessage("申请失败");
             }
             return ServerResponse.createBySuccessMessage("申请成功，请耐心等待审核！");
-        } else if (originUser.getRole() == 3) {
+
+        } else if (originUser.getRole() == "3") {
+            User userTwice = userMapper.selectPfByPrimaryKey(id);
+            if(userTwice != null) {
+                return ServerResponse.createByErrorMessage("请不要重复申请");
+            }
             int upgradeCount = userMapper.insertSt(originUser);
 //        int deleteCount = userMapper.deleteByPrimaryKey(id);
 //        if(upgradeCount == 0 && deleteCount == 0){
@@ -233,11 +231,11 @@ public class UserServiceImpl implements IUserService {
      * @return
      */
     public ServerResponse checkAdminRole(User user){
-        if(user != null && user.getRole().intValue() == Const.Role.ROLE_ADMIN){
+        if(user != null && user.getRole() == Const.Role.ROLE_ADMIN){
             return ServerResponse.createBySuccess();
-        } else if (user != null && user.getRole().intValue() == Const.Role.ROLE_PIFA) {
+        } else if (user != null && user.getRole() == Const.Role.ROLE_PIFA) {
             return ServerResponse.createBySuccess();
-        } else if (user != null && user.getRole().intValue() == Const.Role.ROLE_ST) {
+        } else if (user != null && user.getRole() == Const.Role.ROLE_ST) {
             return ServerResponse.createBySuccess();
         }
         return ServerResponse.createByError();
