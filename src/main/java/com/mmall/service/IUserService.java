@@ -12,7 +12,7 @@ public interface IUserService {
 
     ServerResponse<String> register(User user);
 
-    ServerResponse<String> registerPifa(User user);
+    ServerResponse<String> userUpgrade(Integer id, User user);
 
     ServerResponse<String> checkValid(String str, String type);
 

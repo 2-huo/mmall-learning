@@ -8,6 +8,11 @@ public interface UserMapper {
 
     int insert(User record);
 
+    // 升级会员 插入批发表 实体店表
+    int insertPf(User record);
+
+    int insertSt(User record);
+
     int insertSelective(User record);
 
     User selectByPrimaryKey(Integer id);

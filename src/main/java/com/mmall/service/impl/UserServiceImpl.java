@@ -9,7 +9,6 @@ import com.mmall.service.IUserService;
 import com.mmall.util.MD5Util;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
 
 import java.util.UUID;
 
@@ -50,42 +49,58 @@ public class UserServiceImpl implements IUserService {
         if(!validResponse.isSuccess()){
             return validResponse;
         }
-        // 实体店身份
-        user.setRole(Const.Role.ROLE_ST);
-        // 需要审核
-        user.setEnable(false);
-//        user.setEnable(true);
-
+        // 用户初始身份
+        user.setRole(Const.Role.ROLE_CUSTOMER);
+        // 不需要审核
+        user.setEnable(true);
         //MD5加密
         user.setPassword(MD5Util.MD5EncodeUtf8(user.getPassword()));
         int resultCount = userMapper.insert(user);
         if(resultCount == 0){
             return ServerResponse.createByErrorMessage("注册失败");
         }
-        return ServerResponse.createBySuccessMessage("注册成功，请耐心等待管理员审核！");
+        return ServerResponse.createBySuccessMessage("注册成功，请耐心等待管理员审核!!!!!!!");
     }
 
-    public ServerResponse<String> registerPifa(User user){
-        ServerResponse validResponse = this.checkValid(user.getUsername(),Const.USERNAME);
-        if(!validResponse.isSuccess()){
-            return validResponse;
-        }
-        validResponse = this.checkValid(user.getEmail(),Const.EMAIL);
-        if(!validResponse.isSuccess()){
-            return validResponse;
-        }
-        // 批发商身份
-        user.setRole(Const.Role.ROLE_PIFA);
-        // 需要审核
-        user.setEnable(false);
 
-        //MD5加密
-        user.setPassword(MD5Util.MD5EncodeUtf8(user.getPassword()));
-        int resultCount = userMapper.insert(user);
-        if(resultCount == 0){
-            return ServerResponse.createByErrorMessage("注册失败");
+    @Override
+    public ServerResponse<String> userUpgrade(Integer id, User user) {
+        User originUser = userMapper.selectByPrimaryKey(id);
+//        User originUser = new User();
+//         旧
+//        originUser.setId(user.getId());
+//        originUser.setUsername(user.getUsername());
+//        originUser.setPassword(user.getPassword());
+//        originUser.setEmail(user.getEmail());
+//        originUser.setQuestion(user.getQuestion());
+//        originUser.setAnswer(user.getAnswer());
+//        originUser.setRole(Const.Role.ROLE_CUSTOMER);
+//        originUser.setEnable(true);
+//         新
+        originUser.setRole(user.getRole());
+        originUser.setName(user.getName());
+        originUser.setPhone(user.getPhone());
+        originUser.setProvince(user.getProvince());
+        originUser.setCity(user.getCity());
+        originUser.setDistrict(user.getDistrict());
+        originUser.setAddr(user.getAddr());
+        originUser.setLvl(user.getLvl());
+        if(originUser.getRole() == 2) {
+            int upgradeCount = userMapper.insertPf(originUser);
+            if(upgradeCount == 0) {
+                return ServerResponse.createByErrorMessage("申请失败");
+            }
+            return ServerResponse.createBySuccessMessage("申请成功，请耐心等待审核！");
+        } else if (originUser.getRole() == 3) {
+            int upgradeCount = userMapper.insertSt(originUser);
+//        int deleteCount = userMapper.deleteByPrimaryKey(id);
+//        if(upgradeCount == 0 && deleteCount == 0){
+            if(upgradeCount == 0) {
+                return ServerResponse.createByErrorMessage("申请失败");
+            }
+            return ServerResponse.createBySuccessMessage("申请成功，请耐心等待审核！");
         }
-        return ServerResponse.createBySuccessMessage("注册成功，请耐心等待管理员审核！");
+        return ServerResponse.createByErrorMessage("申请失败");
     }
 
     public ServerResponse<String> checkValid(String str,String type){
@@ -134,8 +149,6 @@ public class UserServiceImpl implements IUserService {
         return ServerResponse.createByErrorMessage("问题的答案错误");
     }
 
-
-
     public ServerResponse<String> forgetResetPassword(String username,String passwordNew,String forgetToken){
         if(org.apache.commons.lang3.StringUtils.isBlank(forgetToken)){
             return ServerResponse.createByErrorMessage("参数错误,token需要传递");
@@ -163,7 +176,6 @@ public class UserServiceImpl implements IUserService {
         return ServerResponse.createByErrorMessage("修改密码失败");
     }
 
-
     public ServerResponse<String> resetPassword(String passwordOld,String passwordNew,User user){
         //防止横向越权,要校验一下这个用户的旧密码,一定要指定是这个用户.因为我们会查询一个count(1),如果不指定id,那么结果就是true啦count>0;
         int resultCount = userMapper.checkPassword(MD5Util.MD5EncodeUtf8(passwordOld),user.getId());
@@ -179,7 +191,6 @@ public class UserServiceImpl implements IUserService {
         return ServerResponse.createByErrorMessage("密码更新失败");
     }
 
-
     public ServerResponse<User> updateInformation(User user){
         //username是不能被更新的
         //email也要进行一个校验,校验新的email是不是已经存在,并且存在的email如果相同的话,不能是我们当前的这个用户的.
@@ -190,7 +201,6 @@ public class UserServiceImpl implements IUserService {
         User updateUser = new User();
         updateUser.setId(user.getId());
         updateUser.setEmail(user.getEmail());
-        updateUser.setPhone(user.getPhone());
         updateUser.setQuestion(user.getQuestion());
         updateUser.setAnswer(user.getAnswer());
 

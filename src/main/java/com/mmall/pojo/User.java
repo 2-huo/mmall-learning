@@ -11,8 +11,6 @@ public class User {
 
     private String email;
 
-    private String phone;
-
     private String question;
 
     private String answer;
@@ -25,18 +23,41 @@ public class User {
 
     private Boolean enable;
 
-    public User(Integer id, String username, String password, String email, String phone, String question, String answer, Integer role, Date createTime, Date updateTime, Boolean enable) {
+
+    private String name;
+
+    private String phone;
+
+    private String province;
+
+    private String city;
+
+    private String district;
+
+    private String addr;
+
+    private Integer lvl;
+
+
+    public User(Integer id, String username, String password, String email, String question, String answer, Integer role, Date createTime, Date updateTime, Boolean enable, String name,String phone, String province, String city, String district, String addr, Integer lvl) {
         this.id = id;
         this.username = username;
         this.password = password;
         this.email = email;
-        this.phone = phone;
         this.question = question;
         this.answer = answer;
         this.role = role;
         this.createTime = createTime;
         this.updateTime = updateTime;
         this.enable = enable;
+
+        this.name = name;
+        this.phone = phone;
+        this.province = province;
+        this.city = city;
+        this.district = district;
+        this.addr = addr;
+        this.lvl = lvl;
     }
 
     public User() {
@@ -73,14 +94,6 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email == null ? null : email.trim();
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone == null ? null : phone.trim();
     }
 
     public String getQuestion() {
@@ -130,4 +143,55 @@ public class User {
     public void setEnable(Boolean enable) {
         this.enable = enable;
     }
+
+
+    public String getName() {
+        return name;
+    }
+    public void setName(String name) {
+        this.name = name == null ? null : name.trim();
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+    public void setPhone(String phone) {
+        this.phone = phone == null ? null : phone.trim();
+    }
+
+    public String getProvince() {
+        return province;
+    }
+    public void setProvince(String province) {
+        this.province = province == null ? null : province.trim();
+    }
+
+    public String getCity() {
+        return city;
+    }
+    public void setCity(String city) {
+        this.city = city == null ? null : city.trim();
+    }
+
+    public String getDistrict() {
+        return district;
+    }
+    public void setDistrict(String district) {
+        this.district = district == null ? null : district.trim();
+    }
+
+    public String getAddr() {
+        return addr;
+    }
+    public void setAddr(String addr) {
+        this.addr = addr == null ? null : addr.trim();
+    }
+
+    public Integer getLvl() {
+        return lvl;
+    }
+    public void setLvl(Integer lvl) {
+        this.lvl = lvl;
+    }
+
 }
