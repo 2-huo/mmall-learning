@@ -74,7 +74,7 @@ public class UserServiceImpl implements IUserService {
         originUser.setDistrict(user.getDistrict());
         originUser.setAddr(user.getAddr());
         originUser.setLvl(user.getLvl());
-        if(originUser.getRole() == "2") {
+        if(originUser.getRole() == Const.Role.ROLE_PIFA) {
             User userTwice = userMapper.selectPfByPrimaryKey(id);
             if(userTwice != null) {
                 return ServerResponse.createByErrorMessage("请不要重复申请");
@@ -85,7 +85,7 @@ public class UserServiceImpl implements IUserService {
             }
             return ServerResponse.createBySuccessMessage("申请成功，请耐心等待审核！");
 
-        } else if (originUser.getRole() == "3") {
+        } else if (originUser.getRole() == Const.Role.ROLE_ST) {
             User userTwice = userMapper.selectPfByPrimaryKey(id);
             if(userTwice != null) {
                 return ServerResponse.createByErrorMessage("请不要重复申请");
@@ -100,6 +100,7 @@ public class UserServiceImpl implements IUserService {
         }
         return ServerResponse.createByErrorMessage("申请失败");
     }
+
 
     public ServerResponse<String> checkValid(String str,String type){
         if(org.apache.commons.lang3.StringUtils.isNotBlank(type)){
