@@ -115,7 +115,7 @@ public class User {
     }
 
     public void setRole(String role) {
-        this.role = role == null ? null : addr.trim();
+        this.role = role == null ? null : role.trim();
     }
 
     public Date getCreateTime() {
@@ -189,7 +189,7 @@ public class User {
         return lvl;
     }
     public void setLvl(String lvl) {
-        this.lvl = lvl == null ? null : addr.trim();
+        this.lvl = lvl == null ? null : lvl.trim();
     }
 
 }
