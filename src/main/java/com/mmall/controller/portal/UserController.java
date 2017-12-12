@@ -68,6 +68,7 @@ public class UserController {
     }
 
 
+
     @RequestMapping(value = "update_information.do",method = RequestMethod.POST)
     @ResponseBody
     public ServerResponse<User> update_information(HttpSession session,User user){

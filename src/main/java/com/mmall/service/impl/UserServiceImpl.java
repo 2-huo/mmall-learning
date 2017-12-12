@@ -1,5 +1,8 @@
 package com.mmall.service.impl;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+import com.google.common.collect.Lists;
 import com.mmall.common.Const;
 import com.mmall.common.ServerResponse;
 import com.mmall.common.TokenCache;
@@ -7,9 +10,11 @@ import com.mmall.dao.UserMapper;
 import com.mmall.pojo.User;
 import com.mmall.service.IUserService;
 import com.mmall.util.MD5Util;
+import com.mmall.vo.UserListVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -59,7 +64,7 @@ public class UserServiceImpl implements IUserService {
         if(resultCount == 0){
             return ServerResponse.createByErrorMessage("注册失败");
         }
-        return ServerResponse.createBySuccessMessage("注册成功，请耐心等待管理员审核!!!!!!!");
+        return ServerResponse.createBySuccessMessage("注册成功");
     }
 
 
@@ -74,7 +79,8 @@ public class UserServiceImpl implements IUserService {
         originUser.setDistrict(user.getDistrict());
         originUser.setAddr(user.getAddr());
         originUser.setLvl(user.getLvl());
-        if(originUser.getRole() == Const.Role.ROLE_PIFA) {
+        originUser.setRole(user.getRole());
+        if(originUser.getRole().equals(Const.Role.ROLE_PIFA)) {
             User userTwice = userMapper.selectPfByPrimaryKey(id);
             if(userTwice != null) {
                 return ServerResponse.createByErrorMessage("请不要重复申请");
@@ -85,7 +91,7 @@ public class UserServiceImpl implements IUserService {
             }
             return ServerResponse.createBySuccessMessage("申请成功，请耐心等待审核！");
 
-        } else if (originUser.getRole() == Const.Role.ROLE_ST) {
+        } else if (originUser.getRole().equals(Const.Role.ROLE_ST)) {
             User userTwice = userMapper.selectPfByPrimaryKey(id);
             if(userTwice != null) {
                 return ServerResponse.createByErrorMessage("请不要重复申请");
@@ -100,6 +106,37 @@ public class UserServiceImpl implements IUserService {
         }
         return ServerResponse.createByErrorMessage("申请失败");
     }
+
+    public ServerResponse<PageInfo> getUserList(int pageNum, int pageSize) {
+        PageHelper.startPage(pageNum,pageSize);
+
+        List<User> userList = userMapper.selectList();
+        List<UserListVo> userListVoList = Lists.newArrayList();
+
+        for(User userItem : userList){
+            UserListVo userListVo = assembleUserListVo(userItem);
+            userListVoList.add(userListVo);
+        }
+
+        PageInfo pageResult = new PageInfo(userList);
+        pageResult.setList(userListVoList);
+        return ServerResponse.createBySuccess(pageResult);
+    }
+    private UserListVo assembleUserListVo(User user) {
+        UserListVo userListVo = new UserListVo();
+        userListVo.setId(user.getId());
+        userListVo.setUsername(user.getUsername());
+        userListVo.setName(user.getName());
+        userListVo.setPhone(user.getPhone());
+        userListVo.setProvince(user.getProvince());
+        userListVo.setCity(user.getCity());
+        userListVo.setDistrict(user.getDistrict());
+        userListVo.setAddr(user.getAddr());
+        userListVo.setRole(user.getRole());
+        userListVo.setLvl(user.getLvl());
+        return userListVo;
+    }
+
 
 
     public ServerResponse<String> checkValid(String str,String type){
@@ -232,11 +269,18 @@ public class UserServiceImpl implements IUserService {
      * @return
      */
     public ServerResponse checkAdminRole(User user){
-        if(user != null && user.getRole() == Const.Role.ROLE_ADMIN){
+        if(user != null && user.getRole().equals(Const.Role.ROLE_ADMIN)){
             return ServerResponse.createBySuccess();
-        } else if (user != null && user.getRole() == Const.Role.ROLE_PIFA) {
+        } else if (user != null && user.getRole().equals(Const.Role.ROLE_PIFA)) {
             return ServerResponse.createBySuccess();
-        } else if (user != null && user.getRole() == Const.Role.ROLE_ST) {
+        } else if (user != null && user.getRole().equals(Const.Role.ROLE_ST)) {
+            return ServerResponse.createBySuccess();
+        }
+        return ServerResponse.createByError();
+    }
+
+    public ServerResponse checkAdminRoleTest(User user){
+        if(user != null && user.getRole().equals(Const.Role.ROLE_ADMIN)){
             return ServerResponse.createBySuccess();
         }
         return ServerResponse.createByError();

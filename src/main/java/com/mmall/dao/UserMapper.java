@@ -3,6 +3,8 @@ package com.mmall.dao;
 import com.mmall.pojo.User;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.List;
+
 public interface UserMapper {
     int deleteByPrimaryKey(Integer id);
 
@@ -10,6 +12,12 @@ public interface UserMapper {
 
     // 升级会员 插入批发表 实体店表
     int insertPf(User record);
+
+    // 列出待审核用户表
+    List<User> selectList();
+
+    // 审核通过, 插入原表
+    int insertOri(User record);
 
     int insertSt(User record);
 

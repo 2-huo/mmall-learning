@@ -63,6 +63,15 @@
       now(), #{enable,jdbcType=BIT})
   </insert>
 
+  <insert id="insertOri" parameterType="com.mmall.pojo.User" >
+    insert into mmall_user (id, role,  update_time, enable, name, phone, province, city, district, addr, lvl )
+    values (#{id,jdbcType=INTEGER}, #{role,jdbcType=VARCHAR},
+    now(), #{enable,jdbcType=BIT}, #{name, jdbcType=VARCHAR}, #{phone, jdbcType=VARCHAR},
+    #{province, jdbcType=VARCHAR}, #{city, jdbcType=VARCHAR}, #{district, jdbcType=VARCHAR},
+    #{addr, jdbcType=VARCHAR}, #{lvl, jdbcType=VARCHAR})
+  </insert>
+
+
   <insert id="insertPf" parameterType="com.mmall.pojo.User" >
     insert into mmall_user_pifa (id, username, password,
       email, question, answer, role, create_time,
@@ -325,6 +334,12 @@
     and id != #{userId}
   </select>
 
+
+  <select id="selectList" resultMap="BaseResultMap" >
+    select
+    <include refid="Base_Column_List" />
+    from mmall_user_shiti
+  </select>
 
 
 
