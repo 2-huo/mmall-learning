@@ -4,6 +4,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.google.common.collect.Lists;
 import com.mmall.common.Const;
+import com.mmall.common.ResponseCode;
 import com.mmall.common.ServerResponse;
 import com.mmall.common.TokenCache;
 import com.mmall.dao.UserMapper;
@@ -106,6 +107,69 @@ public class UserServiceImpl implements IUserService {
         }
         return ServerResponse.createByErrorMessage("申请失败");
     }
+
+
+    // 审核通过
+    public ServerResponse<String> setUserPass(Integer id, String role, Integer status) {
+        if(id == null || role == null || status == null){
+            return ServerResponse.createByErrorCodeMessage(ResponseCode.ILLEGAL_ARGUMENT.getCode(),ResponseCode.ILLEGAL_ARGUMENT.getDesc());
+        }
+        // status 1代表审核通过 2代表审核失败, 直接删去表数据
+        // user表
+        User originUser = userMapper.selectByPrimaryKey(id);
+        if(role.equals(Const.Role.ROLE_PIFA) && status == 1) {
+            // user_pf表
+            User pfUser = userMapper.selectPfByPrimaryKey(id);
+            originUser.setName(pfUser.getName());
+            originUser.setPhone(pfUser.getPhone());
+            originUser.setProvince(pfUser.getProvince());
+            originUser.setCity(pfUser.getCity());
+            originUser.setDistrict(pfUser.getDistrict());
+            originUser.setAddr(pfUser.getAddr());
+            originUser.setLvl(pfUser.getLvl());
+            originUser.setRole(pfUser.getRole());
+            int upgradeCount = userMapper.insertOri(originUser);
+            int deleteCount = userMapper.deletePfByPrimaryKey(id);
+            if(upgradeCount == 0 && deleteCount == 0) {
+                return ServerResponse.createByErrorMessage("审核操作失败");
+            }
+            return ServerResponse.createBySuccessMessage("审核操作成功");
+        } else if (role.equals(Const.Role.ROLE_ST)  && status == 1) {
+            // user_st表
+            User stUser = userMapper.selectStByPrimaryKey(id);
+            originUser.setName(stUser.getName());
+            originUser.setPhone(stUser.getPhone());
+            originUser.setProvince(stUser.getProvince());
+            originUser.setCity(stUser.getCity());
+            originUser.setDistrict(stUser.getDistrict());
+            originUser.setAddr(stUser.getAddr());
+            originUser.setLvl(stUser.getLvl());
+            originUser.setRole(stUser.getRole());
+            int upgradeCount = userMapper.insertOri(originUser);
+            int deleteCount = userMapper.deleteStByPrimaryKey(id);
+            if(upgradeCount == 0 && deleteCount == 0) {
+                return ServerResponse.createByErrorMessage("审核操作失败");
+            }
+            return ServerResponse.createBySuccessMessage("审核操作成功");
+        } else if (role.equals(Const.Role.ROLE_PIFA)) {
+            // 审核不通过, 直接删掉表数据即可
+            int deleteCount = userMapper.deletePfByPrimaryKey(id);
+            if(deleteCount == 0) {
+                return ServerResponse.createByErrorMessage("审核操作失败");
+            }
+            return ServerResponse.createBySuccessMessage("审核操作成功");
+        } else if (role.equals(Const.Role.ROLE_ST)) {
+            // 审核不通过, 直接删掉表数据即可
+
+            int deleteCount = userMapper.deleteStByPrimaryKey(id);
+            if(deleteCount == 0) {
+                return ServerResponse.createByErrorMessage("审核操作失败");
+            }
+            return ServerResponse.createBySuccessMessage("审核操作成功");
+        }
+        return ServerResponse.createByErrorMessage("审核操作失败");
+    }
+
 
     public ServerResponse<PageInfo> getUserList(int pageNum, int pageSize) {
         PageHelper.startPage(pageNum,pageSize);

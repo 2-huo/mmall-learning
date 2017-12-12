@@ -8,6 +8,10 @@ import java.util.List;
 public interface UserMapper {
     int deleteByPrimaryKey(Integer id);
 
+    int deleteStByPrimaryKey(Integer id);
+
+    int deletePfByPrimaryKey(Integer id);
+
     int insert(User record);
 
     // 升级会员 插入批发表 实体店表

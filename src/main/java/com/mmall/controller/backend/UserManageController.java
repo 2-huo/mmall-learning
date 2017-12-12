@@ -60,5 +60,20 @@ public class UserManageController {
         }
     }
 
+    @RequestMapping(value="user_pass.do",method = RequestMethod.POST)
+    @ResponseBody
+    public ServerResponse setUserPass(HttpSession session, Integer userId, String role, Integer status){
+        User user = (User)session.getAttribute(Const.CURRENT_USER);
+        if(user == null){
+            return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(),"用户未登录,请登录管理员");
+
+        }
+        if(iUserService.checkAdminRole(user).isSuccess()){
+            return iUserService.setUserPass(userId, role, status);
+        }else{
+            return ServerResponse.createByErrorMessage("无权限操作");
+        }
+    }
+
 
 }

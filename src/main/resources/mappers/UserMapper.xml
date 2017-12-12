@@ -52,6 +52,14 @@
     delete from mmall_user
     where id = #{id,jdbcType=INTEGER}
   </delete>
+  <delete id="deleteStByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from mmall_user_shiti
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deletePfByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from mmall_user_pifa
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
 
   <insert id="insert" parameterType="com.mmall.pojo.User" >
     insert into mmall_user (id, username, password,

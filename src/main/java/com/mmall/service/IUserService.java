@@ -35,4 +35,7 @@ public interface IUserService {
     ServerResponse checkAdminRole(User user);
 
     ServerResponse checkAdminRoleTest(User user);
+
+    // 审核通过
+    ServerResponse<String> setUserPass(Integer id, String role, Integer status);
 }
