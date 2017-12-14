@@ -13,8 +13,10 @@ public interface IUserService {
     ServerResponse<User> login(String username, String password);
 
     ServerResponse<String> register(User user);
+
     // 申请升级
     ServerResponse<String> userUpgrade(Integer id, User user);
+
     // 审核升级
     ServerResponse<PageInfo> getUserList(int pageNum, int pageSize);
 

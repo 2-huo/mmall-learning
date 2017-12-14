@@ -28,23 +28,16 @@
   </sql>
 
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
-    select 
+    select
     <include refid="Base_Column_List" />
     from mmall_user
     where id = #{id,jdbcType=INTEGER}
   </select>
 
-  <select id="selectStByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+  <select id="selectCheckByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select
     <include refid="Base_Column_List" />
-    from mmall_user_shiti
-    where id = #{id,jdbcType=INTEGER}
-  </select>
-
-  <select id="selectPfByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
-    select
-    <include refid="Base_Column_List" />
-    from mmall_user_pifa
+    from mmall_user_check
     where id = #{id,jdbcType=INTEGER}
   </select>
 
@@ -52,12 +45,8 @@
     delete from mmall_user
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteStByPrimaryKey" parameterType="java.lang.Integer" >
-    delete from mmall_user_shiti
-    where id = #{id,jdbcType=INTEGER}
-  </delete>
-  <delete id="deletePfByPrimaryKey" parameterType="java.lang.Integer" >
-    delete from mmall_user_pifa
+  <delete id="deleteCheckByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from mmall_user_check
     where id = #{id,jdbcType=INTEGER}
   </delete>
 
@@ -72,16 +61,29 @@
   </insert>
 
   <insert id="insertOri" parameterType="com.mmall.pojo.User" >
-    insert into mmall_user (id, role,  update_time, enable, name, phone, province, city, district, addr, lvl )
-    values (#{id,jdbcType=INTEGER}, #{role,jdbcType=VARCHAR},
-    now(), #{enable,jdbcType=BIT}, #{name, jdbcType=VARCHAR}, #{phone, jdbcType=VARCHAR},
-    #{province, jdbcType=VARCHAR}, #{city, jdbcType=VARCHAR}, #{district, jdbcType=VARCHAR},
-    #{addr, jdbcType=VARCHAR}, #{lvl, jdbcType=VARCHAR})
+    update mmall_user
+    set username = #{username,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      question = #{question,jdbcType=VARCHAR},
+      answer = #{answer,jdbcType=VARCHAR},
+      role = #{role,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = now(),
+      enable = #{enable,jdbcType=BIT},
+      phone = #{phone,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      province = #{province, jdbcType=VARCHAR},
+      city = #{city, jdbcType=VARCHAR},
+      district = #{district, jdbcType=VARCHAR},
+      addr = #{addr, jdbcType=VARCHAR},
+      lvl = #{lvl, jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
   </insert>
 
 
-  <insert id="insertPf" parameterType="com.mmall.pojo.User" >
-    insert into mmall_user_pifa (id, username, password,
+  <insert id="insertCheck" parameterType="com.mmall.pojo.User" >
+    insert into mmall_user_check (id, username, password,
       email, question, answer, role, create_time,
       update_time, enable, name, phone, province, city, district, addr, lvl )
     values (#{id,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR},
@@ -92,17 +94,6 @@
       #{addr, jdbcType=VARCHAR}, #{lvl, jdbcType=VARCHAR})
   </insert>
 
-  <insert id="insertSt" parameterType="com.mmall.pojo.User" >
-    insert into mmall_user_shiti (id, username, password,
-    email, question, answer, role, create_time,
-    update_time, enable, name, phone, province, city, district, addr, lvl )
-    values (#{id,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR},
-    #{email,jdbcType=VARCHAR},  #{question,jdbcType=VARCHAR},
-    #{answer,jdbcType=VARCHAR}, #{role,jdbcType=VARCHAR}, now(),
-    now(), #{enable,jdbcType=BIT}, #{name, jdbcType=VARCHAR}, #{phone, jdbcType=VARCHAR},
-    #{province, jdbcType=VARCHAR}, #{city, jdbcType=VARCHAR}, #{district, jdbcType=VARCHAR},
-    #{addr, jdbcType=VARCHAR}, #{lvl, jdbcType=VARCHAR})
-  </insert>
 
   <insert id="insertSelective" parameterType="com.mmall.pojo.User" >
     insert into mmall_user
@@ -335,21 +326,16 @@
     and id = #{userId}
   </select>
 
-
   <select id="checkEmailByUserId" resultType="int" parameterType="map">
     select count(1) from mmall_user
     where email = #{email}
     and id != #{userId}
   </select>
 
-
   <select id="selectList" resultMap="BaseResultMap" >
     select
     <include refid="Base_Column_List" />
-    from mmall_user_shiti and mmall_user_pifa
+    from mmall_user_check
   </select>
-
-
-
 
 </mapper>

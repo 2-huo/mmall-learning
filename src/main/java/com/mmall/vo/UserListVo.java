@@ -43,7 +43,7 @@ public class UserListVo {
         return phone;
     }
 
-    public void setPhone(String naphoneme) {
+    public void setPhone(String phone) {
         this.phone = phone;
     }
 
