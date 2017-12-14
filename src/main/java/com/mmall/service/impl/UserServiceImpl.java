@@ -110,16 +110,16 @@ public class UserServiceImpl implements IUserService {
 
 
     // 审核通过
-    public ServerResponse<String> setUserPass(Integer id, String role, Integer status) {
-        if(id == null || role == null || status == null){
+    public ServerResponse<String> setUserPass(Integer userId, String role, Integer status) {
+        if(userId == null || role == null || status == null){
             return ServerResponse.createByErrorCodeMessage(ResponseCode.ILLEGAL_ARGUMENT.getCode(),ResponseCode.ILLEGAL_ARGUMENT.getDesc());
         }
         // status 1代表审核通过 2代表审核失败, 直接删去表数据
         // user表
-        User originUser = userMapper.selectByPrimaryKey(id);
+        User originUser = userMapper.selectByPrimaryKey(userId);
         if(role.equals(Const.Role.ROLE_PIFA) && status == 1) {
             // user_pf表
-            User pfUser = userMapper.selectPfByPrimaryKey(id);
+            User pfUser = userMapper.selectPfByPrimaryKey(userId);
             originUser.setName(pfUser.getName());
             originUser.setPhone(pfUser.getPhone());
             originUser.setProvince(pfUser.getProvince());
@@ -129,14 +129,14 @@ public class UserServiceImpl implements IUserService {
             originUser.setLvl(pfUser.getLvl());
             originUser.setRole(pfUser.getRole());
             int upgradeCount = userMapper.insertOri(originUser);
-            int deleteCount = userMapper.deletePfByPrimaryKey(id);
+            int deleteCount = userMapper.deletePfByPrimaryKey(userId);
             if(upgradeCount == 0 && deleteCount == 0) {
                 return ServerResponse.createByErrorMessage("审核操作失败");
             }
             return ServerResponse.createBySuccessMessage("审核操作成功");
         } else if (role.equals(Const.Role.ROLE_ST)  && status == 1) {
             // user_st表
-            User stUser = userMapper.selectStByPrimaryKey(id);
+            User stUser = userMapper.selectStByPrimaryKey(userId);
             originUser.setName(stUser.getName());
             originUser.setPhone(stUser.getPhone());
             originUser.setProvince(stUser.getProvince());
@@ -146,14 +146,14 @@ public class UserServiceImpl implements IUserService {
             originUser.setLvl(stUser.getLvl());
             originUser.setRole(stUser.getRole());
             int upgradeCount = userMapper.insertOri(originUser);
-            int deleteCount = userMapper.deleteStByPrimaryKey(id);
+            int deleteCount = userMapper.deleteStByPrimaryKey(userId);
             if(upgradeCount == 0 && deleteCount == 0) {
                 return ServerResponse.createByErrorMessage("审核操作失败");
             }
             return ServerResponse.createBySuccessMessage("审核操作成功");
         } else if (role.equals(Const.Role.ROLE_PIFA)) {
             // 审核不通过, 直接删掉表数据即可
-            int deleteCount = userMapper.deletePfByPrimaryKey(id);
+            int deleteCount = userMapper.deletePfByPrimaryKey(userId);
             if(deleteCount == 0) {
                 return ServerResponse.createByErrorMessage("审核操作失败");
             }
@@ -161,7 +161,7 @@ public class UserServiceImpl implements IUserService {
         } else if (role.equals(Const.Role.ROLE_ST)) {
             // 审核不通过, 直接删掉表数据即可
 
-            int deleteCount = userMapper.deleteStByPrimaryKey(id);
+            int deleteCount = userMapper.deleteStByPrimaryKey(userId);
             if(deleteCount == 0) {
                 return ServerResponse.createByErrorMessage("审核操作失败");
             }
