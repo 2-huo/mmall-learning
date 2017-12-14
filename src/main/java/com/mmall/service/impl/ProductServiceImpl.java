@@ -125,9 +125,6 @@ public class ProductServiceImpl implements IProductService {
 
     // modified
     public ServerResponse<PageInfo> getProductList(int pageNum,int pageSize, String username){
-        //startPage--start
-        //填充自己的sql查询逻辑
-        //pageHelper-收尾
         PageHelper.startPage(pageNum,pageSize);
         // modified
         List<Product> productList = productMapper.selectList(username);
