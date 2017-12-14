@@ -44,7 +44,7 @@ public class UserManageController {
     }
 
     // 审核用户升级
-    @RequestMapping(value="get_user_list.do",method = RequestMethod.POST)
+    @RequestMapping("get_user_list.do")
     @ResponseBody
     public ServerResponse getUserList(HttpSession session, @RequestParam(value = "pageNum",defaultValue = "1") int pageNum, @RequestParam(value = "pageSize",defaultValue = "10") int pageSize){
         User user = (User)session.getAttribute(Const.CURRENT_USER);
@@ -52,7 +52,6 @@ public class UserManageController {
         if(user == null){
             return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(),"用户未登录,请登录管理员");
         }
-
         if(iUserService.checkAdminRoleTest(user).isSuccess()){
             return iUserService.getUserList(pageNum, pageSize);
         }else{
