@@ -67,6 +67,16 @@ public class ProductServiceImpl implements IProductService {
         return ServerResponse.createByErrorMessage("新增或更新产品参数不正确");
     }
 
+    public ServerResponse<String> deleteProduct(Integer productId, String username){
+        if(productId == null || username == null) {
+            return ServerResponse.createByErrorCodeMessage(ResponseCode.ILLEGAL_ARGUMENT.getCode(),ResponseCode.ILLEGAL_ARGUMENT.getDesc());
+        }
+        int rowCount = productMapper.deleteByPrimaryKey(productId, username);
+        if(rowCount > 0) {
+            return ServerResponse.createBySuccess("删除产品成功");
+        }
+        return ServerResponse.createByErrorMessage("删除产品失败");
+    }
 
     public ServerResponse<String> setSaleStatus(Integer productId,Integer status){
         if(productId == null || status == null){
