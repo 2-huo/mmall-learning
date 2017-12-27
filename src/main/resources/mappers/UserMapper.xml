@@ -270,7 +270,12 @@
       role = #{role,jdbcType=VARCHAR},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       update_time = now(),
-      enable = #{enable,jdbcType=BIT}
+      enable = #{enable,jdbcType=BIT},
+      name = #{name,jdbcType=VARCHAR},
+      province = #{province, jdbcType=VARCHAR},
+      city = #{city, jdbcType=VARCHAR},
+      district = #{district, jdbcType=VARCHAR},
+      lvl = #{lvl, jdbcType=VARCHAR},
     where id = #{id,jdbcType=VARCHAR}
   </update>
   
