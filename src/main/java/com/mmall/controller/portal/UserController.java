@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
@@ -147,33 +148,34 @@ public class UserController {
         return iUserService.getInformation(currentUser.getId());
     }
 
+    // 审核用户升级
+    @RequestMapping("get_user_list.do")
+    @ResponseBody
+    public ServerResponse getUserList(HttpSession session, @RequestParam(value = "pageNum",defaultValue = "1") int pageNum, @RequestParam(value = "pageSize",defaultValue = "10") int pageSize){
+        User user = (User)session.getAttribute(Const.CURRENT_USER);
 
+        if(user == null){
+            return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(),"用户未登录,请登录管理员");
+        }
+        if(iUserService.checkAdminRoleTest(user).isSuccess()){
+            return iUserService.getUserList(pageNum, pageSize);
+        }else{
+            return ServerResponse.createByErrorMessage("无权限操作");
+        }
+    }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    @RequestMapping("user_pass.do")
+    @ResponseBody
+    public ServerResponse setUserPass(HttpSession session, Integer userId, String role, Integer status){
+        User user = (User)session.getAttribute(Const.CURRENT_USER);
+        if(user == null){
+            return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(),"用户未登录,请登录管理员");
+        }
+        if(iUserService.checkAdminRoleTest(user).isSuccess()){
+            return iUserService.setUserPass(userId, role, status);
+        }else{
+            return ServerResponse.createByErrorMessage("无权限操作");
+        }
+    }
 
 }
