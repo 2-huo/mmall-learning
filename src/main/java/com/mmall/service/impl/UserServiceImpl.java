@@ -303,9 +303,7 @@ public class UserServiceImpl implements IUserService {
      * @return
      */
     public ServerResponse checkAdminRole(User user){
-        if(user != null && user.getRole().equals(Const.Role.ROLE_ADMIN)){
-            return ServerResponse.createBySuccess();
-        } else if (user != null && user.getRole().equals(Const.Role.ROLE_PIFA)) {
+        if (user != null && user.getRole().equals(Const.Role.ROLE_PIFA)) {
             return ServerResponse.createBySuccess();
         } else if (user != null && user.getRole().equals(Const.Role.ROLE_ST)) {
             return ServerResponse.createBySuccess();

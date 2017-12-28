@@ -39,6 +39,9 @@ public class ProductController {
     private IProductService iProductService;
     @Autowired
     private IFileService iFileService;
+    @Autowired
+    private IUserService iUserService;
+
 
     @RequestMapping("detail.do")
     @ResponseBody
@@ -63,9 +66,12 @@ public class ProductController {
         product.setUsername(user.getUsername());
         if(user == null){
             return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(),"用户未登录,请登录");
-
         }
-        return iProductService.saveOrUpdateProduct(product);
+        if(iUserService.checkAdminRole(user).isSuccess()){
+            return iProductService.saveOrUpdateProduct(product);
+        }else{
+            return ServerResponse.createByErrorMessage("无权限操作");
+        }
     }
 
     @RequestMapping("set_sale_status.do")
@@ -85,7 +91,11 @@ public class ProductController {
         if(user == null){
             return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(),"用户未登录,请登录");
         }
-        return iProductService.manageProductDetail(productId);
+        if(iUserService.checkAdminRole(user).isSuccess()){
+            return iProductService.manageProductDetail(productId);
+        }else{
+            return ServerResponse.createByErrorMessage("无权限操作");
+        }
     }
 
     @RequestMapping(value="delete.do", method = RequestMethod.POST)
@@ -95,7 +105,11 @@ public class ProductController {
         if(user == null){
             return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(),"用户未登录,请登录");
         }
-        return iProductService.deleteProduct(productId, user.getUsername());
+        if(iUserService.checkAdminRole(user).isSuccess()){
+            return iProductService.deleteProduct(productId, user.getUsername());
+        }else{
+            return ServerResponse.createByErrorMessage("无权限操作");
+        }
     }
 
     @RequestMapping("listB.do")
@@ -106,8 +120,12 @@ public class ProductController {
             return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(),"用户未登录,请登录");
         }
         //modified
-        String username = user.getUsername();
-        return iProductService.getProductList(pageNum,pageSize, username);
+        if(iUserService.checkAdminRole(user).isSuccess()){
+            String username = user.getUsername();
+            return iProductService.getProductList(pageNum,pageSize, username);
+        }else{
+            return ServerResponse.createByErrorMessage("无权限操作");
+        }
     }
 
     @RequestMapping("search.do")
