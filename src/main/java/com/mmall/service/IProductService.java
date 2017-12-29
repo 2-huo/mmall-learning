@@ -14,10 +14,11 @@ public interface IProductService {
 
     ServerResponse<String> setSaleStatus(Integer productId, Integer status);
 
+    ServerResponse<String> deleteProduct(Integer productId, String username);
+
     ServerResponse<ProductDetailVo> manageProductDetail(Integer productId);
 
     ServerResponse<PageInfo> getProductList(int pageNum, int pageSize, String username);
-
     // modified
     ServerResponse<PageInfo> searchProduct(String productName, String username, int pageNum, int pageSize);
 

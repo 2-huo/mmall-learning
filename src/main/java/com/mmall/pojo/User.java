@@ -15,14 +15,13 @@ public class User {
 
     private String answer;
 
-    private Integer role;
+    private String role;
 
     private Date createTime;
 
     private Date updateTime;
 
     private Boolean enable;
-
 
     private String name;
 
@@ -36,10 +35,10 @@ public class User {
 
     private String addr;
 
-    private Integer lvl;
+    private String lvl;
 
 
-    public User(Integer id, String username, String password, String email, String question, String answer, Integer role, Date createTime, Date updateTime, Boolean enable, String name,String phone, String province, String city, String district, String addr, Integer lvl) {
+    public User(Integer id, String username, String password, String email, String question, String answer, String role, Date createTime, Date updateTime, Boolean enable, String name, String phone, String province, String city, String district, String addr, String lvl) {
         this.id = id;
         this.username = username;
         this.password = password;
@@ -50,7 +49,6 @@ public class User {
         this.createTime = createTime;
         this.updateTime = updateTime;
         this.enable = enable;
-
         this.name = name;
         this.phone = phone;
         this.province = province;
@@ -112,11 +110,11 @@ public class User {
         this.answer = answer == null ? null : answer.trim();
     }
 
-    public Integer getRole() {
+    public String getRole() {
         return role;
     }
 
-    public void setRole(Integer role) {
+    public void setRole(String role) {
         this.role = role;
     }
 
@@ -144,7 +142,6 @@ public class User {
         this.enable = enable;
     }
 
-
     public String getName() {
         return name;
     }
@@ -152,12 +149,9 @@ public class User {
         this.name = name == null ? null : name.trim();
     }
 
-    public String getPhone() {
-        return phone;
-    }
-    public void setPhone(String phone) {
-        this.phone = phone == null ? null : phone.trim();
-    }
+    public String getPhone() {return phone;}
+    public void setPhone(String phone) {this.phone = phone == null ? null : phone.trim();}
+
 
     public String getProvince() {
         return province;
@@ -187,10 +181,10 @@ public class User {
         this.addr = addr == null ? null : addr.trim();
     }
 
-    public Integer getLvl() {
+    public String getLvl() {
         return lvl;
     }
-    public void setLvl(Integer lvl) {
+    public void setLvl(String lvl) {
         this.lvl = lvl;
     }
 

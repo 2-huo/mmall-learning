@@ -2,6 +2,8 @@ package com.mmall.service;
 
 import com.mmall.common.ServerResponse;
 import com.mmall.pojo.User;
+import com.github.pagehelper.PageInfo;
+
 
 /**
  * Created by geely
@@ -12,7 +14,11 @@ public interface IUserService {
 
     ServerResponse<String> register(User user);
 
+    // 申请升级
     ServerResponse<String> userUpgrade(Integer id, User user);
+
+    // 审核升级
+    ServerResponse<PageInfo> getUserList(int pageNum, int pageSize);
 
     ServerResponse<String> checkValid(String str, String type);
 
@@ -29,4 +35,9 @@ public interface IUserService {
     ServerResponse<User> getInformation(Integer userId);
 
     ServerResponse checkAdminRole(User user);
+
+    ServerResponse checkAdminRoleTest(User user);
+
+    // 审核通过
+    ServerResponse<String> setUserPass(Integer userId, String role, Integer status);
 }
