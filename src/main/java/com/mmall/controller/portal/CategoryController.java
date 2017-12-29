@@ -45,8 +45,11 @@ public class CategoryController {
         if(user == null){
             return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(),"用户未登录,请登录");
         }
-        //查询子节点的category信息,并且不递归,保持平级
-        return iCategoryService.getChildrenParallelCategory(categoryId);
-
+        if(iUserService.checkAdminRole(user).isSuccess()) {
+            //查询子节点的category信息,并且不递归,保持平级
+            return iCategoryService.getChildrenParallelCategory(categoryId);
+        } else {
+            return ServerResponse.createByErrorMessage("无权限操作");
+        }
     }
 }
