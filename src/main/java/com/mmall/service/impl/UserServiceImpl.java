@@ -1,21 +1,15 @@
 package com.mmall.service.impl;
 
-import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
-import com.google.common.collect.Lists;
 import com.mmall.common.Const;
-import com.mmall.common.ResponseCode;
 import com.mmall.common.ServerResponse;
 import com.mmall.common.TokenCache;
 import com.mmall.dao.UserMapper;
 import com.mmall.pojo.User;
 import com.mmall.service.IUserService;
 import com.mmall.util.MD5Util;
-import com.mmall.vo.UserListVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.UUID;
 
 /**
@@ -65,14 +59,25 @@ public class UserServiceImpl implements IUserService {
         if(resultCount == 0){
             return ServerResponse.createByErrorMessage("注册失败");
         }
-        return ServerResponse.createBySuccessMessage("注册成功");
+        return ServerResponse.createBySuccessMessage("注册成功，请耐心等待管理员审核!!!!!!!");
     }
 
 
     @Override
     public ServerResponse<String> userUpgrade(Integer id, User user) {
         User originUser = userMapper.selectByPrimaryKey(id);
+//        User originUser = new User();
+//         旧
+//        originUser.setId(user.getId());
+//        originUser.setUsername(user.getUsername());
+//        originUser.setPassword(user.getPassword());
+//        originUser.setEmail(user.getEmail());
+//        originUser.setQuestion(user.getQuestion());
+//        originUser.setAnswer(user.getAnswer());
+//        originUser.setRole(Const.Role.ROLE_CUSTOMER);
+//        originUser.setEnable(true);
 //         新
+        originUser.setRole(user.getRole());
         originUser.setName(user.getName());
         originUser.setPhone(user.getPhone());
         originUser.setProvince(user.getProvince());
@@ -80,13 +85,16 @@ public class UserServiceImpl implements IUserService {
         originUser.setDistrict(user.getDistrict());
         originUser.setAddr(user.getAddr());
         originUser.setLvl(user.getLvl());
-        originUser.setRole(user.getRole());
-        if(originUser.getRole().equals(Const.Role.ROLE_PIFA)||originUser.getRole().equals(Const.Role.ROLE_ST)) {
-            User userTwice = userMapper.selectCheckByPrimaryKey(id);
-            if(userTwice != null) {
-                return ServerResponse.createByErrorMessage("请不要重复申请");
+        if(originUser.getRole() == 2) {
+            int upgradeCount = userMapper.insertPf(originUser);
+            if(upgradeCount == 0) {
+                return ServerResponse.createByErrorMessage("申请失败");
             }
-            int upgradeCount = userMapper.insertCheck(originUser);
+            return ServerResponse.createBySuccessMessage("申请成功，请耐心等待审核！");
+        } else if (originUser.getRole() == 3) {
+            int upgradeCount = userMapper.insertSt(originUser);
+//        int deleteCount = userMapper.deleteByPrimaryKey(id);
+//        if(upgradeCount == 0 && deleteCount == 0){
             if(upgradeCount == 0) {
                 return ServerResponse.createByErrorMessage("申请失败");
             }
@@ -94,84 +102,6 @@ public class UserServiceImpl implements IUserService {
         }
         return ServerResponse.createByErrorMessage("申请失败");
     }
-
-
-    // 审核通过
-    public ServerResponse<String> setUserPass(Integer userId, String role, Integer status) {
-        if(userId == null || role == null || status == null){
-            return ServerResponse.createByErrorCodeMessage(ResponseCode.ILLEGAL_ARGUMENT.getCode(),ResponseCode.ILLEGAL_ARGUMENT.getDesc());
-        }
-        // status 1代表审核通过 2代表审核失败, 直接删去表数据
-        // user表
-        User originUser = userMapper.selectByPrimaryKey(userId);
-        if((role.equals(Const.Role.ROLE_PIFA)||role.equals(Const.Role.ROLE_ST)) && status == 1) {
-            // user_check表
-            User user = userMapper.selectCheckByPrimaryKey(userId);
-            if(user == null) {
-                return ServerResponse.createByErrorMessage("ID错误, 未找到该用户");
-            }
-            originUser.setName(user.getName());
-            originUser.setPhone(user.getPhone());
-            originUser.setProvince(user.getProvince());
-            originUser.setCity(user.getCity());
-            originUser.setDistrict(user.getDistrict());
-            originUser.setAddr(user.getAddr());
-            originUser.setLvl(user.getLvl());
-            originUser.setRole(user.getRole());
-            int upgradeCount = userMapper.insertOri(originUser);
-            int deleteCount = userMapper.deleteCheckByPrimaryKey(userId);
-            if(upgradeCount == 0 && deleteCount == 0) {
-                return ServerResponse.createByErrorMessage("审核操作失败");
-            }
-            return ServerResponse.createBySuccessMessage("审核操作成功");
-        } else if ((role.equals(Const.Role.ROLE_PIFA)||role.equals(Const.Role.ROLE_ST)) && status == 2) {
-            User user = userMapper.selectCheckByPrimaryKey(userId);
-            if(user == null) {
-                return ServerResponse.createByErrorMessage("ID错误, 未找到该用户");
-            }
-            // 审核不通过, 直接删掉表数据即可
-            int deleteCount = userMapper.deleteCheckByPrimaryKey(userId);
-            if(deleteCount == 0) {
-                return ServerResponse.createByErrorMessage("审核操作失败");
-            }
-            return ServerResponse.createBySuccessMessage("审核操作成功");
-        }
-        return ServerResponse.createByErrorMessage("审核操作失败");
-    }
-
-
-    public ServerResponse<PageInfo> getUserList(int pageNum, int pageSize) {
-        PageHelper.startPage(pageNum,pageSize);
-
-        List<User> userList = userMapper.selectList();
-        List<UserListVo> userListVoList = Lists.newArrayList();
-
-        for(User userItem : userList){
-            UserListVo userListVo = assembleUserListVo(userItem);
-            userListVoList.add(userListVo);
-        }
-
-        PageInfo pageResult = new PageInfo(userList);
-        pageResult.setList(userListVoList);
-        return ServerResponse.createBySuccess(pageResult);
-    }
-
-    private UserListVo assembleUserListVo(User user) {
-        UserListVo userListVo = new UserListVo();
-        userListVo.setId(user.getId());
-        userListVo.setUsername(user.getUsername());
-        userListVo.setName(user.getName());
-        userListVo.setPhone(user.getPhone());
-        userListVo.setProvince(user.getProvince());
-        userListVo.setCity(user.getCity());
-        userListVo.setDistrict(user.getDistrict());
-        userListVo.setAddr(user.getAddr());
-        userListVo.setRole(user.getRole());
-        userListVo.setLvl(user.getLvl());
-        return userListVo;
-    }
-
-
 
     public ServerResponse<String> checkValid(String str,String type){
         if(org.apache.commons.lang3.StringUtils.isNotBlank(type)){
@@ -303,18 +233,11 @@ public class UserServiceImpl implements IUserService {
      * @return
      */
     public ServerResponse checkAdminRole(User user){
-        if(user != null && user.getRole().equals(Const.Role.ROLE_ADMIN)){
+        if(user != null && user.getRole().intValue() == Const.Role.ROLE_ADMIN){
             return ServerResponse.createBySuccess();
-        } else if (user != null && user.getRole().equals(Const.Role.ROLE_PIFA)) {
+        } else if (user != null && user.getRole().intValue() == Const.Role.ROLE_PIFA) {
             return ServerResponse.createBySuccess();
-        } else if (user != null && user.getRole().equals(Const.Role.ROLE_ST)) {
-            return ServerResponse.createBySuccess();
-        }
-        return ServerResponse.createByError();
-    }
-
-    public ServerResponse checkAdminRoleTest(User user){
-        if(user != null && user.getRole().equals(Const.Role.ROLE_ADMIN)){
+        } else if (user != null && user.getRole().intValue() == Const.Role.ROLE_ST) {
             return ServerResponse.createBySuccess();
         }
         return ServerResponse.createByError();

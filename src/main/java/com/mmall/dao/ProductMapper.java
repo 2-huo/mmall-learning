@@ -6,7 +6,7 @@ import org.apache.ibatis.annotations.Param;
 import java.util.List;
 
 public interface ProductMapper {
-    int deleteByPrimaryKey(@Param("id") Integer id, @Param("username") String username);
+    int deleteByPrimaryKey(Integer id);
 
     int insert(Product record);
 
