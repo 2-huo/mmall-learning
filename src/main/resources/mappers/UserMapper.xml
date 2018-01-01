@@ -20,8 +20,8 @@
       <arg column="city" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="district" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="addr" jdbcType="VARCHAR" javaType="java.lang.String" />
-      <arg column="shopname" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="lvl" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="shopname" jdbcType="VARCHAR" javaType="java.lang.String" />
     </constructor>
   </resultMap>
   <sql id="Base_Column_List" >
