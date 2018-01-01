@@ -37,8 +37,10 @@ public class User {
 
     private String lvl;
 
+    private String shopname;
 
-    public User(Integer id, String username, String password, String email, String question, String answer, String role, Date createTime, Date updateTime, Boolean enable, String name, String phone, String province, String city, String district, String addr, String lvl) {
+
+    public User(Integer id, String username, String password, String email, String question, String answer, String role, Date createTime, Date updateTime, Boolean enable, String name, String phone, String province, String city, String district, String addr, String lvl, String shopname) {
         this.id = id;
         this.username = username;
         this.password = password;
@@ -56,6 +58,7 @@ public class User {
         this.district = district;
         this.addr = addr;
         this.lvl = lvl;
+        this.shopname = shopname;
     }
 
     public User() {
@@ -187,5 +190,8 @@ public class User {
     public void setLvl(String lvl) {
         this.lvl = lvl;
     }
+
+    public String getShopname() {return shopname; }
+    public void setShopname(String shopname ) {this.shopname = shopname; }
 
 }

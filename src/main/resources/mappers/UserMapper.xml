@@ -20,11 +20,12 @@
       <arg column="city" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="district" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="addr" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="shopname" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="lvl" jdbcType="VARCHAR" javaType="java.lang.String" />
     </constructor>
   </resultMap>
   <sql id="Base_Column_List" >
-    id, username, password, email, question, answer, role, create_time, update_time, enable, name, phone, province, city, district, addr, lvl
+    id, username, password, email, question, answer, role, create_time, update_time, enable, name, phone, province, city, district, addr, lvl, shopname
   </sql>
 
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
@@ -77,7 +78,8 @@
       city = #{city, jdbcType=VARCHAR},
       district = #{district, jdbcType=VARCHAR},
       addr = #{addr, jdbcType=VARCHAR},
-      lvl = #{lvl, jdbcType=VARCHAR}
+      lvl = #{lvl, jdbcType=VARCHAR},
+      shopname = #{shopname, jdbcType=VARCHAR},
     where id = #{id,jdbcType=VARCHAR}
   </insert>
 
@@ -85,13 +87,13 @@
   <insert id="insertCheck" parameterType="com.mmall.pojo.User" >
     insert into mmall_user_check (id, username, password,
       email, question, answer, role, create_time,
-      update_time, enable, name, phone, province, city, district, addr, lvl )
+      update_time, enable, name, phone, province, city, district, addr, lvl, shopname )
     values (#{id,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR},
       #{email,jdbcType=VARCHAR},  #{question,jdbcType=VARCHAR},
       #{answer,jdbcType=VARCHAR}, #{role,jdbcType=VARCHAR}, now(),
       now(), #{enable,jdbcType=BIT}, #{name, jdbcType=VARCHAR}, #{phone, jdbcType=VARCHAR},
       #{province, jdbcType=VARCHAR}, #{city, jdbcType=VARCHAR}, #{district, jdbcType=VARCHAR},
-      #{addr, jdbcType=VARCHAR}, #{lvl, jdbcType=VARCHAR})
+      #{addr, jdbcType=VARCHAR}, #{lvl, jdbcType=VARCHAR}, #{shopname, jdbcType=VARCHAR},)
   </insert>
 
 
@@ -149,6 +151,9 @@
       <if test="lvl != null" >
         lvl,
       </if>
+      <if test="shopname != null" >
+        shopname,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -201,6 +206,9 @@
       </if>
       <if test="lvl != null" >
         #{lvl,jdbcType=VARCHAR},
+      </if>
+      <if test="shopname != null" >
+        #{shopname,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -255,6 +263,9 @@
       <if test="lvl != null" >
         lvl = #{lvl, jdbcType=VARCHAR},
       </if>
+      <if test="shopname != null" >
+        shopname = #{shopname, jdbcType=VARCHAR},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -276,6 +287,7 @@
       city = #{city, jdbcType=VARCHAR},
       district = #{district, jdbcType=VARCHAR},
       lvl = #{lvl, jdbcType=VARCHAR},
+      shopname = #{shopname, jdbcType=VARCHAR},
     where id = #{id,jdbcType=VARCHAR}
   </update>
   

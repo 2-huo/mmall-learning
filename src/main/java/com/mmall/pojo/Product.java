@@ -20,6 +20,8 @@ public class Product {
 
     private BigDecimal price;
 
+    private BigDecimal pfPrice;
+
     private Integer stock;
 
     private Integer status;
@@ -31,7 +33,7 @@ public class Product {
     // 所属用户
     private String username;
 
-    public Product(Integer id, Integer categoryId, String name, String subtitle, String mainImage, String subImages, String detail, BigDecimal price, Integer stock, Integer status, Date createTime, Date updateTime, String username) {
+    public Product(Integer id, Integer categoryId, String name, String subtitle, String mainImage, String subImages, String detail, BigDecimal price, BigDecimal pfPrice,Integer stock, Integer status, Date createTime, Date updateTime, String username) {
         this.id = id;
         this.categoryId = categoryId;
         this.name = name;
@@ -40,6 +42,7 @@ public class Product {
         this.subImages = subImages;
         this.detail = detail;
         this.price = price;
+        this.pfPrice = pfPrice;
         this.stock = stock;
         this.status = status;
         this.createTime = createTime;
@@ -114,6 +117,10 @@ public class Product {
     public void setPrice(BigDecimal price) {
         this.price = price;
     }
+
+    public  BigDecimal getPfprice() {return pfPrice; }
+
+    public void setPfprice(BigDecimal pfPrice) {this.pfPrice = pfPrice;}
 
     public Integer getStock() {
         return stock;

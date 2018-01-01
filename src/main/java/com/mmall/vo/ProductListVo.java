@@ -14,10 +14,12 @@ public class ProductListVo {
     private String subtitle;
     private String mainImage;
     private BigDecimal price;
+    private BigDecimal pfPrice;
 
     private Integer status;
 
     private String imageHost;
+
 
     public Integer getId() {
         return id;
@@ -66,6 +68,10 @@ public class ProductListVo {
     public void setPrice(BigDecimal price) {
         this.price = price;
     }
+
+    public  BigDecimal getPfprice() {return pfPrice; }
+
+    public void setPfprice(BigDecimal pfPrice) {this.pfPrice = pfPrice;}
 
     public Integer getStatus() {
         return status;
