@@ -132,8 +132,12 @@ public class ProductServiceImpl implements IProductService {
         return productDetailVo;
     }
 
+    // modified 0102
+//    public ServerResponse<PageInfo> getShopList(int pageNum,int pageSize){
+//    }
 
-    // modified
+
+        // modified
     public ServerResponse<PageInfo> getProductList(int pageNum,int pageSize, String username){
         PageHelper.startPage(pageNum,pageSize);
         // modified

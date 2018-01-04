@@ -81,6 +81,7 @@ public class UserServiceImpl implements IUserService {
         originUser.setAddr(user.getAddr());
         originUser.setLvl(user.getLvl());
         originUser.setRole(user.getRole());
+        originUser.setShopname(user.getShopname());
         if(originUser.getRole().equals(Const.Role.ROLE_PIFA)||originUser.getRole().equals(Const.Role.ROLE_ST)) {
             User userTwice = userMapper.selectCheckByPrimaryKey(id);
             if(userTwice != null) {
@@ -118,6 +119,7 @@ public class UserServiceImpl implements IUserService {
             originUser.setAddr(user.getAddr());
             originUser.setLvl(user.getLvl());
             originUser.setRole(user.getRole());
+            originUser.setShopname(user.getShopname());
             int upgradeCount = userMapper.insertOri(originUser);
             int deleteCount = userMapper.deleteCheckByPrimaryKey(userId);
             if(upgradeCount == 0 && deleteCount == 0) {

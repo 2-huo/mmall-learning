@@ -22,6 +22,9 @@ public interface IProductService {
     // modified
     ServerResponse<PageInfo> searchProduct(String productName, String username, int pageNum, int pageSize);
 
+    // modified 0102
+//    ServerResponse<PageInfo> getShopList(int pageNum, int pageSize);
+
     ServerResponse<ProductDetailVo> getProductDetail(Integer productId);
 
     ServerResponse<PageInfo> getProductByKeywordCategory(String keyword, Integer categoryId, int pageNum, int pageSize, String orderBy);
