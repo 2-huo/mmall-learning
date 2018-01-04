@@ -128,11 +128,15 @@ public class ProductController {
         }
     }
 
-//    @RequestMapping("search_shop.do")
-//    @ResponseBody
-//    public ServerResponse getShopList(HttpSession session, @RequestParam(value = "pageNum",defaultValue = "1") int pageNum,@RequestParam(value = "pageSize",defaultValue = "10") int pageSize){
-//        return iProductService.getShopList(pageNum,pageSize);
-//    }
+
+    @RequestMapping("shop_list.do")
+    @ResponseBody
+    public ServerResponse<PageInfo> shopList(@RequestParam(value = "keyword",required = false)String keyword,
+                                         @RequestParam(value = "pageNum",defaultValue = "1") int pageNum,
+                                         @RequestParam(value = "pageSize",defaultValue = "10") int pageSize){
+        return iProductService.getShopList(keyword,pageNum,pageSize);
+    }
+
 
     @RequestMapping("search.do")
     @ResponseBody

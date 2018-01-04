@@ -170,6 +170,7 @@ public class UserServiceImpl implements IUserService {
         userListVo.setAddr(user.getAddr());
         userListVo.setRole(user.getRole());
         userListVo.setLvl(user.getLvl());
+        userListVo.setShopname(user.getShopname());
         return userListVo;
     }
 

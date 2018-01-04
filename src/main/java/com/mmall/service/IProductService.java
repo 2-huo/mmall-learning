@@ -23,7 +23,7 @@ public interface IProductService {
     ServerResponse<PageInfo> searchProduct(String productName, String username, int pageNum, int pageSize);
 
     // modified 0102
-//    ServerResponse<PageInfo> getShopList(int pageNum, int pageSize);
+    ServerResponse<PageInfo> getShopList(String keyword, int pageNum, int pageSize);
 
     ServerResponse<ProductDetailVo> getProductDetail(Integer productId);
 

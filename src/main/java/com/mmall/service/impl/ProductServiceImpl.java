@@ -1,6 +1,5 @@
 package com.mmall.service.impl;
 
-import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.google.common.collect.Lists;
@@ -9,14 +8,17 @@ import com.mmall.common.ResponseCode;
 import com.mmall.common.ServerResponse;
 import com.mmall.dao.CategoryMapper;
 import com.mmall.dao.ProductMapper;
+import com.mmall.dao.ShopMapper;
 import com.mmall.pojo.Category;
 import com.mmall.pojo.Product;
+import com.mmall.pojo.Shop;
 import com.mmall.service.ICategoryService;
 import com.mmall.service.IProductService;
 import com.mmall.util.DateTimeUtil;
 import com.mmall.util.PropertiesUtil;
 import com.mmall.vo.ProductDetailVo;
 import com.mmall.vo.ProductListVo;
+import com.mmall.vo.ShopListVo;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -39,6 +41,9 @@ public class ProductServiceImpl implements IProductService {
 
     @Autowired
     private ICategoryService iCategoryService;
+
+    @Autowired
+    private ShopMapper shopMapper;
 
     public ServerResponse saveOrUpdateProduct(Product product){
         if(product != null)
@@ -132,11 +137,6 @@ public class ProductServiceImpl implements IProductService {
         return productDetailVo;
     }
 
-    // modified 0102
-//    public ServerResponse<PageInfo> getShopList(int pageNum,int pageSize){
-//    }
-
-
         // modified
     public ServerResponse<PageInfo> getProductList(int pageNum,int pageSize, String username){
         PageHelper.startPage(pageNum,pageSize);
@@ -198,6 +198,37 @@ public class ProductServiceImpl implements IProductService {
         }
         ProductDetailVo productDetailVo = assembleProductDetailVo(product);
         return ServerResponse.createBySuccess(productDetailVo);
+    }
+    public ServerResponse<PageInfo> getShopList(String keyword,int pageNum,int pageSize){
+        if(StringUtils.isBlank(keyword)){
+            return ServerResponse.createByErrorCodeMessage(ResponseCode.ILLEGAL_ARGUMENT.getCode(),ResponseCode.ILLEGAL_ARGUMENT.getDesc());
+        }
+        if(StringUtils.isNotBlank(keyword)){
+            keyword = new StringBuilder().append("%").append(keyword).append("%").toString();
+        }
+
+        PageHelper.startPage(pageNum,pageSize);
+
+        List<Shop> shopList = shopMapper.selectByName(keyword);
+
+        List<ShopListVo> shopListVoList = Lists.newArrayList();
+        for(Shop shop : shopList){
+            ShopListVo shopListVo = assembleShopListVo(shop);
+            shopListVoList.add(shopListVo);
+        }
+
+        PageInfo pageInfo = new PageInfo(shopList);
+        pageInfo.setList(shopListVoList);
+        return ServerResponse.createBySuccess(pageInfo);
+    }
+
+    private ShopListVo assembleShopListVo(Shop shop){
+        ShopListVo shopListVo = new ShopListVo();
+        shopListVo.setId(shop.getId());
+        shopListVo.setShopname(shop.getShopname());
+        shopListVo.setUsername(shop.getUsername());
+        shopListVo.setDesc(shop.getDesc());
+        return shopListVo;
     }
 
 

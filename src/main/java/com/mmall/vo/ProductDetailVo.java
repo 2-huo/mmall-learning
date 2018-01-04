@@ -15,6 +15,7 @@ public class ProductDetailVo {
     private String subImages;
     private String detail;
     private BigDecimal price;
+    private BigDecimal pfPrice;
     private Integer stock;
     private Integer status;
     private String createTime;
@@ -23,6 +24,10 @@ public class ProductDetailVo {
 
     private String imageHost;
     private Integer parentCategoryId;
+
+    public BigDecimal getPfPrice() {return pfPrice;}
+
+    public void setPfPrice(BigDecimal pfPrice) { this.pfPrice = pfPrice;}
 
     public Integer getId() {
         return id;
