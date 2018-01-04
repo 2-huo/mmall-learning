@@ -9,15 +9,15 @@ public class Shop {
     private Integer id;
     private String shopname;
     private String username;
-    private String desc;
+    private String shopdesc;
     private Date createTime;
     private Date updateTime;
 
-    public Shop(Integer id, String shopname, String username, String desc, Date createTime, Date updateTime) {
+    public Shop(Integer id, String shopname, String username, String shopdesc, Date createTime, Date updateTime) {
         this.id = id;
         this.shopname = shopname;
         this.username = username;
-        this.desc = desc;
+        this.shopdesc = shopdesc;
         this.createTime = createTime;
         this.updateTime = updateTime;
     }
@@ -47,12 +47,12 @@ public class Shop {
         this.username = username;
     }
 
-    public String getDesc() {
-        return desc;
+    public String getShopdesc() {
+        return shopdesc;
     }
 
-    public void setDesc(String desc) {
-        this.desc = desc;
+    public void setShopdesc(String shopdesc) {
+        this.shopdesc = shopdesc;
     }
 
     public Date getCreateTime() {

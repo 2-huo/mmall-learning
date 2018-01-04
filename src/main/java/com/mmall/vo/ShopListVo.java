@@ -7,7 +7,7 @@ public class ShopListVo {
     private Integer id;
     private String username;
     private String shopname;
-    private String desc;
+    private String shopdesc;
 
     public Integer getId() {
         return id;
@@ -33,11 +33,11 @@ public class ShopListVo {
         this.username = username;
     }
 
-    public String getDesc() {
-        return desc;
+    public String getShopdesc() {
+        return shopdesc;
     }
 
-    public void setDesc(String desc) {
-        this.desc = desc;
+    public void setShopdesc(String shopdesc) {
+        this.shopdesc = shopdesc;
     }
 }

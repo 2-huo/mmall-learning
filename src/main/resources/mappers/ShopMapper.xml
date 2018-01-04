@@ -1,19 +1,18 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.mmall.dao.ShopMapper" >
-    <resultMap id="BaseResultMap" type="com.mmall.pojo.Product" >
+    <resultMap id="BaseResultMap" type="com.mmall.pojo.Shop" >
         <constructor >
             <idArg column="id" jdbcType="INTEGER" javaType="java.lang.Integer" />
             <arg column="shopname" jdbcType="VARCHAR" javaType="java.lang.String" />
             <arg column="username" jdbcType="VARCHAR" javaType="java.lang.String" />
-            <arg column="desc" jdbcType="VARCHAR" javaType="java.lang.String" />
+            <arg column="shopdesc" jdbcType="VARCHAR" javaType="java.lang.String" />
             <arg column="create_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
             <arg column="update_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
-
         </constructor>
     </resultMap>
     <sql id="Base_Column_List" >
-        id, shopname, username, desc, create_time, update_time
+        id, shopname, username, shopdesc, create_time, update_time
     </sql>
     <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
         select
@@ -21,12 +20,12 @@
         from shop
         where id = #{id,jdbcType=INTEGER}
     </select>
-    <insert id="insert" parameterType="com.mmall.pojo.Product" >
-        insert into shop (id, shopname, username, desc, create_time, update_time)
-        values (#{id,jdbcType=INTEGER}, #{shopname,jdbcType=VARCHAR}, #{username,jdbcType=VARCHAR}, #{desc,jdbcType=VARCHAR},
+    <insert id="insert" parameterType="com.mmall.pojo.Shop" >
+        insert into shop (id, shopname, username, shopdesc, create_time, update_time)
+        values (#{id,jdbcType=INTEGER}, #{shopname,jdbcType=VARCHAR}, #{username,jdbcType=VARCHAR}, #{shopdesc,jdbcType=VARCHAR},
         now(), now())
     </insert>
-    <insert id="insertSelective" parameterType="com.mmall.pojo.Product" >
+    <insert id="insertSelective" parameterType="com.mmall.pojo.Shop" >
         insert into shop
         <trim prefix="(" suffix=")" suffixOverrides="," >
             <if test="id != null" >
@@ -38,8 +37,8 @@
             <if test="username != null" >
                 username,
             </if>
-            <if test="desc != null" >
-                desc,
+            <if test="shopdesc != null" >
+                shopdesc,
             </if>
             <if test="createTime != null" >
                 create_time,
@@ -58,8 +57,8 @@
             <if test="username != null" >
                 #{username,jdbcType=VARCHAR},
             </if>
-            <if test="desc != null" >
-                #{desc,jdbcType=VARCHAR},
+            <if test="shopdesc != null" >
+                #{shopdesc,jdbcType=VARCHAR},
             </if>
             <if test="createTime != null" >
                 now(),
@@ -69,11 +68,11 @@
             </if>
         </trim>
     </insert>
-    <update id="updateByPrimaryKeySelective" parameterType="com.mmall.pojo.Product" >
+    <update id="updateByPrimaryKeySelective" parameterType="com.mmall.pojo.Shop" >
         update shop
         <set >
-            <if test="categoryId != null" >
-                category_id = #{categoryId,jdbcType=INTEGER},
+            <if test="id != null" >
+                id = #{id,jdbcType=INTEGER},
             </if>
             <if test="shopname != null" >
                 shopname = #{shopname,jdbcType=VARCHAR},
@@ -81,8 +80,8 @@
             <if test="username != null" >
                 username = #{username,jdbcType=VARCHAR},
             </if>
-            <if test="desc != null" >
-                desc = #{desc,jdbcType=VARCHAR},
+            <if test="shopdesc != null" >
+                shopdesc = #{shopdesc,jdbcType=VARCHAR},
             </if>
             <if test="createTime != null" >
                 create_time = #{createTime,jdbcType=TIMESTAMP},
@@ -98,10 +97,7 @@
         SELECT
         <include refid="Base_Column_List"></include>
         from shop
-        where
-        <if test="shopname != null">
-            and name like #{shopname}
-        </if>
+        where shopname like #{shopname}
     </select>
 
 </mapper>

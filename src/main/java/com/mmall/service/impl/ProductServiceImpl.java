@@ -227,7 +227,7 @@ public class ProductServiceImpl implements IProductService {
         shopListVo.setId(shop.getId());
         shopListVo.setShopname(shop.getShopname());
         shopListVo.setUsername(shop.getUsername());
-        shopListVo.setDesc(shop.getDesc());
+        shopListVo.setShopdesc(shop.getShopdesc());
         return shopListVo;
     }
 
