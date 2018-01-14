@@ -122,6 +122,7 @@ public class ProductServiceImpl implements IProductService {
         productDetailVo.setName(product.getName());
         productDetailVo.setStatus(product.getStatus());
         productDetailVo.setStock(product.getStock());
+        productDetailVo.setShopname(product.getShopname());
 
         productDetailVo.setImageHost(PropertiesUtil.getProperty("ftp.server.http.prefix","http://img.psilocine.cn/"));
 
@@ -162,6 +163,7 @@ public class ProductServiceImpl implements IProductService {
         productListVo.setPrice(product.getPrice());
         productListVo.setSubtitle(product.getSubtitle());
         productListVo.setStatus(product.getStatus());
+        productListVo.setShopname(product.getShopname());
         return productListVo;
     }
 

@@ -20,6 +20,7 @@ public class ProductDetailVo {
     private Integer status;
     private String createTime;
     private String updateTime;
+    private String shopname;
 
 
     private String imageHost;
@@ -131,6 +132,14 @@ public class ProductDetailVo {
 
     public void setImageHost(String imageHost) {
         this.imageHost = imageHost;
+    }
+
+    public String getShopname() {
+        return shopname;
+    }
+
+    public void setShopname(String shopname) {
+        this.shopname = shopname;
     }
 
     public Integer getParentCategoryId() {

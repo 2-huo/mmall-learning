@@ -15,7 +15,7 @@ public class ProductListVo {
     private String mainImage;
     private BigDecimal price;
     private BigDecimal pfPrice;
-
+    private String shopname;
     private Integer status;
 
     private String imageHost;
@@ -87,5 +87,14 @@ public class ProductListVo {
 
     public void setImageHost(String imageHost) {
         this.imageHost = imageHost;
+    }
+
+    // 0114
+    public String getShopname() {
+        return shopname;
+    }
+
+    public void setShopname(String shopname) {
+        this.shopname = shopname;
     }
 }

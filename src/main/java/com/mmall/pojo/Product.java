@@ -33,7 +33,10 @@ public class Product {
     // 所属用户
     private String username;
 
-    public Product(Integer id, Integer categoryId, String name, String subtitle, String mainImage, String subImages, String detail, BigDecimal price, BigDecimal pfPrice,Integer stock, Integer status, Date createTime, Date updateTime, String username) {
+    // 所属店名
+    private  String shopname;
+
+    public Product(Integer id, Integer categoryId, String name, String subtitle, String mainImage, String subImages, String detail, BigDecimal price, BigDecimal pfPrice,Integer stock, Integer status, Date createTime, Date updateTime, String username, String shopname) {
         this.id = id;
         this.categoryId = categoryId;
         this.name = name;
@@ -48,6 +51,7 @@ public class Product {
         this.createTime = createTime;
         this.updateTime = updateTime;
         this.username = username;
+        this.shopname = shopname;
     }
 
     public Product() {
@@ -159,7 +163,16 @@ public class Product {
         return username;
     }
 
-    public void setUsername(String user) {
-        this.username = user;
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    // 0114
+    public String getShopname() {
+        return shopname;
+    }
+
+    public void setShopname(String shopname) {
+        this.shopname = shopname;
     }
 }
