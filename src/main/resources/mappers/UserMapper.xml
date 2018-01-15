@@ -79,7 +79,7 @@
       district = #{district, jdbcType=VARCHAR},
       addr = #{addr, jdbcType=VARCHAR},
       lvl = #{lvl, jdbcType=VARCHAR},
-      shopname = #{shopname, jdbcType=VARCHAR},
+      shopname = #{shopname, jdbcType=VARCHAR}
     where id = #{id,jdbcType=VARCHAR}
   </insert>
 

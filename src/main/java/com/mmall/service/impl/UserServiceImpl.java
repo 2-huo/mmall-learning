@@ -46,6 +46,7 @@ public class UserServiceImpl implements IUserService {
         return ServerResponse.createBySuccess("登录成功",user);
     }
 
+    @Override
     public ServerResponse<String> register(User user){
         ServerResponse validResponse = this.checkValid(user.getUsername(),Const.USERNAME);
         if(!validResponse.isSuccess()){
@@ -98,6 +99,7 @@ public class UserServiceImpl implements IUserService {
 
 
     // 审核通过
+    @Override
     public ServerResponse<String> setUserPass(Integer userId, String role, Integer status) {
         if(userId == null || role == null || status == null){
             return ServerResponse.createByErrorCodeMessage(ResponseCode.ILLEGAL_ARGUMENT.getCode(),ResponseCode.ILLEGAL_ARGUMENT.getDesc());
