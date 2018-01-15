@@ -22,6 +22,9 @@ public class Shop {
         this.updateTime = updateTime;
     }
 
+    public Shop() {
+        super();
+    }
 
     public Integer getId() {
         return id;

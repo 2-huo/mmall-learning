@@ -7,7 +7,9 @@ import com.mmall.common.Const;
 import com.mmall.common.ResponseCode;
 import com.mmall.common.ServerResponse;
 import com.mmall.common.TokenCache;
+import com.mmall.dao.ShopMapper;
 import com.mmall.dao.UserMapper;
+import com.mmall.pojo.Shop;
 import com.mmall.pojo.User;
 import com.mmall.service.IUserService;
 import com.mmall.util.MD5Util;
@@ -26,6 +28,9 @@ public class UserServiceImpl implements IUserService {
 
     @Autowired
     private UserMapper userMapper;
+
+    @Autowired
+    private ShopMapper shopMapper;
 
     @Override
     public ServerResponse<User> login(String username, String password) {
@@ -68,7 +73,6 @@ public class UserServiceImpl implements IUserService {
         }
         return ServerResponse.createBySuccessMessage("注册成功");
     }
-
 
     @Override
     public ServerResponse<String> userUpgrade(Integer id, User user) {
@@ -127,6 +131,13 @@ public class UserServiceImpl implements IUserService {
             if(upgradeCount == 0 && deleteCount == 0) {
                 return ServerResponse.createByErrorMessage("审核操作失败");
             }
+            // 0116 modified 添加进商铺表
+            Shop shop = new Shop();
+            shop.setShopname(originUser.getShopname());
+            shop.setUsername(originUser.getUsername());
+            int shopCount = shopMapper.insert(shop);
+            // 0116
+
             return ServerResponse.createBySuccessMessage("审核操作成功");
         } else if ((role.equals(Const.Role.ROLE_PIFA)||role.equals(Const.Role.ROLE_ST)) && status == 2) {
             User user = userMapper.selectCheckByPrimaryKey(userId);
