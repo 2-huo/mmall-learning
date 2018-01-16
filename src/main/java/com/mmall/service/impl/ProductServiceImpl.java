@@ -254,13 +254,6 @@ public class ProductServiceImpl implements IProductService {
     public ServerResponse<PageInfo> getShopProductList(int pageNum, int pageSize,Integer productId){
         PageHelper.startPage(pageNum,pageSize);
 
-        // 排序处理
-        String orderBy = "price_desc";
-        if(Const.ProductListOrderBy.PRICE_ASC_DESC.contains(orderBy)){
-            String[] orderByArray = orderBy.split("_");
-            PageHelper.orderBy(orderByArray[0]+" "+orderByArray[1]);
-        }
-
         // modified
         Shop shop = shopMapper.selectByPrimaryKey(productId);
         List<Product> productList = productMapper.selectList(shop.getUsername());
