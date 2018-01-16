@@ -17,9 +17,9 @@ public class ProductListVo {
     private BigDecimal pfPrice;
     private String shopname;
     private Integer status;
-
     private String imageHost;
-
+    private String createTime;
+    private String updateTime;
 
     public Integer getId() {
         return id;
@@ -97,4 +97,22 @@ public class ProductListVo {
     public void setShopname(String shopname) {
         this.shopname = shopname;
     }
+
+    // 0116
+    public String getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(String createTime) {
+        this.createTime = createTime;
+    }
+
+    public String getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(String updateTime) {
+        this.updateTime = updateTime;
+    }
+
 }

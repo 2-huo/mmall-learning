@@ -20,6 +20,14 @@
         from shop
         where id = #{id,jdbcType=INTEGER}
     </select>
+
+    <select id="selectByShopname" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from shop
+        where shopname = #{shopname,jdbcType=INTEGER}
+    </select>
+
     <insert id="insert" parameterType="com.mmall.pojo.Shop" >
         insert into shop (id, shopname, username, shopdesc, create_time, update_time)
         values (#{id,jdbcType=INTEGER}, #{shopname,jdbcType=VARCHAR}, #{username,jdbcType=VARCHAR}, #{shopdesc,jdbcType=VARCHAR},

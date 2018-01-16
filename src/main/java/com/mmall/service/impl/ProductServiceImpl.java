@@ -236,6 +236,11 @@ public class ProductServiceImpl implements IProductService {
 
     public ServerResponse<PageInfo> getShopProductList(int pageNum, int pageSize,Integer productId){
         PageHelper.startPage(pageNum,pageSize);
+        String desc = "updatetime_desc";
+        if(Const.ProductListOrderBy.TIME_ASC_DESC.contains(desc)){
+            String[] orderByArray = desc.split("_");
+            PageHelper.orderBy(orderByArray[0]+" "+orderByArray[1]);
+        }
         // modified
         Shop shop = shopMapper.selectByPrimaryKey(productId);
         List<Product> productList = productMapper.selectList(shop.getUsername());

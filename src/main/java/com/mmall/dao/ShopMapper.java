@@ -11,6 +11,9 @@ import java.util.List;
 public interface ShopMapper {
     Shop selectByPrimaryKey(Integer id);
 
+    // 0116
+    Shop selectByShopname(String shopname);
+
     int insert(Shop record);
 
     int insertSelective(Shop record);

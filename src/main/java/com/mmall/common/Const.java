@@ -16,6 +16,8 @@ public class Const {
 
     public interface ProductListOrderBy{
         Set<String> PRICE_ASC_DESC = Sets.newHashSet("price_desc","price_asc");
+        Set<String> TIME_ASC_DESC = Sets.newHashSet("updateTime_desc","updateTime_asc");
+
     }
 
     public interface Cart{
