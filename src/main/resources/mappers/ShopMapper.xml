@@ -100,4 +100,5 @@
         where shopname like #{shopname}
     </select>
 
+
 </mapper>

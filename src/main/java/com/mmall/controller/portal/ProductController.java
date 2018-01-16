@@ -59,6 +59,19 @@ public class ProductController {
         return iProductService.getProductByKeywordCategory(keyword,categoryId,pageNum,pageSize,orderBy);
     }
     // -----------------------
+
+    // 0116 modified shop-detail
+    @RequestMapping("shop_product_list.do")
+    @ResponseBody
+    public ServerResponse getShopProductList(
+            @RequestParam(value = "pageNum",defaultValue = "1") int pageNum,
+            @RequestParam(value = "pageSize",defaultValue = "10") int pageSize,
+            @RequestParam(value = "shopId",required = false)Integer shopId
+            ){
+        return iProductService.getShopProductList(pageNum,pageSize,shopId);
+    }
+    // 0116
+
     @RequestMapping("save.do")
     @ResponseBody
     public ServerResponse productSave(HttpSession session, Product product){
@@ -127,7 +140,6 @@ public class ProductController {
             return ServerResponse.createByErrorMessage("无权限操作");
         }
     }
-
 
     @RequestMapping("shop_list.do")
     @ResponseBody

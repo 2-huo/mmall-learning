@@ -201,6 +201,7 @@ public class ProductServiceImpl implements IProductService {
         ProductDetailVo productDetailVo = assembleProductDetailVo(product);
         return ServerResponse.createBySuccess(productDetailVo);
     }
+
     public ServerResponse<PageInfo> getShopList(String keyword,int pageNum,int pageSize){
         if(StringUtils.isBlank(keyword)){
             return ServerResponse.createByErrorCodeMessage(ResponseCode.ILLEGAL_ARGUMENT.getCode(),ResponseCode.ILLEGAL_ARGUMENT.getDesc());
@@ -233,6 +234,20 @@ public class ProductServiceImpl implements IProductService {
         return shopListVo;
     }
 
+    public ServerResponse<PageInfo> getShopProductList(int pageNum, int pageSize,Integer productId){
+        PageHelper.startPage(pageNum,pageSize);
+        // modified
+        Shop shop = shopMapper.selectByPrimaryKey(productId);
+        List<Product> productList = productMapper.selectList(shop.getUsername());
+        List<ProductListVo> productListVoList = Lists.newArrayList();
+        for(Product productItem : productList){
+            ProductListVo productListVo = assembleProductListVo(productItem);
+            productListVoList.add(productListVo);
+        }
+        PageInfo pageResult = new PageInfo(productList);
+        pageResult.setList(productListVoList);
+        return ServerResponse.createBySuccess(pageResult);
+    }
 
     public ServerResponse<PageInfo> getProductByKeywordCategory(String keyword,Integer categoryId,int pageNum,int pageSize,String orderBy){
         if(StringUtils.isBlank(keyword) && categoryId == null){
