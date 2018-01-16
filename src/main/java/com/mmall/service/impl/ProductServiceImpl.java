@@ -255,7 +255,7 @@ public class ProductServiceImpl implements IProductService {
         PageHelper.startPage(pageNum,pageSize);
 
         // 排序处理
-        String orderBy = "update_time_desc";
+        String orderBy = "price_desc";
         if(Const.ProductListOrderBy.TIME_ASC_DESC.contains(orderBy)){
             String[] orderByArray = orderBy.split("_");
             PageHelper.orderBy(orderByArray[0]+" "+orderByArray[1]);
