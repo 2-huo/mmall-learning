@@ -256,8 +256,10 @@ public class ProductServiceImpl implements IProductService {
 
         // 排序处理
         String orderBy = "price_desc";
-        String[] orderByArray = orderBy.split("_");
-        PageHelper.orderBy(orderByArray[0]+" "+orderByArray[1]);
+        if(Const.ProductListOrderBy.PRICE_ASC_DESC.contains(orderBy)){
+            String[] orderByArray = orderBy.split("_");
+            PageHelper.orderBy(orderByArray[0]+" "+orderByArray[1]);
+        }
 
         // modified
         Shop shop = shopMapper.selectByPrimaryKey(productId);
