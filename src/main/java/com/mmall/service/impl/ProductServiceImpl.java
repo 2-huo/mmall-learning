@@ -167,22 +167,7 @@ public class ProductServiceImpl implements IProductService {
         return productListVo;
     }
 
-    // 0116
-    private ProductListVo assembleShopProductListVo(Product product){
-        ProductListVo productListVo = new ProductListVo();
-        productListVo.setId(product.getId());
-        productListVo.setName(product.getName());
-        productListVo.setCategoryId(product.getCategoryId());
-        productListVo.setImageHost(PropertiesUtil.getProperty("ftp.server.http.prefix","http://img.psilocine.cn/"));
-        productListVo.setMainImage(product.getMainImage());
-        productListVo.setPrice(product.getPrice());
-        productListVo.setSubtitle(product.getSubtitle());
-        productListVo.setStatus(product.getStatus());
-        productListVo.setShopname(product.getShopname());
-        productListVo.setCreateTime(product.getCreateTime());
-        productListVo.setUpdateTime(product.getCreateTime());
-        return productListVo;
-    }
+
 
     public ServerResponse<PageInfo> searchProduct(String productName,String username,int pageNum,int pageSize){
         PageHelper.startPage(pageNum,pageSize);
@@ -249,11 +234,28 @@ public class ProductServiceImpl implements IProductService {
         return shopListVo;
     }
 
+    // 0116
+    private ProductListVo assembleShopProductListVo(Product product){
+        ProductListVo productListVo = new ProductListVo();
+        productListVo.setId(product.getId());
+        productListVo.setName(product.getName());
+        productListVo.setCategoryId(product.getCategoryId());
+        productListVo.setImageHost(PropertiesUtil.getProperty("ftp.server.http.prefix","http://img.psilocine.cn/"));
+        productListVo.setMainImage(product.getMainImage());
+        productListVo.setPrice(product.getPrice());
+        productListVo.setSubtitle(product.getSubtitle());
+        productListVo.setStatus(product.getStatus());
+        productListVo.setShopname(product.getShopname());
+        productListVo.setCreateTime(product.getCreateTime());
+        productListVo.setUpdateTime(product.getCreateTime());
+        return productListVo;
+    }
+
     public ServerResponse<PageInfo> getShopProductList(int pageNum, int pageSize,Integer productId){
         PageHelper.startPage(pageNum,pageSize);
 
         // 排序处理
-        String orderBy = "updatetime_desc";
+        String orderBy = "updateTime_desc";
         if(Const.ProductListOrderBy.TIME_ASC_DESC.contains(orderBy)){
             String[] orderByArray = orderBy.split("_");
             PageHelper.orderBy(orderByArray[0]+" "+orderByArray[1]);
@@ -270,6 +272,10 @@ public class ProductServiceImpl implements IProductService {
         pageResult.setList(productListVoList);
         return ServerResponse.createBySuccess(pageResult);
     }
+    // 0116
+
+
+
 
     public ServerResponse<PageInfo> getProductByKeywordCategory(String keyword,Integer categoryId,int pageNum,int pageSize,String orderBy){
         if(StringUtils.isBlank(keyword) && categoryId == null){
