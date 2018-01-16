@@ -167,6 +167,22 @@ public class ProductServiceImpl implements IProductService {
         return productListVo;
     }
 
+    // 0116
+    private ProductListVo assembleShopProductListVo(Product product){
+        ProductListVo productListVo = new ProductListVo();
+        productListVo.setId(product.getId());
+        productListVo.setName(product.getName());
+        productListVo.setCategoryId(product.getCategoryId());
+        productListVo.setImageHost(PropertiesUtil.getProperty("ftp.server.http.prefix","http://img.psilocine.cn/"));
+        productListVo.setMainImage(product.getMainImage());
+        productListVo.setPrice(product.getPrice());
+        productListVo.setSubtitle(product.getSubtitle());
+        productListVo.setStatus(product.getStatus());
+        productListVo.setShopname(product.getShopname());
+        productListVo.setCreateTime(String.valueOf(product.getCreateTime()));
+        productListVo.setUpdateTime(String.valueOf(product.getCreateTime()));
+        return productListVo;
+    }
 
 
     public ServerResponse<PageInfo> searchProduct(String productName,String username,int pageNum,int pageSize){
@@ -246,7 +262,7 @@ public class ProductServiceImpl implements IProductService {
         List<Product> productList = productMapper.selectList(shop.getUsername());
         List<ProductListVo> productListVoList = Lists.newArrayList();
         for(Product productItem : productList){
-            ProductListVo productListVo = assembleProductListVo(productItem);
+            ProductListVo productListVo = assembleShopProductListVo(productItem);
             productListVoList.add(productListVo);
         }
         PageInfo pageResult = new PageInfo(productList);
