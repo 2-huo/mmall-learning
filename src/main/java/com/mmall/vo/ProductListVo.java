@@ -1,6 +1,7 @@
 package com.mmall.vo;
 
 import java.math.BigDecimal;
+import java.util.Date;
 
 /**
  * Created by geely
@@ -18,8 +19,8 @@ public class ProductListVo {
     private String shopname;
     private Integer status;
     private String imageHost;
-    private String createTime;
-    private String updateTime;
+    private Date createTime;
+    private Date updateTime;
 
     public Integer getId() {
         return id;
@@ -99,19 +100,19 @@ public class ProductListVo {
     }
 
     // 0116
-    public String getCreateTime() {
+    public Date getCreateTime() {
         return createTime;
     }
 
-    public void setCreateTime(String createTime) {
+    public void setCreateTime(Date createTime) {
         this.createTime = createTime;
     }
 
-    public String getUpdateTime() {
+    public Date getUpdateTime() {
         return updateTime;
     }
 
-    public void setUpdateTime(String updateTime) {
+    public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
     }
 

@@ -138,7 +138,7 @@ public class ProductServiceImpl implements IProductService {
         return productDetailVo;
     }
 
-        // modified
+    // modified
     public ServerResponse<PageInfo> getProductList(int pageNum,int pageSize, String username){
         PageHelper.startPage(pageNum,pageSize);
         // modified
@@ -179,11 +179,10 @@ public class ProductServiceImpl implements IProductService {
         productListVo.setSubtitle(product.getSubtitle());
         productListVo.setStatus(product.getStatus());
         productListVo.setShopname(product.getShopname());
-        productListVo.setCreateTime(String.valueOf(product.getCreateTime()));
-        productListVo.setUpdateTime(String.valueOf(product.getCreateTime()));
+        productListVo.setCreateTime(product.getCreateTime());
+        productListVo.setUpdateTime(product.getCreateTime());
         return productListVo;
     }
-
 
     public ServerResponse<PageInfo> searchProduct(String productName,String username,int pageNum,int pageSize){
         PageHelper.startPage(pageNum,pageSize);
@@ -252,9 +251,11 @@ public class ProductServiceImpl implements IProductService {
 
     public ServerResponse<PageInfo> getShopProductList(int pageNum, int pageSize,Integer productId){
         PageHelper.startPage(pageNum,pageSize);
-        String desc = "updatetime_desc";
-        if(Const.ProductListOrderBy.TIME_ASC_DESC.contains(desc)){
-            String[] orderByArray = desc.split("_");
+
+        // 排序处理
+        String orderBy = "updatetime_desc";
+        if(Const.ProductListOrderBy.TIME_ASC_DESC.contains(orderBy)){
+            String[] orderByArray = orderBy.split("_");
             PageHelper.orderBy(orderByArray[0]+" "+orderByArray[1]);
         }
         // modified
