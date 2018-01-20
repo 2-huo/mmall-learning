@@ -16,7 +16,6 @@ public class ProductDetailVo {
     private String detail;
     private BigDecimal price;
     private BigDecimal pfPrice;
-    private Integer stock;
     private Integer status;
     private String createTime;
     private String updateTime;
@@ -92,14 +91,6 @@ public class ProductDetailVo {
 
     public void setPrice(BigDecimal price) {
         this.price = price;
-    }
-
-    public Integer getStock() {
-        return stock;
-    }
-
-    public void setStock(Integer stock) {
-        this.stock = stock;
     }
 
     public Integer getStatus() {

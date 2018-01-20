@@ -121,7 +121,6 @@ public class ProductServiceImpl implements IProductService {
         productDetailVo.setDetail(product.getDetail());
         productDetailVo.setName(product.getName());
         productDetailVo.setStatus(product.getStatus());
-        productDetailVo.setStock(product.getStock());
         productDetailVo.setShopname(product.getShopname());
 
         productDetailVo.setImageHost(PropertiesUtil.getProperty("ftp.server.http.prefix","http://img.psilocine.cn/"));

@@ -22,8 +22,6 @@ public class Product {
 
     private BigDecimal pfPrice;
 
-    private Integer stock;
-
     private Integer status;
 
     private Date createTime;
@@ -36,7 +34,7 @@ public class Product {
     // 所属店名
     private  String shopname;
 
-    public Product(Integer id, Integer categoryId, String name, String subtitle, String mainImage, String subImages, String detail, BigDecimal price, BigDecimal pfPrice,Integer stock, Integer status, Date createTime, Date updateTime, String username, String shopname) {
+    public Product(Integer id, Integer categoryId, String name, String subtitle, String mainImage, String subImages, String detail, BigDecimal price, BigDecimal pfPrice, Integer status, Date createTime, Date updateTime, String username, String shopname) {
         this.id = id;
         this.categoryId = categoryId;
         this.name = name;
@@ -46,7 +44,6 @@ public class Product {
         this.detail = detail;
         this.price = price;
         this.pfPrice = pfPrice;
-        this.stock = stock;
         this.status = status;
         this.createTime = createTime;
         this.updateTime = updateTime;
@@ -125,14 +122,6 @@ public class Product {
     public  BigDecimal getPfprice() {return pfPrice; }
 
     public void setPfprice(BigDecimal pfPrice) {this.pfPrice = pfPrice;}
-
-    public Integer getStock() {
-        return stock;
-    }
-
-    public void setStock(Integer stock) {
-        this.stock = stock;
-    }
 
     public Integer getStatus() {
         return status;
