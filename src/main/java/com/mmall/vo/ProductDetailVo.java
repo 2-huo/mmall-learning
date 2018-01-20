@@ -20,6 +20,7 @@ public class ProductDetailVo {
     private String createTime;
     private String updateTime;
     private String shopname;
+    private String username;
 
 
     private String imageHost;
@@ -139,5 +140,13 @@ public class ProductDetailVo {
 
     public void setParentCategoryId(Integer parentCategoryId) {
         this.parentCategoryId = parentCategoryId;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 }

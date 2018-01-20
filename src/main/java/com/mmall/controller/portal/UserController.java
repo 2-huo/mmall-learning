@@ -21,10 +21,8 @@ import javax.servlet.http.HttpSession;
 @RequestMapping("/user/")
 public class UserController {
 
-
     @Autowired
     private IUserService iUserService;
-
 
     /**
      * 用户登录
@@ -42,7 +40,6 @@ public class UserController {
         }
         return response;
     }
-
 
     @RequestMapping(value = "logout.do",method = RequestMethod.POST)
     @ResponseBody
@@ -68,8 +65,6 @@ public class UserController {
         return iUserService.userUpgrade(currentUser.getId(),user);
     }
 
-
-
     @RequestMapping(value = "update_information.do",method = RequestMethod.POST)
     @ResponseBody
     public ServerResponse<User> update_information(HttpSession session,User user){
@@ -87,7 +82,6 @@ public class UserController {
         return response;
     }
 
-
     @RequestMapping(value = "check_valid.do",method = RequestMethod.POST)
     @ResponseBody
     public ServerResponse<String> checkValid(String str,String type){
@@ -104,7 +98,6 @@ public class UserController {
         }
         return ServerResponse.createByErrorMessage("用户未登录,无法获取当前用户的信息");
     }
-
 
     @RequestMapping(value = "forget_get_question.do",method = RequestMethod.POST)
     @ResponseBody
@@ -125,8 +118,6 @@ public class UserController {
     public ServerResponse<String> forgetRestPassword(String username,String passwordNew,String forgetToken){
         return iUserService.forgetResetPassword(username,passwordNew,forgetToken);
     }
-
-
 
     @RequestMapping(value = "reset_password.do",method = RequestMethod.POST)
     @ResponseBody
@@ -177,5 +168,4 @@ public class UserController {
             return ServerResponse.createByErrorMessage("无权限操作");
         }
     }
-
 }

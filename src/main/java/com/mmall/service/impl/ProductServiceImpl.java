@@ -97,7 +97,6 @@ public class ProductServiceImpl implements IProductService {
         return ServerResponse.createByErrorMessage("修改产品销售状态失败");
     }
 
-
     public ServerResponse<ProductDetailVo> manageProductDetail(Integer productId){
         if(productId == null){
             return ServerResponse.createByErrorCodeMessage(ResponseCode.ILLEGAL_ARGUMENT.getCode(),ResponseCode.ILLEGAL_ARGUMENT.getDesc());
@@ -108,33 +107,6 @@ public class ProductServiceImpl implements IProductService {
         }
         ProductDetailVo productDetailVo = assembleProductDetailVo(product);
         return ServerResponse.createBySuccess(productDetailVo);
-    }
-
-    private ProductDetailVo assembleProductDetailVo(Product product){
-        ProductDetailVo productDetailVo = new ProductDetailVo();
-        productDetailVo.setId(product.getId());
-        productDetailVo.setSubtitle(product.getSubtitle());
-        productDetailVo.setPrice(product.getPrice());
-        productDetailVo.setMainImage(product.getMainImage());
-        productDetailVo.setSubImages(product.getSubImages());
-        productDetailVo.setCategoryId(product.getCategoryId());
-        productDetailVo.setDetail(product.getDetail());
-        productDetailVo.setName(product.getName());
-        productDetailVo.setStatus(product.getStatus());
-        productDetailVo.setShopname(product.getShopname());
-
-        productDetailVo.setImageHost(PropertiesUtil.getProperty("ftp.server.http.prefix","http://img.psilocine.cn/"));
-
-        Category category = categoryMapper.selectByPrimaryKey(product.getCategoryId());
-        if(category == null){
-            productDetailVo.setParentCategoryId(0);//默认根节点
-        }else{
-            productDetailVo.setParentCategoryId(category.getParentId());
-        }
-
-        productDetailVo.setCreateTime(DateTimeUtil.dateToStr(product.getCreateTime()));
-        productDetailVo.setUpdateTime(DateTimeUtil.dateToStr(product.getUpdateTime()));
-        return productDetailVo;
     }
 
     // modified
@@ -166,8 +138,6 @@ public class ProductServiceImpl implements IProductService {
         return productListVo;
     }
 
-
-
     public ServerResponse<PageInfo> searchProduct(String productName,String username,int pageNum,int pageSize){
         PageHelper.startPage(pageNum,pageSize);
         if(StringUtils.isNotBlank(productName)){
@@ -185,6 +155,33 @@ public class ProductServiceImpl implements IProductService {
         return ServerResponse.createBySuccess(pageResult);
     }
 
+
+    private ProductDetailVo assembleProductDetailVo(Product product){
+        ProductDetailVo productDetailVo = new ProductDetailVo();
+        productDetailVo.setId(product.getId());
+        productDetailVo.setSubtitle(product.getSubtitle());
+        productDetailVo.setPrice(product.getPrice());
+        productDetailVo.setMainImage(product.getMainImage());
+        productDetailVo.setSubImages(product.getSubImages());
+        productDetailVo.setCategoryId(product.getCategoryId());
+        productDetailVo.setName(product.getName());
+        productDetailVo.setStatus(product.getStatus());
+        productDetailVo.setShopname(product.getShopname());
+        productDetailVo.setUsername(product.getUsername());
+
+        productDetailVo.setImageHost(PropertiesUtil.getProperty("ftp.server.http.prefix","http://img.psilocine.cn/"));
+
+        Category category = categoryMapper.selectByPrimaryKey(product.getCategoryId());
+        if(category == null){
+            productDetailVo.setParentCategoryId(0);//默认根节点
+        }else{
+            productDetailVo.setParentCategoryId(category.getParentId());
+        }
+
+        productDetailVo.setCreateTime(DateTimeUtil.dateToStr(product.getCreateTime()));
+        productDetailVo.setUpdateTime(DateTimeUtil.dateToStr(product.getUpdateTime()));
+        return productDetailVo;
+    }
 
     public ServerResponse<ProductDetailVo> getProductDetail(Integer productId){
         if(productId == null){
@@ -265,7 +262,7 @@ public class ProductServiceImpl implements IProductService {
         pageResult.setList(productListVoList);
         return ServerResponse.createBySuccess(pageResult);
     }
-    // 0116
+    // 0116 end
 
 
 
@@ -312,6 +309,12 @@ public class ProductServiceImpl implements IProductService {
         return ServerResponse.createBySuccess(pageInfo);
     }
 
+    // 0120 getShopDetail
+    public ServerResponse<Shop> getShopDetail(String shopname){
+        Shop shop = shopMapper.selectByShopname(shopname);
+        return ServerResponse.createBySuccess(shop);
+    }
+    // 0120
 
 
 
@@ -336,5 +339,4 @@ public class ProductServiceImpl implements IProductService {
 
 
 
-
-}
+    }

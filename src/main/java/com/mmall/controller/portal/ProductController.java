@@ -6,12 +6,14 @@ import com.mmall.common.Const;
 import com.mmall.common.ResponseCode;
 import com.mmall.common.ServerResponse;
 import com.mmall.pojo.Product;
+import com.mmall.pojo.Shop;
 import com.mmall.pojo.User;
 import com.mmall.service.IFileService;
 import com.mmall.service.IProductService;
 import com.mmall.service.IUserService;
 import com.mmall.util.PropertiesUtil;
 import com.mmall.vo.ProductDetailVo;
+import com.mmall.vo.ShopListVo;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -70,7 +72,16 @@ public class ProductController {
             ){
         return iProductService.getShopProductList(pageNum,pageSize,shopId);
     }
-    // 0116
+    // 0116 end
+
+    // 0120 get shop detail
+    @RequestMapping("shop_detail.do")
+    @ResponseBody
+    public ServerResponse<Shop> getShopDetail(String shopname){
+        return iProductService.getShopDetail(shopname);
+    }
+    // 0120 end
+
 
     @RequestMapping("save.do")
     @ResponseBody

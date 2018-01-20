@@ -21,7 +21,7 @@
         where id = #{id,jdbcType=INTEGER}
     </select>
 
-    <select id="selectByShopname" resultMap="BaseResultMap">
+    <select id="selectByShopname" resultMap="BaseResultMap" parameterType="java.lang.String" >
         select
         <include refid="Base_Column_List" />
         from shop
