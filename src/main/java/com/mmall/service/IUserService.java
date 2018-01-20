@@ -40,4 +40,8 @@ public interface IUserService {
 
     // 审核通过
     ServerResponse<String> setUserPass(Integer userId, String role, Integer status);
+
+    // 0120
+    ServerResponse<User> getShopOwner(String username);
+
 }

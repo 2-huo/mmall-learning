@@ -35,6 +35,15 @@
     where id = #{id,jdbcType=INTEGER}
   </select>
 
+  <!--0120-->
+  <select id="selectByUsername" resultMap="BaseResultMap" parameterType="string" >
+    select
+    <include refid="Base_Column_List" />
+    from mmall_user
+    where username = #{username,jdbcType=INTEGER}
+  </select>
+  <!--0120 end-->
+
   <select id="selectCheckByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select
     <include refid="Base_Column_List" />

@@ -13,7 +13,6 @@ public class ProductDetailVo {
     private String subtitle;
     private String mainImage;
     private String subImages;
-    private String detail;
     private BigDecimal price;
     private BigDecimal pfPrice;
     private Integer status;
@@ -76,14 +75,6 @@ public class ProductDetailVo {
 
     public void setSubImages(String subImages) {
         this.subImages = subImages;
-    }
-
-    public String getDetail() {
-        return detail;
-    }
-
-    public void setDetail(String detail) {
-        this.detail = detail;
     }
 
     public BigDecimal getPrice() {

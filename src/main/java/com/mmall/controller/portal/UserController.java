@@ -168,4 +168,11 @@ public class UserController {
             return ServerResponse.createByErrorMessage("无权限操作");
         }
     }
+
+    // 0120
+    @RequestMapping("shop_owner.do")
+    @ResponseBody
+    public ServerResponse<User> getShopOwner(String username){
+        return iUserService.getShopOwner(username);
+    }
 }

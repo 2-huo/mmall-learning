@@ -332,6 +332,13 @@ public class UserServiceImpl implements IUserService {
         return ServerResponse.createByError();
     }
 
-
+    // 0120
+    public ServerResponse<User> getShopOwner(String username) {
+        User user = userMapper.selectByUsername(username);
+        user.setPassword(org.apache.commons.lang3.StringUtils.EMPTY);
+        user.setQuestion(org.apache.commons.lang3.StringUtils.EMPTY);
+        user.setAnswer(org.apache.commons.lang3.StringUtils.EMPTY);
+        return ServerResponse.createBySuccess(user);
+    }
 
 }
