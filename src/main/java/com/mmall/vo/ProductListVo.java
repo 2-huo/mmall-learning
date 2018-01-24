@@ -15,7 +15,7 @@ public class ProductListVo {
     private String subtitle;
     private String mainImage;
     private BigDecimal price;
-    private BigDecimal pfPrice;
+    private BigDecimal pifaprice;
     private String shopname;
     private Integer status;
     private String imageHost;
@@ -70,9 +70,9 @@ public class ProductListVo {
         this.price = price;
     }
 
-    public  BigDecimal getPfprice() {return pfPrice; }
+    public  BigDecimal getPifaprice() {return pifaprice; }
 
-    public void setPfprice(BigDecimal pfPrice) {this.pfPrice = pfPrice;}
+    public void setPifaprice(BigDecimal pifaprice) {this.pifaprice = pifaprice;}
 
     public Integer getStatus() {
         return status;

@@ -14,7 +14,7 @@ public class ProductDetailVo {
     private String mainImage;
     private String subImages;
     private BigDecimal price;
-    private BigDecimal pfPrice;
+    private BigDecimal pifaprice;
     private Integer status;
     private String createTime;
     private String updateTime;
@@ -25,9 +25,9 @@ public class ProductDetailVo {
     private String imageHost;
     private Integer parentCategoryId;
 
-    public BigDecimal getPfPrice() {return pfPrice;}
+    public BigDecimal getPifaprice() {return pifaprice;}
 
-    public void setPfPrice(BigDecimal pfPrice) { this.pfPrice = pfPrice;}
+    public void setPifaprice(BigDecimal pifaprice) { this.pifaprice = pifaprice;}
 
     public Integer getId() {
         return id;
