@@ -269,23 +269,11 @@ public class ProductServiceImpl implements IProductService {
 
 
 
-    public ServerResponse<PageInfo> getProductByKeywordCategory(String keyword,Integer categoryId,int pageNum,int pageSize,String orderBy){
-        if(StringUtils.isBlank(keyword) && categoryId == null){
+    public ServerResponse<PageInfo> getProductByKeywordCategory(String keyword,int pageNum,int pageSize,String orderBy){
+        if(StringUtils.isBlank(keyword)){
             return ServerResponse.createByErrorCodeMessage(ResponseCode.ILLEGAL_ARGUMENT.getCode(),ResponseCode.ILLEGAL_ARGUMENT.getDesc());
         }
-        List<Integer> categoryIdList = new ArrayList<Integer>();
 
-        if(categoryId != null){
-            Category category = categoryMapper.selectByPrimaryKey(categoryId);
-            if(category == null && StringUtils.isBlank(keyword)){
-                //没有该分类,并且还没有关键字,这个时候返回一个空的结果集,不报错
-                PageHelper.startPage(pageNum,pageSize);
-                List<ProductListVo> productListVoList = Lists.newArrayList();
-                PageInfo pageInfo = new PageInfo(productListVoList);
-                return ServerResponse.createBySuccess(pageInfo);
-            }
-            categoryIdList = iCategoryService.selectCategoryAndChildrenById(category.getId()).getData();
-        }
         if(StringUtils.isNotBlank(keyword)){
             keyword = new StringBuilder().append("%").append(keyword).append("%").toString();
         }
@@ -298,7 +286,7 @@ public class ProductServiceImpl implements IProductService {
                 PageHelper.orderBy(orderByArray[0]+" "+orderByArray[1]);
             }
         }
-        List<Product> productList = productMapper.selectByNameAndCategoryIds(StringUtils.isBlank(keyword)?null:keyword,categoryIdList.size()==0?null:categoryIdList);
+        List<Product> productList = productMapper.selectByNameAndCategoryIds(keyword);
 
         List<ProductListVo> productListVoList = Lists.newArrayList();
         for(Product product : productList){
@@ -316,7 +304,7 @@ public class ProductServiceImpl implements IProductService {
         Shop shop = shopMapper.selectByShopname(shopname);
         return ServerResponse.createBySuccess(shop);
     }
-    // 0120
+    // 0120 end
 
 
 
