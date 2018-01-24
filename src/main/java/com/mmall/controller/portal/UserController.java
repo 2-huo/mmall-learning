@@ -169,7 +169,7 @@ public class UserController {
         }
     }
 
-    // 0120g
+    // 0120
     @RequestMapping("shop_owner.do")
     @ResponseBody
     public ServerResponse<User> getShopOwner(String username){

@@ -20,7 +20,7 @@ public class Product {
 
     private BigDecimal price;
 
-    private BigDecimal pfPrice;
+    private BigDecimal pifaprice;
 
     private Integer status;
 
@@ -34,7 +34,7 @@ public class Product {
     // 所属店名
     private  String shopname;
 
-    public Product(Integer id, Integer categoryId, String name, String subtitle, String mainImage, String subImages, String detail, BigDecimal price, BigDecimal pfPrice, Integer status, Date createTime, Date updateTime, String username, String shopname) {
+    public Product(Integer id, Integer categoryId, String name, String subtitle, String mainImage, String subImages, String detail, BigDecimal price, BigDecimal pifaprice, Integer status, Date createTime, Date updateTime, String username, String shopname) {
         this.id = id;
         this.categoryId = categoryId;
         this.name = name;
@@ -43,7 +43,7 @@ public class Product {
         this.subImages = subImages;
         this.detail = detail;
         this.price = price;
-        this.pfPrice = pfPrice;
+        this.pifaprice = pifaprice;
         this.status = status;
         this.createTime = createTime;
         this.updateTime = updateTime;
@@ -119,9 +119,9 @@ public class Product {
         this.price = price;
     }
 
-    public  BigDecimal getPfprice() {return pfPrice; }
+    public  BigDecimal getPifaprice() {return pifaprice; }
 
-    public void setPfprice(BigDecimal pfPrice) {this.pfPrice = pfPrice;}
+    public void setPifaprice(BigDecimal pifaprice) {this.pifaprice = pifaprice;}
 
     public Integer getStatus() {
         return status;
