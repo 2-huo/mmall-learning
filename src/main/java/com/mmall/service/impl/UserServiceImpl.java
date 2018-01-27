@@ -136,7 +136,7 @@ public class UserServiceImpl implements IUserService {
             shop.setShopname(originUser.getShopname());
             shop.setUsername(originUser.getUsername());
             int shopCount = shopMapper.insert(shop);
-            // 0116
+            // 0116 end
 
             return ServerResponse.createBySuccessMessage("审核操作成功");
         } else if ((role.equals(Const.Role.ROLE_PIFA)||role.equals(Const.Role.ROLE_ST)) && status == 2) {
