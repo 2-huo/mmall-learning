@@ -111,10 +111,10 @@ public class UserServiceImpl implements IUserService {
         if (id == Const.adminId.ID_ADMIN) {
             return ServerResponse.createByErrorMessage("降级失败, 不能降级管理员!");
         }
-
         User originUser = userMapper.selectByPrimaryKey(id);
         originUser.setRole(Const.Role.ROLE_CUSTOMER);
-        originUser.setShopname(null);
+        String a = "";
+        originUser.setShopname(a);
 
         // 该用户的商品都要删除
 
