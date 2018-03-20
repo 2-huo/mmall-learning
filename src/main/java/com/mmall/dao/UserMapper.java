@@ -18,6 +18,9 @@ public interface UserMapper {
     // 列出待审核用户表
     List<User> selectList();
 
+    // 列出已审核用户表
+    List<User> selectListToDown();
+
     // 审核通过, 插入原表
     int insertOri(User record);
 

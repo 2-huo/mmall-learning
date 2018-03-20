@@ -20,6 +20,10 @@ public interface IUserService {
     // 用户降级
     ServerResponse<String> userDowngrade(Integer id);
 
+    // 用户降级列表
+    ServerResponse<PageInfo> getUserListToDown(int pageNum, int pageSize);
+
+
     // 审核升级
     ServerResponse<PageInfo> getUserList(int pageNum, int pageSize);
 

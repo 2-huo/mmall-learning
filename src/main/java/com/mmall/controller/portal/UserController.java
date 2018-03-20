@@ -169,6 +169,22 @@ public class UserController {
         }
     }
 
+    // 审核用户降级
+    @RequestMapping("get_user_list_down.do")
+    @ResponseBody
+    public ServerResponse getUserListToDown(HttpSession session, @RequestParam(value = "pageNum",defaultValue = "1") int pageNum, @RequestParam(value = "pageSize",defaultValue = "10") int pageSize){
+        User user = (User)session.getAttribute(Const.CURRENT_USER);
+
+        if(user == null){
+            return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(),"用户未登录,请登录管理员");
+        }
+        if(iUserService.checkAdminRoleTest(user).isSuccess()){
+            return iUserService.getUserListToDown(pageNum, pageSize);
+        }else{
+            return ServerResponse.createByErrorMessage("无权限操作");
+        }
+    }
+
     @RequestMapping("user_pass.do")
     @ResponseBody
     public ServerResponse setUserPass(HttpSession session, Integer userId, String role, Integer status){

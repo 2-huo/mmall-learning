@@ -364,4 +364,10 @@
     from mmall_user_check
   </select>
 
+  <select id="selectListToDown" resultMap="BaseResultMap" >
+    select
+    <include refid="Base_Column_List" />
+    from mmall_user
+  </select>
+
 </mapper>

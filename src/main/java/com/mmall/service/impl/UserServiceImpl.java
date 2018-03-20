@@ -7,6 +7,7 @@ import com.mmall.common.Const;
 import com.mmall.common.ResponseCode;
 import com.mmall.common.ServerResponse;
 import com.mmall.common.TokenCache;
+import com.mmall.dao.ProductMapper;
 import com.mmall.dao.ShopMapper;
 import com.mmall.dao.UserMapper;
 import com.mmall.pojo.Shop;
@@ -28,6 +29,9 @@ public class UserServiceImpl implements IUserService {
 
     @Autowired
     private UserMapper userMapper;
+
+    @Autowired
+    private ProductMapper productMapper;
 
     @Autowired
     private ShopMapper shopMapper;
@@ -104,8 +108,11 @@ public class UserServiceImpl implements IUserService {
     // 用户降级 降为普通用户
     @Override
     public ServerResponse<String> userDowngrade(Integer id) {
-        User originUser = userMapper.selectByPrimaryKey(id);
+        if (id == 1) {
+            return ServerResponse.createByErrorMessage("降级失败, 不能降级管理员!");
+        }
 
+        User originUser = userMapper.selectByPrimaryKey(id);
         originUser.setName(null);
         originUser.setPhone(null);
         originUser.setProvince(null);
@@ -115,6 +122,8 @@ public class UserServiceImpl implements IUserService {
         originUser.setLvl(null);
         originUser.setRole(Const.Role.ROLE_CUSTOMER);
         originUser.setShopname(null);
+
+        // 该用户的商品都要删除
 
         return ServerResponse.createBySuccessMessage("降级成功!");
     }
@@ -171,6 +180,21 @@ public class UserServiceImpl implements IUserService {
         return ServerResponse.createByErrorMessage("审核操作失败");
     }
 
+    public ServerResponse<PageInfo> getUserListToDown(int pageNum, int pageSize) {
+        PageHelper.startPage(pageNum,pageSize);
+
+        List<User> userList = userMapper.selectListToDown();
+        List<UserListVo> userListVoList = Lists.newArrayList();
+
+        for(User userItem : userList){
+            UserListVo userListVo = assembleUserListVo(userItem);
+            userListVoList.add(userListVo);
+        }
+
+        PageInfo pageResult = new PageInfo(userList);
+        pageResult.setList(userListVoList);
+        return ServerResponse.createBySuccess(pageResult);
+    }
 
     public ServerResponse<PageInfo> getUserList(int pageNum, int pageSize) {
         PageHelper.startPage(pageNum,pageSize);

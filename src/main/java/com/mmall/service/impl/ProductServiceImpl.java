@@ -109,7 +109,7 @@ public class ProductServiceImpl implements IProductService {
         return ServerResponse.createBySuccess(productDetailVo);
     }
 
-    // modified
+    // modified listB.do
     public ServerResponse<PageInfo> getProductList(int pageNum,int pageSize, String username){
         PageHelper.startPage(pageNum,pageSize);
         // modified
