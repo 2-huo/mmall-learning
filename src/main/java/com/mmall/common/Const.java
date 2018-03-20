@@ -28,6 +28,10 @@ public class Const {
         String LIMIT_NUM_SUCCESS = "LIMIT_NUM_SUCCESS";
     }
 
+    public interface adminId {
+        Integer ID_ADMIN = new Integer(1);
+    }
+
     public interface Role{
         String ROLE_ADMIN = "1";//管理员
         String ROLE_PIFA = "2"; // 批发商
