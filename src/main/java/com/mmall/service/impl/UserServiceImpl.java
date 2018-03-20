@@ -108,7 +108,8 @@ public class UserServiceImpl implements IUserService {
     // 用户降级 降为普通用户
     @Override
     public ServerResponse<String> userDowngrade(Integer id) {
-        if (id == 1) {
+        Integer adminId = 1;
+        if (id.equals(adminId)) {
             return ServerResponse.createByErrorMessage("降级失败, 不能降级管理员!");
         }
 

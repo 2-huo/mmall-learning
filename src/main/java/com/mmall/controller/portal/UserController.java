@@ -67,14 +67,18 @@ public class UserController {
 
 
     // 会员降级
-    @RequestMapping(value = "user_downgrade.do")
+    @RequestMapping("user_downgrade.do")
     @ResponseBody
     public ServerResponse<String> userDowngrade(HttpSession session, Integer userId) {
         User currentUser = (User)session.getAttribute(Const.CURRENT_USER);
         if(currentUser == null){
             return ServerResponse.createByErrorMessage("用户未登录");
         }
-        return iUserService.userDowngrade(userId);
+        if(iUserService.checkAdminRoleTest(currentUser).isSuccess()){
+            return iUserService.userDowngrade(userId);
+        }else{
+            return ServerResponse.createByErrorMessage("无权限操作");
+        }
     }
 
 
