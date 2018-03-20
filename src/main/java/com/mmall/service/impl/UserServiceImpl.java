@@ -113,13 +113,6 @@ public class UserServiceImpl implements IUserService {
         }
 
         User originUser = userMapper.selectByPrimaryKey(id);
-        originUser.setName(null);
-        originUser.setPhone(null);
-        originUser.setProvince(null);
-        originUser.setCity(null);
-        originUser.setDistrict(null);
-        originUser.setAddr(null);
-        originUser.setLvl(null);
         originUser.setRole(Const.Role.ROLE_CUSTOMER);
         originUser.setShopname(null);
 
