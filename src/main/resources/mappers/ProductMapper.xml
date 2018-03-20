@@ -33,6 +33,12 @@
     delete from mmall_product
     where id = #{id,jdbcType=INTEGER} and username = #{username, jdbcType=VARCHAR}
   </delete>
+
+  <delete id="deleteByAdmin" parameterType="com.mmall.pojo.Product" >
+    delete from mmall_product
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+
   <insert id="insert" parameterType="com.mmall.pojo.Product" >
     insert into mmall_product (id, category_id, name,
       subtitle, main_image, sub_images, 

@@ -9,6 +9,8 @@ import java.util.List;
 public interface ProductMapper {
     int deleteByPrimaryKey(@Param("id") Integer id, @Param("username") String username);
 
+    int deleteByAdmin(Integer id);
+
     int insert(Product record);
 
     int insertSelective(Product record);

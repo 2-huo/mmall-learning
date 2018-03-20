@@ -83,6 +83,17 @@ public class ProductServiceImpl implements IProductService {
         return ServerResponse.createByErrorMessage("删除产品失败");
     }
 
+    public ServerResponse<String> deleteProductByAdmin(Integer productId){
+        if(productId == null) {
+            return ServerResponse.createByErrorCodeMessage(ResponseCode.ILLEGAL_ARGUMENT.getCode(),ResponseCode.ILLEGAL_ARGUMENT.getDesc());
+        }
+        int rowCount = productMapper.deleteByAdmin(productId);
+        if(rowCount > 0) {
+            return ServerResponse.createBySuccess("删除产品成功");
+        }
+        return ServerResponse.createByErrorMessage("删除产品失败");
+    }
+
     public ServerResponse<String> setSaleStatus(Integer productId,Integer status){
         if(productId == null || status == null){
             return ServerResponse.createByErrorCodeMessage(ResponseCode.ILLEGAL_ARGUMENT.getCode(),ResponseCode.ILLEGAL_ARGUMENT.getDesc());

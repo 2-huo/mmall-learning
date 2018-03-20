@@ -139,6 +139,20 @@ public class ProductController {
         }
     }
 
+    @RequestMapping(value="delete_by_admin.do", method = RequestMethod.POST)
+    @ResponseBody
+    public ServerResponse deleteByAdmin(HttpSession session, Integer productId) {
+        User user = (User)session.getAttribute(Const.CURRENT_USER);
+        if(user == null){
+            return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(),"用户未登录,请登录");
+        }
+        if(iUserService.checkAdminRoleTest(user).isSuccess()){
+            return iProductService.deleteProductByAdmin(productId);
+        }else{
+            return ServerResponse.createByErrorMessage("无权限操作");
+        }
+    }
+
     @RequestMapping("listB.do")
     @ResponseBody
     public ServerResponse getList(HttpSession session, @RequestParam(value = "pageNum",defaultValue = "1") int pageNum,@RequestParam(value = "pageSize",defaultValue = "10") int pageSize){

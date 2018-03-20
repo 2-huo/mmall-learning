@@ -18,6 +18,10 @@ public interface IProductService {
 
     ServerResponse<String> deleteProduct(Integer productId, String username);
 
+    // 管理员删除商品 0320
+    ServerResponse<String> deleteProductByAdmin(Integer productId);
+
+
     ServerResponse<ProductDetailVo> manageProductDetail(Integer productId);
 
     ServerResponse<PageInfo> getProductList(int pageNum, int pageSize, String username);
