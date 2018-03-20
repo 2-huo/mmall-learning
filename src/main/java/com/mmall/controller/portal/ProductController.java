@@ -82,6 +82,8 @@ public class ProductController {
     // 0120 end
 
 
+
+
     @RequestMapping("save.do")
     @ResponseBody
     public ServerResponse productSave(HttpSession session, Product product){

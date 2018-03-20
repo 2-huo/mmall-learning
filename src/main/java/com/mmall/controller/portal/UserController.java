@@ -65,6 +65,20 @@ public class UserController {
         return iUserService.userUpgrade(currentUser.getId(),user);
     }
 
+
+    // 会员降级
+    @RequestMapping(value = "user_downgrade.do",method = RequestMethod.POST)
+    @ResponseBody
+    public ServerResponse<String> userDowngrade(HttpSession session, User user) {
+        User currentUser = (User)session.getAttribute(Const.CURRENT_USER);
+        if(currentUser == null){
+            return ServerResponse.createByErrorMessage("用户未登录");
+        }
+        return iUserService.userDowngrade(user.getId());
+    }
+
+
+
     @RequestMapping(value = "update_information.do",method = RequestMethod.POST)
     @ResponseBody
     public ServerResponse<User> update_information(HttpSession session,User user){

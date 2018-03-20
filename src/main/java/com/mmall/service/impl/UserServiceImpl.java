@@ -101,6 +101,23 @@ public class UserServiceImpl implements IUserService {
         return ServerResponse.createByErrorMessage("申请失败");
     }
 
+    // 用户降级 降为普通用户
+    @Override
+    public ServerResponse<String> userDowngrade(Integer id) {
+        User originUser = userMapper.selectByPrimaryKey(id);
+
+        originUser.setName(null);
+        originUser.setPhone(null);
+        originUser.setProvince(null);
+        originUser.setCity(null);
+        originUser.setDistrict(null);
+        originUser.setAddr(null);
+        originUser.setLvl(null);
+        originUser.setRole(Const.Role.ROLE_CUSTOMER);
+        originUser.setShopname(null);
+
+        return ServerResponse.createBySuccessMessage("降级成功!");
+    }
 
     // 审核通过
     @Override
