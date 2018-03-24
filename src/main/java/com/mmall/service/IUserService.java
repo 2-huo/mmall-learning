@@ -18,7 +18,7 @@ public interface IUserService {
     ServerResponse<String> userUpgrade(Integer id, User user);
 
     // 用户降级
-    ServerResponse<String> userDowngrade(Integer id);
+    ServerResponse<String> userDowngrade(Integer userId);
 
     // 用户降级列表
     ServerResponse<PageInfo> getUserListToDown(int pageNum, int pageSize);

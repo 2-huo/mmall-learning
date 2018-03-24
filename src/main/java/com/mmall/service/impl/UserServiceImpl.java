@@ -107,12 +107,12 @@ public class UserServiceImpl implements IUserService {
 
     // 用户降级 降为普通用户
     @Override
-    public ServerResponse<String> userDowngrade(Integer id) {
-        if (id == 1) {
+    public ServerResponse<String> userDowngrade(Integer userId) {
+        if (userId.equals(1)) {
             return ServerResponse.createByErrorMessage("降级失败, 不能降级管理员!");
         }
 
-        User originUser = userMapper.selectByPrimaryKey(id);
+        User originUser = userMapper.selectByPrimaryKey(userId);
         originUser.setName(null);
         originUser.setPhone(null);
         originUser.setProvince(null);
