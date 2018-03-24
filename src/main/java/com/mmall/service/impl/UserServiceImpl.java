@@ -116,19 +116,23 @@ public class UserServiceImpl implements IUserService {
         }
 
         User originUser = userMapper.selectByPrimaryKey(userId);
-        originUser.setName(null);
-        originUser.setPhone(null);
-        originUser.setProvince(null);
-        originUser.setCity(null);
-        originUser.setDistrict(null);
-        originUser.setAddr(null);
-        originUser.setLvl(null);
-        originUser.setRole(Const.Role.ROLE_CUSTOMER);
-        originUser.setShopname(null);
+        if (originUser != null) {
+            originUser.setName(null);
+            originUser.setPhone(null);
+            originUser.setProvince(null);
+            originUser.setCity(null);
+            originUser.setDistrict(null);
+            originUser.setAddr(null);
+            originUser.setLvl(null);
+            originUser.setRole(Const.Role.ROLE_CUSTOMER);
+            originUser.setShopname(null);
 
-        // 该用户的商品都要删除
+            // 该用户的商品都要删除
 
-        return ServerResponse.createBySuccessMessage("降级成功!");
+            return ServerResponse.createBySuccessMessage("降级成功!");
+        } else {
+            return ServerResponse.createByErrorMessage("操作失败!");
+        }
     }
 
     // 审核通过
