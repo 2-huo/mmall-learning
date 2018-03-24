@@ -118,7 +118,7 @@ public class UserServiceImpl implements IUserService {
         User originUser = userMapper.selectByPrimaryKey(userId);
         if (originUser != null) {
             originUser.setName(null);
-            originUser.setPhone(null);
+            originUser.setPhone("110");
             originUser.setProvince(null);
             originUser.setCity(null);
             originUser.setDistrict(null);
@@ -126,11 +126,9 @@ public class UserServiceImpl implements IUserService {
             originUser.setLvl(null);
             originUser.setRole(Const.Role.ROLE_CUSTOMER);
             originUser.setShopname(null);
-
-            // 该用户的商品都要删除
-
             return ServerResponse.createBySuccessMessage("降级成功!");
         } else {
+            // 找不到id
             return ServerResponse.createByErrorMessage("操作失败!");
         }
     }
