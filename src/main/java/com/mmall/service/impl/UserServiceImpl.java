@@ -126,7 +126,7 @@ public class UserServiceImpl implements IUserService {
             originUser.setLvl(null);
             originUser.setRole(Const.Role.ROLE_CUSTOMER);
             originUser.setShopname(null);
-            return ServerResponse.createBySuccessMessage("降级成功!");
+            return ServerResponse.createBySuccessMessage(originUser.getName());
         } else {
             // 找不到id
             return ServerResponse.createByErrorMessage("操作失败!");
