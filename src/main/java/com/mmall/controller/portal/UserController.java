@@ -1,5 +1,6 @@
 package com.mmall.controller.portal;
 
+import com.github.pagehelper.PageInfo;
 import com.mmall.common.Const;
 import com.mmall.common.ResponseCode;
 import com.mmall.common.ServerResponse;
@@ -159,9 +160,9 @@ public class UserController {
     // 审核用户升级
     @RequestMapping("get_user_list.do")
     @ResponseBody
-    public ServerResponse getUserList(HttpSession session,
-                                      @RequestParam(value = "pageNum",defaultValue = "1") int pageNum,
-                                      @RequestParam(value = "pageSize",defaultValue = "10") int pageSize){
+    public ServerResponse<PageInfo> getUserList(HttpSession session,
+                                                @RequestParam(value = "pageNum",defaultValue = "1") int pageNum,
+                                                @RequestParam(value = "pageSize",defaultValue = "10") int pageSize){
         User user = (User)session.getAttribute(Const.CURRENT_USER);
 
         if(user == null){
@@ -177,7 +178,7 @@ public class UserController {
     // 审核用户降级
     @RequestMapping("get_user_list_down.do")
     @ResponseBody
-    public ServerResponse getUserListToDown(HttpSession session,
+    public ServerResponse<PageInfo> getUserListToDown(HttpSession session,
                                             @RequestParam(value = "pageNum",defaultValue = "1") int pageNum,
                                             @RequestParam(value = "pageSize",defaultValue = "10") int pageSize){
         User user = (User)session.getAttribute(Const.CURRENT_USER);
