@@ -368,6 +368,7 @@
     select
     <include refid="Base_Column_List" />
     from mmall_user
+    where role != "4"
   </select>
 
 </mapper>
