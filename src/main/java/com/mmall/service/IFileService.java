@@ -7,5 +7,7 @@ import org.springframework.web.multipart.MultipartFile;
  */
 public interface IFileService {
 
+//    String readfile(String path);
+
     String upload(MultipartFile file, String path);
 }

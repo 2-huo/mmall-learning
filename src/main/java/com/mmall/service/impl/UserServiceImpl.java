@@ -219,6 +219,39 @@ public class UserServiceImpl implements IUserService {
         return ServerResponse.createBySuccess(pageResult);
     }
 
+    // 18-04-03
+    public ServerResponse<PageInfo> getShitiList(int pageNum, int pageSize) {
+        PageHelper.startPage(pageNum,pageSize);
+
+        List<User> userList = userMapper.selectShitiList();
+        List<UserListVo> userListVoList = Lists.newArrayList();
+
+        for(User userItem : userList){
+            UserListVo userListVo = assembleUserListVo(userItem);
+            userListVoList.add(userListVo);
+        }
+
+        PageInfo pageResult = new PageInfo(userList);
+        pageResult.setList(userListVoList);
+        return ServerResponse.createBySuccess(pageResult);
+    }
+
+    public ServerResponse<PageInfo> getPifaList(int pageNum, int pageSize) {
+        PageHelper.startPage(pageNum,pageSize);
+
+        List<User> userList = userMapper.selectPifaList();
+        List<UserListVo> userListVoList = Lists.newArrayList();
+
+        for(User userItem : userList){
+            UserListVo userListVo = assembleUserListVo(userItem);
+            userListVoList.add(userListVo);
+        }
+
+        PageInfo pageResult = new PageInfo(userList);
+        pageResult.setList(userListVoList);
+        return ServerResponse.createBySuccess(pageResult);
+    }
+
     private UserListVo assembleUserListVo(User user) {
         UserListVo userListVo = new UserListVo();
         userListVo.setId(user.getId());

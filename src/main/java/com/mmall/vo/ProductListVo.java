@@ -14,6 +14,7 @@ public class ProductListVo {
     private String name;
     private String subtitle;
     private String mainImage;
+    private String subImages;
     private BigDecimal price;
     private BigDecimal pifaprice;
     private String shopname;
@@ -61,6 +62,15 @@ public class ProductListVo {
     public void setMainImage(String mainImage) {
         this.mainImage = mainImage;
     }
+
+    public String getSubImages() {
+        return subImages;
+    }
+
+    public void setSubImages(String subImages) {
+        this.subImages = subImages == null ? null : subImages.trim();
+    }
+
 
     public BigDecimal getPrice() {
         return price;

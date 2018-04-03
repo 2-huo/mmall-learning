@@ -148,6 +148,22 @@ public class ProductManageController {
         }
     }
 
+//    @RequestMapping("read_img.do")
+//    @ResponseBody
+//    public ServerResponse readImg(HttpSession session, HttpServletRequest request){
+//        User user = (User)session.getAttribute(Const.CURRENT_USER);
+//        if(user == null){
+//            return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(),"用户未登录,请登录管理员");
+//        }
+//        if(iUserService.checkAdminRoleTest(user).isSuccess()){
+//            String path = request.getSession().getServletContext().getRealPath("upload");
+//            String targetFileName = iFileService.readfile(path);
+//            String url = PropertiesUtil.getProperty("ftp.server.http.prefix")+targetFileName;
+//            return ServerResponse.createBySuccess(url);
+//        }else{
+//            return ServerResponse.createByErrorMessage("无权限操作");
+//        }
+//    }
 
     @RequestMapping("richtext_img_upload.do")
     @ResponseBody

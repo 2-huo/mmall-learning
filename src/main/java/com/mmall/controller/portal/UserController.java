@@ -175,6 +175,21 @@ public class UserController {
         }
     }
 
+    // 2018-04-03 首页批发商 实体店列表
+    @RequestMapping("get_pifa_list.do")
+    @ResponseBody
+    public ServerResponse<PageInfo> getPifaList(@RequestParam(value = "pageNum",defaultValue = "1") int pageNum,
+                                                @RequestParam(value = "pageSize",defaultValue = "10") int pageSize) {
+        return iUserService.getPifaList(pageNum, pageSize);
+    }
+
+    @RequestMapping("get_shiti_list.do")
+    @ResponseBody
+    public ServerResponse<PageInfo> getShitiList(@RequestParam(value = "pageNum",defaultValue = "1") int pageNum,
+                                                @RequestParam(value = "pageSize",defaultValue = "10") int pageSize) {
+        return iUserService.getShitiList(pageNum, pageSize);
+    }
+
     // 审核用户降级
     @RequestMapping("get_user_list_down.do")
     @ResponseBody

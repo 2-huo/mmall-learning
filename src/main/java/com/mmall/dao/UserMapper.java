@@ -18,6 +18,11 @@ public interface UserMapper {
     // 列出待审核用户表
     List<User> selectList();
 
+    // 18-04-03 实体店用户列表 批发商
+    List<User> selectPifaList();
+
+    List<User> selectShitiList();
+
     // 列出已审核用户表
     List<User> selectListToDown();
 

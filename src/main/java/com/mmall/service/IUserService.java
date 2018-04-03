@@ -26,6 +26,11 @@ public interface IUserService {
     // 审核升级
     ServerResponse<PageInfo> getUserList(int pageNum, int pageSize);
 
+    // 18-04-03
+    ServerResponse<PageInfo> getPifaList(int pageNum, int pageSize);
+
+    ServerResponse<PageInfo> getShitiList(int pageNum, int pageSize);
+
     ServerResponse<String> checkValid(String str, String type);
 
     ServerResponse selectQuestion(String username);

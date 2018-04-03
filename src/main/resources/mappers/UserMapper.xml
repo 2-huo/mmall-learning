@@ -364,6 +364,20 @@
     from mmall_user_check
   </select>
 
+  <select id="selectPifaList" resultMap="BaseResultMap" >
+    select
+    <include refid="Base_Column_List" />
+    from mmall_user
+    where role == "2"
+  </select>
+
+  <select id="selectShitiList" resultMap="BaseResultMap" >
+    select
+    <include refid="Base_Column_List" />
+    from mmall_user
+    where role == "3"
+  </select>
+
   <select id="selectListToDown" resultMap="BaseResultMap" >
     select
     <include refid="Base_Column_List" />
