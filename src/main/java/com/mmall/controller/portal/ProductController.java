@@ -62,9 +62,14 @@ public class ProductController {
     // 0404 admin商品删除时显示全部商品
     @RequestMapping("list_all.do")
     @ResponseBody
-    public ServerResponse<PageInfo> list(@RequestParam(value = "pageNum",defaultValue = "1") int pageNum,
+    public ServerResponse<PageInfo> list(HttpSession session, @RequestParam(value = "pageNum",defaultValue = "1") int pageNum,
                                          @RequestParam(value = "pageSize",defaultValue = "10") int pageSize){
-        return iProductService.getProductAllList(pageNum,pageSize);
+        User user = (User)session.getAttribute(Const.CURRENT_USER);
+        if(iUserService.checkAdminRoleTest(user).isSuccess()){
+            return iProductService.getProductAllList(pageNum,pageSize);
+        }else{
+            return ServerResponse.createByErrorMessage("无权限操作");
+        }
     }
     // -----------------------
 
