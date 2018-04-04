@@ -59,6 +59,13 @@ public class ProductController {
                                          @RequestParam(value = "orderBy",defaultValue = "") String orderBy){
         return iProductService.getProductByKeywordCategory(keyword,pageNum,pageSize,orderBy);
     }
+    // 0404 admin商品删除时显示全部商品
+    @RequestMapping("list_all.do")
+    @ResponseBody
+    public ServerResponse<PageInfo> list(@RequestParam(value = "pageNum",defaultValue = "1") int pageNum,
+                                         @RequestParam(value = "pageSize",defaultValue = "10") int pageSize){
+        return iProductService.getProductAllList(pageNum,pageSize);
+    }
     // -----------------------
 
     // 0116 modified shop-detail

@@ -278,6 +278,21 @@ public class ProductServiceImpl implements IProductService {
     }
     // 0116 end
 
+    // 0404 get
+    public ServerResponse<PageInfo> getProductAllList(int pageNum,int pageSize){
+        PageHelper.startPage(pageNum,pageSize);
+        List<Product> productList = productMapper.selectAllProduct();
+
+        List<ProductListVo> productListVoList = Lists.newArrayList();
+        for(Product product : productList){
+            ProductListVo productListVo = assembleProductListVo(product);
+            productListVoList.add(productListVo);
+        }
+
+        PageInfo pageInfo = new PageInfo(productList);
+        pageInfo.setList(productListVoList);
+        return ServerResponse.createBySuccess(pageInfo);
+    }
 
 
 

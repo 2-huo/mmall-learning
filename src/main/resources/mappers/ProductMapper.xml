@@ -209,6 +209,12 @@
     where username = #{username,jdbcType=VARCHAR}
   </select>
 
+  <select id="selectAllProduct" resultMap="BaseResultMap" >
+    select
+    <include refid="Base_Column_List" />
+    from mmall_product
+  </select>
+
 
   <select id="selectByNameAndProductId" resultMap="BaseResultMap" parameterType="map">
     SELECT

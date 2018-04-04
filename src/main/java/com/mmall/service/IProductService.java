@@ -21,6 +21,9 @@ public interface IProductService {
     // 管理员删除商品 0320
     ServerResponse<String> deleteProductByAdmin(Integer productId);
 
+    // 0404
+    ServerResponse<PageInfo> getProductAllList(int pageNum, int pageSize);
+
 
     ServerResponse<ProductDetailVo> manageProductDetail(Integer productId);
 
