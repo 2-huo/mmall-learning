@@ -159,18 +159,20 @@ public class UserServiceImpl implements IUserService {
             originUser.setLvl(user.getLvl());
             originUser.setRole(user.getRole());
             originUser.setShopname(user.getShopname());
-            int upgradeCount = userMapper.insertOri(originUser);
-            int deleteCount = userMapper.deleteCheckByPrimaryKey(userId);
-            if(upgradeCount == 0 && deleteCount == 0) {
-                return ServerResponse.createByErrorMessage("审核操作失败");
-            }
+
             // 0116 modified 添加进商铺表
             Shop shop = new Shop();
             shop.setShopname(originUser.getShopname());
             shop.setUsername(originUser.getUsername());
             int shopCount = shopMapper.insert(shop);
             // 0116 end
-
+            Shop shop2 = shopMapper.selectByShopname(originUser.getShopname());
+            originUser.setShopId(shop2.getId());
+            int upgradeCount = userMapper.insertOri(originUser);
+            int deleteCount = userMapper.deleteCheckByPrimaryKey(userId);
+            if(upgradeCount == 0 && deleteCount == 0) {
+                return ServerResponse.createByErrorMessage("审核操作失败");
+            }
             return ServerResponse.createBySuccessMessage("审核操作成功");
         } else if ((role.equals(Const.Role.ROLE_PIFA)||role.equals(Const.Role.ROLE_ST)) && status == 2) {
             User user = userMapper.selectCheckByPrimaryKey(userId);
@@ -265,6 +267,7 @@ public class UserServiceImpl implements IUserService {
         userListVo.setRole(user.getRole());
         userListVo.setLvl(user.getLvl());
         userListVo.setShopname(user.getShopname());
+        userListVo.setShopId(user.getShopId());
         return userListVo;
     }
 

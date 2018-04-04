@@ -22,10 +22,11 @@
       <arg column="addr" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="lvl" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="shopname" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="shopId" jdbcType="INTEGER" javaType="java.lang.Integer" />
     </constructor>
   </resultMap>
   <sql id="Base_Column_List" >
-    id, username, password, email, question, answer, role, create_time, update_time, enable, name, phone, province, city, district, addr, lvl, shopname
+    id, username, password, email, question, answer, role, create_time, update_time, enable, name, phone, province, city, district, addr, lvl, shopname, shopId
   </sql>
 
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
@@ -161,7 +162,10 @@
         lvl,
       </if>
       <if test="shopname != null" >
-        shopname,
+      shopname,
+    </if>
+      <if test="shopId != null" >
+        shopId,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
@@ -218,6 +222,9 @@
       </if>
       <if test="shopname != null" >
         #{shopname,jdbcType=VARCHAR},
+      </if>
+      <if test="shopId != null" >
+        #{shopId,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
@@ -296,7 +303,8 @@
       city = #{city, jdbcType=VARCHAR},
       district = #{district, jdbcType=VARCHAR},
       lvl = #{lvl, jdbcType=VARCHAR},
-      shopname = #{shopname, jdbcType=VARCHAR}
+      shopname = #{shopname, jdbcType=VARCHAR},
+      shopId = #{shopname, jdbcType=INTEGER},
     where id = #{id,jdbcType=VARCHAR}
   </update>
   

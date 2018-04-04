@@ -15,6 +15,7 @@ public class UserListVo {
     private String role;
     private String lvl;
     private String shopname;
+    private Integer shopId;
 
     public Integer getId() {
         return id;
@@ -22,6 +23,13 @@ public class UserListVo {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public Integer getShopId() {
+        return shopId;
+    }
+    public void setShopId(Integer shopId) {
+        this.shopId = shopId;
     }
 
     public String getName() {
