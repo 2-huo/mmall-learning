@@ -14,6 +14,8 @@ public interface ShopMapper {
     // 0116
     Shop selectByShopname(String shopname);
 
+    int deleteByAdmin(Integer id);
+
     int insert(Shop record);
 
     int insertSelective(Shop record);

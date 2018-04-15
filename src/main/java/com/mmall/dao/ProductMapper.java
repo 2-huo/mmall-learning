@@ -11,6 +11,8 @@ public interface ProductMapper {
 
     int deleteByAdmin(Integer id);
 
+    int deleteByShopname(String shopname);
+
     int insert(Product record);
 
     int insertSelective(Product record);

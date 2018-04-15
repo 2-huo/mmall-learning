@@ -126,8 +126,14 @@ public class UserServiceImpl implements IUserService {
             originUser.setLvl(null);
             originUser.setRole(Const.Role.ROLE_CUSTOMER);
             originUser.setShopname(null);
+
+//            删掉店铺
+            shopMapper.deleteByAdmin(originUser.getShopId());
+
+//            删掉商品
+            productMapper.deleteByShopname(originUser.getShopname());
+
             userMapper.updateByPrimaryKey(originUser);
-//             todo 删掉关联商品
             return ServerResponse.createBySuccessMessage("降级成功!!");
         } else {
             // 找不到id

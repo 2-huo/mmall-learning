@@ -28,6 +28,12 @@
         where shopname = #{shopname,jdbcType=INTEGER}
     </select>
 
+    <!--admin删除店铺-->
+    <delete id="deleteByAdmin" parameterType="com.mmall.pojo.Shop" >
+        delete from shop
+        where id = #{id,jdbcType=INTEGER}
+    </delete>
+
     <insert id="insert" parameterType="com.mmall.pojo.Shop" >
         insert into shop (id, shopname, username, shopdesc, create_time, update_time)
         values (#{id,jdbcType=INTEGER}, #{shopname,jdbcType=VARCHAR}, #{username,jdbcType=VARCHAR}, #{shopdesc,jdbcType=VARCHAR},

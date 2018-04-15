@@ -39,6 +39,12 @@
     where id = #{id,jdbcType=INTEGER}
   </delete>
 
+  <!--删掉商品-->
+  <delete id="deleteByShopname" parameterType="com.mmall.pojo.Product" >
+    delete from mmall_product
+    where shopname = #{shopname,jdbcType=VARCHAR}
+  </delete>
+
   <insert id="insert" parameterType="com.mmall.pojo.Product" >
     insert into mmall_product (id, category_id, name,
       subtitle, main_image, sub_images, 
