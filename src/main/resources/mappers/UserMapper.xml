@@ -89,7 +89,8 @@
       district = #{district, jdbcType=VARCHAR},
       addr = #{addr, jdbcType=VARCHAR},
       lvl = #{lvl, jdbcType=VARCHAR},
-      shopname = #{shopname, jdbcType=VARCHAR}
+      shopname = #{shopname, jdbcType=VARCHAR},
+      shopId = #{shopId, jdbcType=INTEGER}
     where id = #{id,jdbcType=VARCHAR}
   </insert>
 
@@ -97,13 +98,13 @@
   <insert id="insertCheck" parameterType="com.mmall.pojo.User" >
     insert into mmall_user_check (id, username, password,
       email, question, answer, role, create_time,
-      update_time, enable, name, phone, province, city, district, addr, lvl, shopname)
+      update_time, enable, name, phone, province, city, district, addr, lvl, shopname, shopId)
     values (#{id,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR},
       #{email,jdbcType=VARCHAR},  #{question,jdbcType=VARCHAR},
       #{answer,jdbcType=VARCHAR}, #{role,jdbcType=VARCHAR}, now(),
       now(), #{enable,jdbcType=BIT}, #{name, jdbcType=VARCHAR}, #{phone, jdbcType=VARCHAR},
       #{province, jdbcType=VARCHAR}, #{city, jdbcType=VARCHAR}, #{district, jdbcType=VARCHAR},
-      #{addr, jdbcType=VARCHAR}, #{lvl, jdbcType=VARCHAR}, #{shopname, jdbcType=VARCHAR})
+      #{addr, jdbcType=VARCHAR}, #{lvl, jdbcType=VARCHAR}, #{shopname, jdbcType=VARCHAR}, #{shopId, jdbcType=INTEGER})
   </insert>
 
 
