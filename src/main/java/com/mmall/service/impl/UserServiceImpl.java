@@ -91,6 +91,13 @@ public class UserServiceImpl implements IUserService {
         originUser.setLvl(user.getLvl());
         originUser.setRole(user.getRole());
         originUser.setShopname(user.getShopname());
+        Shop shop = new Shop();
+        shop.setShopname(user.getShopname());
+        shop.setUsername(user.getUsername());
+        int shopCount = shopMapper.insert(shop);
+        // 0116 end
+        Shop shop2 = shopMapper.selectByShopname(originUser.getShopname());
+        originUser.setShopId(shop2.getId());
         if(originUser.getRole().equals(Const.Role.ROLE_PIFA)||originUser.getRole().equals(Const.Role.ROLE_ST)) {
             User userTwice = userMapper.selectCheckByPrimaryKey(id);
             if(userTwice != null) {
@@ -125,14 +132,12 @@ public class UserServiceImpl implements IUserService {
             originUser.setAddr(null);
             originUser.setLvl(null);
             originUser.setRole(Const.Role.ROLE_CUSTOMER);
-            originUser.setShopname(null);
-
 //            删掉店铺
             shopMapper.deleteByAdmin(originUser.getShopId());
-
 //            删掉商品
             productMapper.deleteByShopname(originUser.getShopname());
-
+            originUser.setShopname(null);
+            originUser.setShopId(null);
             userMapper.updateByPrimaryKey(originUser);
             return ServerResponse.createBySuccessMessage("降级成功!!");
         } else {
