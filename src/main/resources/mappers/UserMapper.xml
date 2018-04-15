@@ -305,7 +305,7 @@
       district = #{district, jdbcType=VARCHAR},
       lvl = #{lvl, jdbcType=VARCHAR},
       shopname = #{shopname, jdbcType=VARCHAR},
-      shopId = #{shopname, jdbcType=INTEGER},
+      shopId = #{shopname, jdbcType=INTEGER}
     where id = #{id,jdbcType=VARCHAR}
   </update>
   
