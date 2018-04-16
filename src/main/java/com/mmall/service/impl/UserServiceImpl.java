@@ -82,22 +82,27 @@ public class UserServiceImpl implements IUserService {
     public ServerResponse<String> userUpgrade(Integer id, User user) {
         User originUser = userMapper.selectByPrimaryKey(id);
 //         新
-        originUser.setName(user.getName());
-        originUser.setPhone(user.getPhone());
-        originUser.setProvince(user.getProvince());
-        originUser.setCity(user.getCity());
-        originUser.setDistrict(user.getDistrict());
-        originUser.setAddr(user.getAddr());
-        originUser.setLvl(user.getLvl());
-        originUser.setRole(user.getRole());
-        originUser.setShopname(user.getShopname());
-        Shop shop = new Shop();
-        shop.setShopname(user.getShopname());
-        shop.setUsername(user.getUsername());
-        int shopCount = shopMapper.insert(shop);
+        if (user.getRole() == Const.Role.ROLE_CUSTOMER) {
+            originUser.setName(user.getName());
+            originUser.setPhone(user.getPhone());
+            originUser.setProvince(user.getProvince());
+            originUser.setCity(user.getCity());
+            originUser.setDistrict(user.getDistrict());
+            originUser.setAddr(user.getAddr());
+            originUser.setLvl(user.getLvl());
+            originUser.setRole(user.getRole());
+            originUser.setShopname(user.getShopname());
+            Shop shop = new Shop();
+            shop.setShopname(user.getShopname());
+            shop.setUsername(user.getUsername());
+            int shopCount = shopMapper.insert(shop);
+            Shop shop2 = shopMapper.selectByShopname(originUser.getShopname());
+            originUser.setShopId(shop2.getId());
+        } else {
+            originUser.setLvl(user.getLvl());
+            originUser.setRole(user.getRole());
+        }
         // 0116 end
-        Shop shop2 = shopMapper.selectByShopname(originUser.getShopname());
-        originUser.setShopId(shop2.getId());
         if(originUser.getRole().equals(Const.Role.ROLE_PIFA)||originUser.getRole().equals(Const.Role.ROLE_ST)) {
             User userTwice = userMapper.selectCheckByPrimaryKey(id);
             if(userTwice != null) {
