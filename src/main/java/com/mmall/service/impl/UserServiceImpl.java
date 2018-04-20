@@ -82,7 +82,7 @@ public class UserServiceImpl implements IUserService {
     public ServerResponse<String> userUpgrade(Integer id, User user) {
         User originUser = userMapper.selectByPrimaryKey(id);
 //         新
-        if (user.getRole() == Const.Role.ROLE_CUSTOMER) {
+        if (user.getRole().equals(Const.Role.ROLE_CUSTOMER)) {
             originUser.setName(user.getName());
             originUser.setPhone(user.getPhone());
             originUser.setProvince(user.getProvince());
