@@ -66,7 +66,6 @@ public class UserController {
         return iUserService.userUpgrade(currentUser.getId(),user);
     }
 
-
     // 会员降级
     @RequestMapping("user_downgrade.do")
     @ResponseBody
