@@ -13,7 +13,7 @@ public interface ShopMapper {
 
     Shop selectByShopname(String shopname);
     // 0116
-    Shop selectByShopnameUsername(String shopname, String username);
+    Shop selectByShopnameUsername(@Param("shopname")String shopname, @Param("username")String username);
 
     int deleteByAdmin(Integer id);
 
