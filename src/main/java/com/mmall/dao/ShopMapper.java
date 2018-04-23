@@ -11,8 +11,9 @@ import java.util.List;
 public interface ShopMapper {
     Shop selectByPrimaryKey(Integer id);
 
-    // 0116
     Shop selectByShopname(String shopname);
+    // 0116
+    Shop selectByShopnameUsername(String shopname, String username);
 
     int deleteByAdmin(Integer id);
 

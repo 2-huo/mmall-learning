@@ -28,6 +28,14 @@
         where shopname = #{shopname,jdbcType=INTEGER}
     </select>
 
+
+    <select id="selectByShopnameUsername" resultMap="BaseResultMap" parameterType="java.lang.String" >
+        select
+        <include refid="Base_Column_List" />
+        from shop
+        where shopname = #{shopname,jdbcType=INTEGER} and username = #{username,jdbcType=INTEGER}
+    </select>
+
     <!--admin删除店铺-->
     <delete id="deleteByAdmin" parameterType="com.mmall.pojo.Shop" >
         delete from shop

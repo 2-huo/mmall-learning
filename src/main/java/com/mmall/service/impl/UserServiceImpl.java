@@ -96,7 +96,7 @@ public class UserServiceImpl implements IUserService {
             shop.setShopname(user.getShopname());
             shop.setUsername(user.getUsername());
             int shopCount = shopMapper.insert(shop);
-            Shop shop2 = shopMapper.selectByShopname(originUser.getShopname());
+            Shop shop2 = shopMapper.selectByShopnameUsername(originUser.getShopname(), originUser.getUsername());
             originUser.setShopId(shop2.getId());
         } else {
             originUser.setLvl(user.getLvl());
