@@ -34,7 +34,12 @@ public class Product {
     // 所属店名
     private  String shopname;
 
-    public Product(Integer id, Integer categoryId, String name, String subtitle, String mainImage, String subImages, String detail, BigDecimal price, BigDecimal pifaprice, Integer status, Date createTime, Date updateTime, String username, String shopname) {
+    // 省市区
+    private String province;
+    private String city;
+    private String district;
+
+    public Product(Integer id, Integer categoryId, String name, String subtitle, String mainImage, String subImages, String detail, BigDecimal price, BigDecimal pifaprice, Integer status, Date createTime, Date updateTime, String username, String shopname,String province,String city,String district) {
         this.id = id;
         this.categoryId = categoryId;
         this.name = name;
@@ -49,6 +54,9 @@ public class Product {
         this.updateTime = updateTime;
         this.username = username;
         this.shopname = shopname;
+        this.province = province;
+        this.city = city;
+        this.district = district;
     }
 
     public Product() {
@@ -164,4 +172,25 @@ public class Product {
     public void setShopname(String shopname) {
         this.shopname = shopname;
     }
+
+    // 0424
+    public String getProvince() {
+        return province;
+    }
+
+    public void setProvince(String province) {
+        this.province = province;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getDistrict() { return district; }
+
+    public void setDistrict(String district) { this.district = district; }
 }

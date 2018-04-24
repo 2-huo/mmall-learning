@@ -17,11 +17,15 @@
       <arg column="update_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
       <arg column="username" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="shopname" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <!--0424-->
+      <arg column="province" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="city" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="district" jdbcType="VARCHAR" javaType="java.lang.String" />
     </constructor>
   </resultMap>
   <sql id="Base_Column_List" >
     id, category_id, name, subtitle, main_image, sub_images, detail, price, pifaprice, status,
-    create_time, update_time, username, shopname
+    create_time, update_time, username, shopname, province, city, district
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
@@ -49,12 +53,13 @@
     insert into mmall_product (id, category_id, name,
       subtitle, main_image, sub_images, 
       detail, price, pifaprice,
-      status, create_time, update_time, username, shopname
+      status, create_time, update_time, username, shopname, province, city, district
       )
     values (#{id,jdbcType=INTEGER}, #{categoryId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR},
       #{subtitle,jdbcType=VARCHAR}, #{mainImage,jdbcType=VARCHAR}, #{subImages,jdbcType=VARCHAR}, 
       #{detail,jdbcType=VARCHAR}, #{price,jdbcType=DECIMAL}, #{pifaprice, jdbcType=DECIMAL},
-      #{status,jdbcType=INTEGER}, now(), now(), #{username,jdbcType=VARCHAR}, #{shopname, jdbcType=VARCHAR}
+      #{status,jdbcType=INTEGER}, now(), now(), #{username,jdbcType=VARCHAR}, #{shopname, jdbcType=VARCHAR},
+      #{province, jdbcType=VARCHAR}, #{city, jdbcType=VARCHAR}, #{district, jdbcType=VARCHAR}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.mmall.pojo.Product" >
@@ -102,6 +107,15 @@
       <if test="shopname != null" >
         shopname,
       </if>
+      <if test="province != null" >
+        province,
+      </if>
+      <if test="city != null" >
+        city,
+      </if>
+      <if test="district != null" >
+        district,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -142,6 +156,15 @@
       </if>
       <if test="shopname != null" >
         #{shopname,jdbcType=VARCHAR},
+      </if>
+      <if test="province != null" >
+        #{province,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null" >
+        #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="district != null" >
+        #{district,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -186,6 +209,15 @@
       </if>
       <if test="shopname != null" >
         shopname = #{shopname,jdbcType=VARCHAR},
+      </if>
+      <if test="province != null" >
+        province = #{province,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null" >
+        city = #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="district != null" >
+        district = #{district,jdbcType=VARCHAR},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}

@@ -22,6 +22,10 @@ public class ProductListVo {
     private String imageHost;
     private Date createTime;
     private Date updateTime;
+    // 省市区
+    private String province;
+    private String city;
+    private String districy;
 
     public Integer getId() {
         return id;
@@ -124,6 +128,31 @@ public class ProductListVo {
 
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
+    }
+
+    // 0424
+    public String getProvince() {
+        return province;
+    }
+
+    public void setProvince(String province) {
+        this.province = province;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getDistricy() {
+        return districy;
+    }
+
+    public void setDistricy(String districy) {
+        this.districy = districy;
     }
 
 }

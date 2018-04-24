@@ -147,6 +147,9 @@ public class ProductServiceImpl implements IProductService {
         productListVo.setSubtitle(product.getSubtitle());
         productListVo.setStatus(product.getStatus());
         productListVo.setShopname(product.getShopname());
+        productListVo.setProvince(product.getProvince());
+        productListVo.setCity(product.getCity());
+        productListVo.setDistricy(product.getDistrict());
         return productListVo;
     }
 
@@ -296,7 +299,7 @@ public class ProductServiceImpl implements IProductService {
 
 
 
-    public ServerResponse<PageInfo> getProductByKeywordCategory(String keyword,int pageNum,int pageSize,String orderBy){
+    public ServerResponse<PageInfo> getProductByKeywordCategory(String keyword,String province,String city,String district,int pageNum,int pageSize,String orderBy){
         if(StringUtils.isBlank(keyword)){
             return ServerResponse.createByErrorCodeMessage(ResponseCode.ILLEGAL_ARGUMENT.getCode(),ResponseCode.ILLEGAL_ARGUMENT.getDesc());
         }
@@ -313,7 +316,14 @@ public class ProductServiceImpl implements IProductService {
                 PageHelper.orderBy(orderByArray[0]+" "+orderByArray[1]);
             }
         }
-        List<Product> productList = productMapper.selectByNameAndCategoryIds(keyword);
+        // 如果搜索区域不为空
+        List<Product> productList;
+        if(StringUtils.isNotBlank(province)){
+            // 按区域搜索 todo
+            productList = productMapper.selectByNameAndCategoryIds(keyword);
+        } else {
+            productList = productMapper.selectByNameAndCategoryIds(keyword);
+        }
 
         List<ProductListVo> productListVoList = Lists.newArrayList();
         for(Product product : productList){
