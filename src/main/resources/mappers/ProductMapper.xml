@@ -253,7 +253,6 @@
     from mmall_product
   </select>
 
-
   <select id="selectByNameAndProductId" resultMap="BaseResultMap" parameterType="map">
     SELECT
     <include refid="Base_Column_List"/>
@@ -267,6 +266,15 @@
     <include refid="Base_Column_List"></include>
     from mmall_product
     where status = 1 and name like #{productName}
+      <if test="province != null" >
+        and province = #{province,jdbcType=VARCHAR}
+      </if>
+      <if test="city != null" >
+        and city = #{city,jdbcType=VARCHAR}
+      </if>
+      <if test="district != null" >
+        and district = #{district,jdbcType=VARCHAR}
+      </if>
   </select>
 
 </mapper>
