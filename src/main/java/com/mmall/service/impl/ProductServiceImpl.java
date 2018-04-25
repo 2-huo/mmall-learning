@@ -318,12 +318,7 @@ public class ProductServiceImpl implements IProductService {
         }
         // 如果搜索区域不为空
         List<Product> productList;
-        if(StringUtils.isNotBlank(province)){
-            // 按区域搜索 todo
-            productList = productMapper.selectByNameAndCategoryIds(keyword);
-        } else {
-            productList = productMapper.selectByNameAndCategoryIds(keyword);
-        }
+            productList = productMapper.selectByNameAndCategoryIds(keyword, province, city, district);
 
         List<ProductListVo> productListVoList = Lists.newArrayList();
         for(Product product : productList){

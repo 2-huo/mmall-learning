@@ -31,7 +31,7 @@ public interface ProductMapper {
 //    List<Product> selectByNameAndProductId(@Param("productName") String productName, @Param("productId") Integer productId);
     List<Product> selectByNameAndProductId(@Param("productName") String productName, @Param("username") String username);
 
-    List<Product> selectByNameAndCategoryIds(String productName);
+    List<Product> selectByNameAndCategoryIds(@Param("productName") String productName, @Param("province") String province, @Param("city") String city, @Param("district") String district);
 
 
 }
