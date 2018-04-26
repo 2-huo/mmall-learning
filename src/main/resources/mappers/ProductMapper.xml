@@ -62,6 +62,7 @@
       #{province, jdbcType=VARCHAR}, #{city, jdbcType=VARCHAR}, #{district, jdbcType=VARCHAR}
       )
   </insert>
+
   <insert id="insertSelective" parameterType="com.mmall.pojo.Product" >
     insert into mmall_product
     <trim prefix="(" suffix=")" suffixOverrides="," >
@@ -266,13 +267,13 @@
     <include refid="Base_Column_List"></include>
     from mmall_product
     where status = 1 and name like #{productName}
-      <if test="province != null" >
+      <if test="province != null and province != ''" >
         and province = #{province,jdbcType=VARCHAR}
       </if>
-      <if test="city != null" >
+      <if test="city != null and city != ''" >
         and city = #{city,jdbcType=VARCHAR}
       </if>
-      <if test="district != null" >
+      <if test="district != null and district != ''" >
         and district = #{district,jdbcType=VARCHAR}
       </if>
   </select>

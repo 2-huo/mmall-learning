@@ -111,7 +111,12 @@ public class ProductController {
         if(iUserService.checkAdminRole(user).isSuccess()){
             // 写入店铺名
             product.setShopname(user.getShopname());
-            return iProductService.saveOrUpdateProduct(product);
+
+            // 省市区
+            product.setProvince(user.getProvince());
+            product.setCity(user.getCity());
+            product.setDistrict(user.getDistrict());
+           return iProductService.saveOrUpdateProduct(product);
         }else{
             return ServerResponse.createByErrorMessage("无权限操作");
         }
