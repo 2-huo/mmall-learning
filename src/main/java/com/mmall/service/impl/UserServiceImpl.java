@@ -299,6 +299,7 @@ public class UserServiceImpl implements IUserService {
         UserListVo userListVo = new UserListVo();
         userListVo.setId(user.getId());
         userListVo.setUsername(user.getUsername());
+        userListVo.setEmail(user.getEmail());
         userListVo.setName(user.getName());
         userListVo.setPhone(user.getPhone());
         userListVo.setProvince(user.getProvince());

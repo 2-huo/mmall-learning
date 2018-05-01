@@ -6,6 +6,7 @@ package com.mmall.vo;
 public class UserListVo {
     private Integer id;
     private String username;
+    private String email;
     private String name;
     private String phone;
     private String province;
@@ -30,6 +31,14 @@ public class UserListVo {
     }
     public void setShopId(Integer shopId) {
         this.shopId = shopId;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getName() {
