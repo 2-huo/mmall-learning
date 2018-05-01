@@ -151,6 +151,24 @@ public class UserServiceImpl implements IUserService {
         }
     }
 
+
+    // 用户/会员 注销
+    @Override
+    public ServerResponse<String> userDelete(Integer userId) {
+        if(userId == null){
+            return ServerResponse.createByErrorCodeMessage(ResponseCode.ILLEGAL_ARGUMENT.getCode(),ResponseCode.ILLEGAL_ARGUMENT.getDesc());
+        }
+        if (userId==1) {
+            return ServerResponse.createByErrorMessage("注销失败, 不能降级管理员!");
+        }
+        int deleteCount = userMapper.deleteByPrimaryKey(userId);
+        if (deleteCount > 0) {
+            return ServerResponse.createBySuccessMessage("注销成功!!");
+        } else {
+            return ServerResponse.createByErrorMessage("操作失败!");
+        }
+    }
+
     // 审核通过
     @Override
     public ServerResponse<String> setUserPass(Integer userId, String role, Integer status) {
@@ -228,6 +246,21 @@ public class UserServiceImpl implements IUserService {
         pageResult.setList(userListVoList);
         return ServerResponse.createBySuccess(pageResult);
     }
+
+    // 0501
+    public ServerResponse<PageInfo> getNormalUserList(int pageNum, int pageSize) {
+        PageHelper.startPage(pageNum,pageSize);
+        List<User> userList = userMapper.selectNormalUser();
+        List<UserListVo> userListVoList = Lists.newArrayList();
+        for(User userItem : userList){
+            UserListVo userListVo = assembleUserListVo(userItem);
+            userListVoList.add(userListVo);
+        }
+        PageInfo pageResult = new PageInfo(userList);
+        pageResult.setList(userListVoList);
+        return ServerResponse.createBySuccess(pageResult);
+    }
+
 
     // 18-04-03
     public ServerResponse<PageInfo> getShitiList(int pageNum, int pageSize) {

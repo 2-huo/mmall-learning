@@ -62,6 +62,38 @@ public class UserController {
         return iUserService.register(user);
     }
 
+    // 会员删除(注销) 0501
+    @RequestMapping("user_delete.do")
+    @ResponseBody
+    public ServerResponse<String> userDelete(HttpSession session, Integer userId) {
+        User currentUser = (User)session.getAttribute(Const.CURRENT_USER);
+        if(currentUser == null){
+            return ServerResponse.createByErrorMessage("用户未登录");
+        }
+        if(iUserService.checkAdminRoleTest(currentUser).isSuccess()){
+            return iUserService.userDelete(userId);
+        }else{
+            return ServerResponse.createByErrorMessage("无权限操作");
+        }
+    }
+    // 审核用户升级
+    @RequestMapping("get_normal_user_list.do")
+    @ResponseBody
+    public ServerResponse<PageInfo> getNormalUserList(HttpSession session,
+                                                @RequestParam(value = "pageNum",defaultValue = "1") int pageNum,
+                                                @RequestParam(value = "pageSize",defaultValue = "10") int pageSize){
+        User user = (User)session.getAttribute(Const.CURRENT_USER);
+        if(user == null){
+            return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(),"用户未登录,请登录管理员");
+        }
+        if(iUserService.checkAdminRoleTest(user).isSuccess()){
+            return iUserService.getNormalUserList(pageNum, pageSize);
+        }else{
+            return ServerResponse.createByErrorMessage("无权限操作");
+        }
+    }
+    // 0501end
+
     // 会员升级
     @RequestMapping(value = "user_upgrade.do",method = RequestMethod.POST)
     @ResponseBody

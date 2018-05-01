@@ -26,6 +26,12 @@ public interface IUserService {
     // 审核升级
     ServerResponse<PageInfo> getUserList(int pageNum, int pageSize);
 
+    // 18-05-01 注销用户
+    ServerResponse<String> userDelete(Integer userId);
+    // role为4的列表
+    ServerResponse<PageInfo> getNormalUserList(int pageNum, int pageSize);
+    // 18-05-01 end
+
     // 18-04-03
     ServerResponse<PageInfo> getPifaList(int pageNum, int pageSize);
 

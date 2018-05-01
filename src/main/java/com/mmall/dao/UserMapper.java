@@ -56,4 +56,7 @@ public interface UserMapper {
     int checkPassword(@Param(value = "password") String password, @Param("userId") Integer userId);
 
     int checkEmailByUserId(@Param(value = "email") String email, @Param(value = "userId") Integer userId);
+
+    // 拿到role是4的所有普通会员
+    List<User> selectNormalUser();
 }
