@@ -54,13 +54,14 @@ public class ProductController {
     @RequestMapping("list.do")
     @ResponseBody
     public ServerResponse<PageInfo> list(@RequestParam(value = "keyword",required = false)String keyword,
+                                         @RequestParam(value = "categoryId",required = false)Integer categoryId,
                                          @RequestParam(value = "province",required = false)String province,
                                          @RequestParam(value = "city",required = false)String city,
                                          @RequestParam(value = "district",required = false)String district,
                                          @RequestParam(value = "pageNum",defaultValue = "1") int pageNum,
                                          @RequestParam(value = "pageSize",defaultValue = "10") int pageSize,
                                          @RequestParam(value = "orderBy",defaultValue = "") String orderBy){
-        return iProductService.getProductByKeywordCategory(keyword,province,city,district,pageNum,pageSize,orderBy);
+        return iProductService.getProductByKeywordCategory(keyword, categoryId, province,city,district,pageNum,pageSize,orderBy);
     }
     // 0404 admin商品删除时显示全部商品
     @RequestMapping("list_all.do")

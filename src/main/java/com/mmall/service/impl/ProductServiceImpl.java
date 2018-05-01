@@ -299,9 +299,22 @@ public class ProductServiceImpl implements IProductService {
 
 
 
-    public ServerResponse<PageInfo> getProductByKeywordCategory(String keyword,String province,String city,String district,int pageNum,int pageSize,String orderBy){
-        if(StringUtils.isBlank(keyword)){
+    public ServerResponse<PageInfo> getProductByKeywordCategory(String keyword,Integer categoryId,String province,String city,String district,int pageNum,int pageSize,String orderBy){
+        if(StringUtils.isBlank(keyword) && categoryId == null){
             return ServerResponse.createByErrorCodeMessage(ResponseCode.ILLEGAL_ARGUMENT.getCode(),ResponseCode.ILLEGAL_ARGUMENT.getDesc());
+        }
+        List<Integer> categoryIdList = new ArrayList<Integer>();
+
+        if(categoryId != null){
+            Category category = categoryMapper.selectByPrimaryKey(categoryId);
+            if(category == null && StringUtils.isBlank(keyword)){
+                //没有该分类,并且还没有关键字,这个时候返回一个空的结果集,不报错
+                PageHelper.startPage(pageNum,pageSize);
+                List<ProductListVo> productListVoList = Lists.newArrayList();
+                PageInfo pageInfo = new PageInfo(productListVoList);
+                return ServerResponse.createBySuccess(pageInfo);
+            }
+            categoryIdList = iCategoryService.selectCategoryAndChildrenById(category.getId()).getData();
         }
 
         if(StringUtils.isNotBlank(keyword)){
@@ -317,8 +330,7 @@ public class ProductServiceImpl implements IProductService {
             }
         }
         // 如果搜索区域不为空
-        List<Product> productList;
-            productList = productMapper.selectByNameAndCategoryIds(keyword, province, city, district);
+        List<Product> productList =  productMapper.selectByNameAndCategoryIds(keyword, categoryIdList.size()==0?null:categoryIdList, province, city, district);
 
         List<ProductListVo> productListVoList = Lists.newArrayList();
         for(Product product : productList){
