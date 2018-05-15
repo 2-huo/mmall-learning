@@ -18,6 +18,9 @@ public class UserListVo {
     private String shopname;
     private Integer shopId;
 
+    //0515 头像
+    private  String avatar;
+
     public Integer getId() {
         return id;
     }
@@ -116,4 +119,8 @@ public class UserListVo {
     public String getShopname() {return shopname; }
 
     public void setShopname(String shopname) {this.shopname = shopname; }
+
+    public String getAvatar() {return avatar; }
+
+    public void setAvatar(String avatar) {this.avatar = avatar; }
 }
