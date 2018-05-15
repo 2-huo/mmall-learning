@@ -41,12 +41,10 @@ public class User {
 
     private Integer shopId;
 
-
 //    头像 0511
+    private String avatar;
 
-//    private String avatar;
-
-    public User(Integer id, String username, String password, String email, String question, String answer, String role, Date createTime, Date updateTime, Boolean enable, String name, String phone, String province, String city, String district, String addr, String lvl, String shopname, Integer shopId) {
+    public User(Integer id, String username, String password, String email, String question, String answer, String role, Date createTime, Date updateTime, Boolean enable, String name, String phone, String province, String city, String district, String addr, String lvl, String shopname, Integer shopId, String avatar) {
         this.id = id;
         this.username = username;
         this.password = password;
@@ -66,8 +64,8 @@ public class User {
         this.lvl = lvl;
         this.shopname = shopname;
         this.shopId = shopId;
-//
-//        this.avatar = avatar;
+
+        this.avatar = avatar;
     }
 
     public User() {
@@ -211,8 +209,8 @@ public class User {
         this.shopId = shopId;
     }
 
-//    public String getAvatar() { return avatar; }
-//
-//    public void setAvatar(String avatar) { this.avatar = avatar == null ? null : avatar.trim(); }
+    public String getAvatar() { return avatar; }
+
+    public void setAvatar(String avatar) { this.avatar = avatar == null ? null : avatar.trim(); }
 
 }
