@@ -12,7 +12,6 @@
       <arg column="role" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="create_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
       <arg column="update_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
-      <arg column="enable" jdbcType="BIT" javaType="java.lang.Boolean" />
       <!--实体批发属性-->
       <arg column="name" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="phone" jdbcType="VARCHAR" javaType="java.lang.String" />
@@ -23,10 +22,11 @@
       <arg column="lvl" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="shopname" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="shopId" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="avatar" jdbcType="VARCHAR" javaType="java.lang.String" />
     </constructor>
   </resultMap>
   <sql id="Base_Column_List" >
-    id, username, password, email, question, answer, role, create_time, update_time, enable, name, phone, province, city, district, addr, lvl, shopname, shopId
+    id, username, password, email, question, answer, role, create_time, update_time, name, phone, province, city, district, addr, lvl, shopname, shopId, avatar
   </sql>
 
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
@@ -64,11 +64,11 @@
   <insert id="insert" parameterType="com.mmall.pojo.User" >
     insert into mmall_user (id, username, password,
       email, question, answer, role, create_time,
-      update_time, enable)
+      update_time)
     values (#{id,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
       #{email,jdbcType=VARCHAR},  #{question,jdbcType=VARCHAR},
       #{answer,jdbcType=VARCHAR}, #{role,jdbcType=VARCHAR}, now(),
-      now(), #{enable,jdbcType=BIT})
+      now())
   </insert>
 
   <insert id="insertOri" parameterType="com.mmall.pojo.User" >
@@ -81,7 +81,6 @@
       role = #{role,jdbcType=VARCHAR},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       update_time = now(),
-      enable = #{enable,jdbcType=BIT},
       phone = #{phone,jdbcType=VARCHAR},
       name = #{name,jdbcType=VARCHAR},
       province = #{province, jdbcType=VARCHAR},
@@ -94,15 +93,14 @@
     where id = #{id,jdbcType=VARCHAR}
   </insert>
 
-
   <insert id="insertCheck" parameterType="com.mmall.pojo.User" >
     insert into mmall_user_check (id, username, password,
       email, question, answer, role, create_time,
-      update_time, enable, name, phone, province, city, district, addr, lvl, shopname, shopId)
+      update_time, name, phone, province, city, district, addr, lvl, shopname, shopId)
     values (#{id,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR},
       #{email,jdbcType=VARCHAR},  #{question,jdbcType=VARCHAR},
       #{answer,jdbcType=VARCHAR}, #{role,jdbcType=VARCHAR}, now(),
-      now(), #{enable,jdbcType=BIT}, #{name, jdbcType=VARCHAR}, #{phone, jdbcType=VARCHAR},
+      now(), #{name, jdbcType=VARCHAR}, #{phone, jdbcType=VARCHAR},
       #{province, jdbcType=VARCHAR}, #{city, jdbcType=VARCHAR}, #{district, jdbcType=VARCHAR},
       #{addr, jdbcType=VARCHAR}, #{lvl, jdbcType=VARCHAR}, #{shopname, jdbcType=VARCHAR}, #{shopId, jdbcType=INTEGER})
   </insert>
@@ -141,9 +139,6 @@
       <if test="updateTime != null" >
         update_time,
       </if>
-      <if test="enable != null" >
-        enable,
-      </if>
       <if test="name != null" >
         name,
       </if>
@@ -164,9 +159,12 @@
       </if>
       <if test="shopname != null" >
       shopname,
-    </if>
+      </if>
       <if test="shopId != null" >
         shopId,
+      </if>
+      <if test="avatar != null" >
+        avatar,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
@@ -200,9 +198,6 @@
       <if test="updateTime != null" >
         now(),
       </if>
-      <if test="enable != null" >
-        enable,
-      </if>
       <if test="name != null" >
         #{name,jdbcType=VARCHAR},
       </if>
@@ -226,6 +221,9 @@
       </if>
       <if test="shopId != null" >
         #{shopId,jdbcType=INTEGER},
+      </if>
+      <if test="avatar != null" >
+        #{avatar,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -259,9 +257,6 @@
       <if test="updateTime != null" >
         update_time = now(),
       </if>
-      <if test="enable != null" >
-        enable = #{enable,jdbcType=BIT},
-      </if>
       <if test="name != null" >
         name = #{name,jdbcType=VARCHAR},
       </if>
@@ -283,6 +278,12 @@
       <if test="shopname != null" >
         shopname = #{shopname, jdbcType=VARCHAR},
       </if>
+      <if test="shopId != null" >
+        shopId = #{shopId,jdbcType=INTEGER},
+      </if>
+      <if test="avatar != null" >
+        avatar = #{avatar,jdbcType=VARCHAR},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -298,7 +299,6 @@
       role = #{role,jdbcType=VARCHAR},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       update_time = now(),
-      enable = #{enable,jdbcType=BIT},
       name = #{name,jdbcType=VARCHAR},
       province = #{province, jdbcType=VARCHAR},
       city = #{city, jdbcType=VARCHAR},

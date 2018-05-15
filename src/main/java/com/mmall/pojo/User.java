@@ -21,8 +21,6 @@ public class User {
 
     private Date updateTime;
 
-    private Boolean enable;
-
     private String name;
 
     private String phone;
@@ -46,7 +44,7 @@ public class User {
 
     private String temp;
 
-    public User(Integer id, String username, String password, String email, String question, String answer, String role, Date createTime, Date updateTime, Boolean enable, String name, String phone, String province, String city, String district, String addr, String lvl, String shopname, Integer shopId, String avatar, String temp) {
+    public User(Integer id, String username, String password, String email, String question, String answer, String role, Date createTime, Date updateTime, String name, String phone, String province, String city, String district, String addr, String lvl, String shopname, Integer shopId, String avatar) {
         this.id = id;
         this.username = username;
         this.password = password;
@@ -56,7 +54,6 @@ public class User {
         this.role = role;
         this.createTime = createTime;
         this.updateTime = updateTime;
-        this.enable = enable;
         this.name = name;
         this.phone = phone;
         this.province = province;
@@ -66,9 +63,7 @@ public class User {
         this.lvl = lvl;
         this.shopname = shopname;
         this.shopId = shopId;
-
         this.avatar = avatar;
-        this.temp = temp;
     }
 
     public User() {
@@ -147,14 +142,6 @@ public class User {
         this.updateTime = updateTime;
     }
 
-    public Boolean getEnable() {
-        return enable;
-    }
-
-    public void setEnable(Boolean enable) {
-        this.enable = enable;
-    }
-
     public String getName() {
         return name;
     }
@@ -216,7 +203,4 @@ public class User {
 
     public void setAvatar(String avatar) { this.avatar = avatar == null ? null : avatar.trim(); }
 
-    public String getTemp() { return temp; }
-
-    public void setTemp(String temp) { this.temp = temp == null ? null : temp.trim(); }
 }

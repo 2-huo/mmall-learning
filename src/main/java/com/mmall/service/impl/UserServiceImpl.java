@@ -49,9 +49,6 @@ public class UserServiceImpl implements IUserService {
         if(user == null){
             return ServerResponse.createByErrorMessage("密码错误");
         }
-        if (!user.getEnable()) {
-            return ServerResponse.createByErrorMessage("账户未审核");
-        }
         user.setPassword(org.apache.commons.lang3.StringUtils.EMPTY);
         return ServerResponse.createBySuccess("登录成功",user);
     }
@@ -68,8 +65,6 @@ public class UserServiceImpl implements IUserService {
         }
         // 用户初始身份
         user.setRole(Const.Role.ROLE_CUSTOMER);
-        // 不需要审核
-        user.setEnable(true);
         //MD5加密
         user.setPassword(MD5Util.MD5EncodeUtf8(user.getPassword()));
         int resultCount = userMapper.insert(user);
@@ -138,6 +133,7 @@ public class UserServiceImpl implements IUserService {
             originUser.setAddr(null);
             originUser.setLvl(null);
             originUser.setRole(Const.Role.ROLE_CUSTOMER);
+            originUser.setAnswer(null);
 //            删掉店铺
             shopMapper.deleteByAdmin(originUser.getShopId());
 //            删掉商品
