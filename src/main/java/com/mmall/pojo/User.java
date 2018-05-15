@@ -44,7 +44,9 @@ public class User {
 //    头像 0511
     private String avatar;
 
-    public User(Integer id, String username, String password, String email, String question, String answer, String role, Date createTime, Date updateTime, Boolean enable, String name, String phone, String province, String city, String district, String addr, String lvl, String shopname, Integer shopId, String avatar) {
+    private String temp;
+
+    public User(Integer id, String username, String password, String email, String question, String answer, String role, Date createTime, Date updateTime, Boolean enable, String name, String phone, String province, String city, String district, String addr, String lvl, String shopname, Integer shopId, String avatar, String temp) {
         this.id = id;
         this.username = username;
         this.password = password;
@@ -66,6 +68,7 @@ public class User {
         this.shopId = shopId;
 
         this.avatar = avatar;
+        this.temp = temp;
     }
 
     public User() {
@@ -213,4 +216,7 @@ public class User {
 
     public void setAvatar(String avatar) { this.avatar = avatar == null ? null : avatar.trim(); }
 
+    public String getTemp() { return temp; }
+
+    public void setTemp(String temp) { this.temp = temp == null ? null : temp.trim(); }
 }
