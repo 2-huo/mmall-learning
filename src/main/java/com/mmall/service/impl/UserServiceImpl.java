@@ -176,8 +176,10 @@ public class UserServiceImpl implements IUserService {
             String[] subImageArray = image.split(",");
             if(subImageArray.length > 0){
                 user.setAvatar(subImageArray[0]);
+                userMapper.updateByPrimaryKeySelective(user);
+                return ServerResponse.createBySuccessMessage("上传成功!!");
             }
-            return ServerResponse.createBySuccessMessage("上传成功!!");
+            return ServerResponse.createByErrorMessage("操作失败!");
         } else {
             // 找不到id
             return ServerResponse.createByErrorMessage("操作失败!");
