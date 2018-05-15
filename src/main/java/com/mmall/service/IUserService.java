@@ -32,6 +32,9 @@ public interface IUserService {
     ServerResponse<PageInfo> getNormalUserList(int pageNum, int pageSize);
     // 18-05-01 end
 
+//    0515 avatar上传头像
+    ServerResponse<User> saveAvatar(User user, String image);
+
     // 18-04-03
     ServerResponse<PageInfo> getPifaList(int pageNum, int pageSize);
 

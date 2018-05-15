@@ -15,6 +15,7 @@ import com.mmall.pojo.User;
 import com.mmall.service.IUserService;
 import com.mmall.util.MD5Util;
 import com.mmall.vo.UserListVo;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -165,6 +166,24 @@ public class UserServiceImpl implements IUserService {
         if (deleteCount > 0) {
             return ServerResponse.createBySuccessMessage("注销成功!!");
         } else {
+            return ServerResponse.createByErrorMessage("操作失败!");
+        }
+    }
+
+    // 0515 头像上传
+    @Override
+    public ServerResponse<User> saveAvatar(User user, String image) {
+        if(user == null){
+            return ServerResponse.createByErrorCodeMessage(ResponseCode.ILLEGAL_ARGUMENT.getCode(),ResponseCode.ILLEGAL_ARGUMENT.getDesc());
+        }
+        if(StringUtils.isNotBlank(image)){
+            String[] subImageArray = image.split(",");
+            if(subImageArray.length > 0){
+                user.setAvatar(subImageArray[0]);
+            }
+            return ServerResponse.createBySuccessMessage("上传成功!!");
+        } else {
+            // 找不到id
             return ServerResponse.createByErrorMessage("操作失败!");
         }
     }

@@ -246,6 +246,21 @@ public class UserController {
         }
     }
 
+    // 0511 头像saveAvatar
+    @RequestMapping("save_avatar.do")
+    @ResponseBody
+    public ServerResponse saveAvatar(HttpSession session, String image){
+        User user = (User)session.getAttribute(Const.CURRENT_USER);
+        if(user == null){
+            return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(),"用户未登录,请登录管理员");
+        }
+        if(iUserService.checkAdminRole(user).isSuccess()){
+            return iUserService.saveAvatar(user, image);
+        }else{
+            return ServerResponse.createByErrorMessage("无权限操作");
+        }
+    }
+
     @RequestMapping("user_pass.do")
     @ResponseBody
     public ServerResponse setUserPass(HttpSession session, Integer userId, String role, Integer status){
@@ -265,23 +280,5 @@ public class UserController {
     @ResponseBody
     public ServerResponse<User> getShopOwner(String username){
         return iUserService.getShopOwner(username);
-    }
-
-    // 0423 upload img
-    @RequestMapping("upload.do")
-    @ResponseBody
-    public ServerResponse upload(HttpSession session, @RequestParam(value = "upload_file",required = false) MultipartFile file, HttpServletRequest request){
-        User user = (User)session.getAttribute(Const.CURRENT_USER);
-        if(user == null){
-            return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(),"用户未登录,请登录");
-        }
-        String path = request.getSession().getServletContext().getRealPath("upload");
-        String targetFileName = iFileService.upload(file,path);
-        String url = PropertiesUtil.getProperty("ftp.server.http.prefix")+targetFileName;
-
-        Map fileMap = Maps.newHashMap();
-        fileMap.put("uri",targetFileName);
-        fileMap.put("url",url);
-        return ServerResponse.createBySuccess(fileMap);
     }
 }
