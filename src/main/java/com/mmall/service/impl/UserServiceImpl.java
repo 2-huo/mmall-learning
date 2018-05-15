@@ -179,7 +179,7 @@ public class UserServiceImpl implements IUserService {
         if(StringUtils.isNotBlank(image)){
             String[] subImageArray = image.split(",");
             if(subImageArray.length > 0){
-                user.setAvatar(subImageArray[0]);
+//                user.setAvatar(subImageArray[0]);
             }
             return ServerResponse.createBySuccessMessage("上传成功!!");
         } else {
